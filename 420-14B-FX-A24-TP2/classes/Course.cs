@@ -1,16 +1,13 @@
-﻿
-using _420_14B_FX_A24_TP2.enums;
+﻿using _420_14B_FX_A24_TP2.enums;
 
 namespace _420_14B_FX_A24_TP2.classes
 {
     /// <summary>
-    /// Classe représentant une course à pied
+    /// Classe représentant une course à pied.
     /// </summary>
     public class Course
     {
-  
-       
-
+        #region ATTRIBUTS
 
         /// <summary>
         /// Identifiant unique de la course
@@ -55,8 +52,9 @@ namespace _420_14B_FX_A24_TP2.classes
         /// </summary>
         private List<Coureur> _coureurs;
 
+        #endregion
 
-
+        #region PROPRIÉTÉS
 
         /// <summary>
         /// Obtient ou définit l'identifiant unique d'une course
@@ -205,8 +203,9 @@ namespace _420_14B_FX_A24_TP2.classes
           
         }
 
+        #endregion
 
-   
+        #region CONSTRUCTEUR
 
         /// <summary>
         /// Permet de constuire un objet de type Course
@@ -224,9 +223,10 @@ namespace _420_14B_FX_A24_TP2.classes
            
         }
 
-      
+        #endregion
 
+        #region MÉTHODES
 
-
+        #endregion
     }
 }

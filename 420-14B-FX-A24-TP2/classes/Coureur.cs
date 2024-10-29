@@ -1,18 +1,15 @@
-﻿
-using _420_14B_FX_A24_TP2.enums;
+﻿using _420_14B_FX_A24_TP2.enums;
 
 namespace _420_14B_FX_A24_TP2.classes
 {
     /// <summary>
-    /// Classe représentant un coureur
+    /// Classe représentant un coureur.
     /// </summary>
     public class Coureur
     {
 
+        #region ATTRIBUTS
 
-
-
-       
         /// <summary>
         /// Numéro du dossard
         /// </summary>
@@ -61,8 +58,9 @@ namespace _420_14B_FX_A24_TP2.classes
         /// </summary>
         private bool _abandon;
 
+        #endregion
 
-       
+        #region PROPRIÉTÉS
 
         /// <summary>
         ///Obtien ou modifie le numéro du dossard.
@@ -193,7 +191,9 @@ namespace _420_14B_FX_A24_TP2.classes
             set { _abandon = value; }
         }
 
- 
+        #endregion
+
+        #region CONSTRUCTEUR
 
         /// <summary>
         /// Permet de construire un objet Coureur
@@ -206,17 +206,17 @@ namespace _420_14B_FX_A24_TP2.classes
         /// <param name="province">Province du coureur</param>
         /// <param name="temps">Temps de course du coureur</param>
         /// <param name="abandon">Indicateur d'abandon de la course. Faux par défaut</param>
-     
+
         public Coureur(ushort dossard, string nom, string prenom, Categorie categorie, string ville, Province province, TimeSpan temps, bool abandon = false)
         {
            
             
         }
 
+        #endregion
 
-      
- 
-      
+        #region MÉTHODES
 
+        #endregion
     }
 }

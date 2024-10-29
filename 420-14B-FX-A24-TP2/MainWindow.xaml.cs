@@ -1,8 +1,10 @@
-﻿
-using System.Windows;
+﻿using System.Windows;
 
 namespace _420_14B_FX_A24_TP2
 {
+    /// <summary>
+    /// Logique d'interaction pour MainWindow.xaml
+    /// </summary>
     public partial class MainWindow : Window
     {
         #region CONSTANTES
@@ -20,7 +22,6 @@ namespace _420_14B_FX_A24_TP2
         #endregion
 
         #region ATTRIBUTS
-
 
 
         #endregion
