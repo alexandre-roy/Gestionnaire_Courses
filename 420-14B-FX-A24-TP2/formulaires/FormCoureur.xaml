@@ -4,9 +4,56 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_420_14B_FX_A24_TP2.formulaires"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" 
         mc:Ignorable="d"
-        Title="FormCoureur" Height="450" Width="800">
-    <Grid>
+        Title="Fiche du coureur" Height="400" Width="375" ResizeMode="NoResize" Loaded="Window_Loaded">
+    <StackPanel Margin="20">
+
+        <TextBlock x:Name="tbTitre" HorizontalAlignment="Center" FontWeight="Bold" FontSize="23">Titre</TextBlock>
+
+        <StackPanel Margin="0,20,0,5" Orientation="Horizontal">
+            <Label Content="No. Dossard" Width="75" HorizontalAlignment="Left"></Label>
+            <TextBox x:Name="txtDossard" Width="40" Height="20" Margin="10,0"></TextBox>
+        </StackPanel>
+
+        <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+            <Label Content="Nom" Width="75" HorizontalAlignment="Left"></Label>
+            <TextBox x:Name="txtNom" Width="220" Height="20" Margin="10,0"></TextBox>
+        </StackPanel>
+
+        <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+            <Label Content="Prénom" Width="75" HorizontalAlignment="Left"></Label>
+            <TextBox x:Name="txtPrenom" Width="220" Height="20" Margin="10,0"></TextBox>
+        </StackPanel>
+
+        <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+            <Label Content="Ville" Width="75" HorizontalAlignment="Left"></Label>
+            <TextBox x:Name="txtVille" Width="220" Height="20" Margin="10,0"></TextBox>
+        </StackPanel>
+
+        <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+            <Label Content="Province" Width="75" HorizontalAlignment="Left"></Label>
+            <ComboBox x:Name="cboProvince" Width="220" Height="20" Margin="10,0"></ComboBox>
+        </StackPanel>
+
+        <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+            <Label Content="Catégorie" Width="75" HorizontalAlignment="Left"></Label>
+            <ComboBox x:Name="cboCategorie" Width="220" Height="20" Margin="10,0"></ComboBox>
+        </StackPanel>
+
+        <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+            <Label Content="Temps" Width="75" HorizontalAlignment="Left"></Label>
+            <xctk:TimeSpanUpDown x:Name="tsTemps" Height="20" Width="100" Margin="10,0" ShowDays="False" Minimum="0"/>
+        </StackPanel>
+
+        <StackPanel Margin="85,0,0,5" Orientation="Horizontal">
+            <CheckBox x:Name="chkAbandon" Content="Abandon" Height="20"></CheckBox>
+        </StackPanel>
+
+        <StackPanel Margin="85,0,0,5" Orientation="Horizontal">
+            <Button x:Name="btnModifier" Content="Modifier" Width="100" Height="25" Margin="0,0,20,0" HorizontalAlignment="Left"></Button>
+            <Button x:Name="btnAnnuler" Content="Annuler" Width="100" Height="25" HorizontalAlignment="Right"></Button>
+        </StackPanel>
         
-    </Grid>
+    </StackPanel>
 </Window>

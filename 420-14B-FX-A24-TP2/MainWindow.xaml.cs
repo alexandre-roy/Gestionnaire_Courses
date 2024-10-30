@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using _420_14B_FX_A24_TP2.formulaires;
 
 namespace _420_14B_FX_A24_TP2
 {
@@ -37,7 +38,8 @@ namespace _420_14B_FX_A24_TP2
         #region MÉTHODES
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-           
+            //FormCoureur formCoureur = new FormCoureur(enums.EtatFormulaire.Ajouter);
+            //formCoureur.ShowDialog();
         }
 
         private void AfficherListeCourses()

@@ -7,7 +7,6 @@ namespace _420_14B_FX_A24_TP2.classes
     /// </summary>
     public class Coureur
     {
-
         #region ATTRIBUTS
 
         /// <summary>
@@ -191,6 +190,8 @@ namespace _420_14B_FX_A24_TP2.classes
             set { _abandon = value; }
         }
 
+
+
         #endregion
 
         #region CONSTRUCTEUR
@@ -206,16 +207,49 @@ namespace _420_14B_FX_A24_TP2.classes
         /// <param name="province">Province du coureur</param>
         /// <param name="temps">Temps de course du coureur</param>
         /// <param name="abandon">Indicateur d'abandon de la course. Faux par défaut</param>
-
-        public Coureur(ushort dossard, string nom, string prenom, Categorie categorie, string ville, Province province, TimeSpan temps, bool abandon = false)
+        public Coureur(ushort dossard, string nom, string prenom, Categorie categorie, string ville, Province province, TimeSpan temps, ushort rang, bool abandon)
         {
-           
-            
+            Dossard = dossard;
+            Nom = nom;
+            Prenom = prenom;
+            Categorie = categorie;
+            Ville = ville;
+            Province = province;
+            Temps = temps;
+            Rang = rang;
+            Abandon = false;
         }
 
         #endregion
 
         #region MÉTHODES
+
+        public override string ToString()
+        {
+            string padRight15 = "".PadRight(15, ' ');
+            string padRight30 = "".PadRight(30, ' ');
+            return $"{Dossard}{padRight15}{Nom}, {Prenom}{padRight30}{Categorie}{padRight15}{Temps}{padRight15}{Rang}";
+        }
+
+        //public void CompareTo(Coureur other)
+        //{
+
+        //}
+
+        //public override bool Equals(object? obj)
+        //{
+
+        //}
+
+        //public static bool operator ==(Coureur coureurGauche, Coureur coureurDroit)
+        //{
+
+        //}
+
+        //public static bool operator !=(Coureur coureurGauche, Coureur coureurDroit)
+        //{
+
+        //}
 
         #endregion
     }
