@@ -9,7 +9,7 @@
         Title="Fiche du coureur" Height="400" Width="375" ResizeMode="NoResize" Loaded="Window_Loaded">
     <StackPanel Margin="20">
 
-        <TextBlock x:Name="tbTitre" HorizontalAlignment="Center" FontWeight="Bold" FontSize="23">Titre</TextBlock>
+        <TextBlock x:Name="tbTitre" HorizontalAlignment="Center" FontWeight="Bold" FontSize="23">-</TextBlock>
 
         <StackPanel Margin="0,20,0,5" Orientation="Horizontal">
             <Label Content="No. Dossard" Width="75" HorizontalAlignment="Left"></Label>
@@ -33,7 +33,7 @@
 
         <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
             <Label Content="Province" Width="75" HorizontalAlignment="Left"></Label>
-            <ComboBox x:Name="cboProvince" Width="220" Height="20" Margin="10,0"></ComboBox>
+            <ComboBox x:Name="cboProvince" Width="220" Height="20" Margin="10,0" SelectedIndex="0"></ComboBox>
         </StackPanel>
 
         <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
@@ -43,16 +43,16 @@
 
         <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
             <Label Content="Temps" Width="75" HorizontalAlignment="Left"></Label>
-            <xctk:TimeSpanUpDown x:Name="tsTemps" Height="20" Width="100" Margin="10,0" ShowDays="False" Minimum="0"/>
+            <xctk:TimeSpanUpDown x:Name="tsTemps" Height="20" Width="100" Margin="10,0" ShowDays="False" Minimum="0" Value="00:00:00"/>
         </StackPanel>
 
         <StackPanel Margin="85,0,0,5" Orientation="Horizontal">
-            <CheckBox x:Name="chkAbandon" Content="Abandon" Height="20"></CheckBox>
+            <CheckBox x:Name="chkAbandon" Content="Abandon" Height="20" Checked="chkAbandon_Checked" Unchecked="chkAbandon_Unchecked"></CheckBox>
         </StackPanel>
 
         <StackPanel Margin="85,0,0,5" Orientation="Horizontal">
-            <Button x:Name="btnModifier" Content="Modifier" Width="100" Height="25" Margin="0,0,20,0" HorizontalAlignment="Left"></Button>
-            <Button x:Name="btnAnnuler" Content="Annuler" Width="100" Height="25" HorizontalAlignment="Right"></Button>
+            <Button x:Name="btnConfirmation" Content="-" Width="100" Height="25" Margin="0,0,20,0" HorizontalAlignment="Left" Click="btnConfirmation_Click"></Button>
+            <Button x:Name="btnAnnuler" Content="Annuler" Width="100" Height="25" HorizontalAlignment="Right" Click="btnAnnuler_Click"></Button>
         </StackPanel>
         
     </StackPanel>

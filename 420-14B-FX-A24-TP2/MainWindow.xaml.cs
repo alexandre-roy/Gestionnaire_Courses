@@ -35,12 +35,16 @@ namespace _420_14B_FX_A24_TP2
 
         #endregion
 
-        #region MÉTHODES
+        #region WINDOW_LOADED
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //FormCoureur formCoureur = new FormCoureur(enums.EtatFormulaire.Ajouter);
             //formCoureur.ShowDialog();
         }
+
+        #endregion
+
+        #region MÉTHODES
 
         private void AfficherListeCourses()
         {
@@ -57,7 +61,7 @@ namespace _420_14B_FX_A24_TP2
 
         private void btnModifier_Click(object sender, RoutedEventArgs e)
         {
-          
+            
         }
 
         private void btnSupprimer_Click(object sender, RoutedEventArgs e)
