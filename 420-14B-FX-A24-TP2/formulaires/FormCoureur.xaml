@@ -43,7 +43,7 @@
 
         <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
             <Label Content="Temps" Width="75" HorizontalAlignment="Left"></Label>
-            <xctk:TimeSpanUpDown x:Name="tsTemps" Height="20" Width="100" Margin="10,0" ShowDays="False" Minimum="0" Value="00:00:00"/>
+            <xctk:TimeSpanUpDown x:Name="tsTemps" Height="20" Width="100" Margin="10,0" ShowDays="False" Minimum="0"/>
         </StackPanel>
 
         <StackPanel Margin="85,0,0,5" Orientation="Horizontal">

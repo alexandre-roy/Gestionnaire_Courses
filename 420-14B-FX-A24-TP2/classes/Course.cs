@@ -86,9 +86,9 @@ namespace _420_14B_FX_A24_TP2.classes
             set 
             {
                 if (string.IsNullOrEmpty(value))
-                    throw new ArgumentNullException("Le nom ne peut pas être nulle ou n'avoir aucune valeure");
+                    throw new ArgumentNullException("Le nom ne peut pas être nul ou n'avoir aucune valeur.");
                 if (value.Length < NOM_NB_CAR_MIN)
-                    throw new ArgumentException("Le nom doit contenir au moins 3 caractères");
+                    throw new ArgumentException("Le nom doit contenir au moins 3 caractères.");
                 _nom = value.Trim().ToUpper(); 
             }
         }
@@ -117,14 +117,12 @@ namespace _420_14B_FX_A24_TP2.classes
             set 
             {
                 if (string.IsNullOrEmpty(value))
-                    throw new ArgumentNullException("La ville ne peut pas être nulle ou n'avoir aucune valeure.");
+                    throw new ArgumentNullException("La ville ne peut pas être nul ou n'avoir aucune valeur.");
                 if (value.Length < VILLE_NB_CAR_MIN)
-                    throw new ArgumentException("La ville doit contenir au moins 4 caractères");
+                    throw new ArgumentException("La ville doit contenir au moins 4 caractères.");
                 _ville = value.Trim(); 
             }
         }
-
-
 
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using _420_14B_FX_A24_TP2.enums;
+﻿using System.CodeDom;
+using _420_14B_FX_A24_TP2.enums;
 
 namespace _420_14B_FX_A24_TP2.classes
 {
@@ -7,6 +8,30 @@ namespace _420_14B_FX_A24_TP2.classes
     /// </summary>
     public class Coureur
     {
+        #region CONSTANTES
+
+        /// <summary>
+        /// Constante qui représente le nombre minimal sur un dossard.
+        /// </summary>
+        public const int DOSSARD_VAL_MIN = 1;
+
+        /// <summary>
+        /// Constante qui représente le nombre de caractères minimal dans un nom.
+        /// </summary>
+        public const int NOM_NB_CARC_MIN = 3;
+
+        /// <summary>
+        /// Constante qui représente le nombre de caractères minimal dans un prénom.
+        /// </summary>
+        public const int PRENOM_NB_CARC_MIN = 3;
+
+        /// <summary>
+        /// Constante qui représente le nombre de caractères minimal dans une ville.
+        /// </summary>
+        public const int VILLE_NB_CARC_MIN =  4;
+
+        #endregion
+
         #region ATTRIBUTS
 
         /// <summary>
@@ -70,9 +95,12 @@ namespace _420_14B_FX_A24_TP2.classes
         {
             get { return _dossard; }
             set 
-            {                
-                _dossard = value; 
-            
+            {
+                if (value < DOSSARD_VAL_MIN)
+                {
+                    throw new ArgumentOutOfRangeException($"Le numéro du dossard ne doit pas être inférieur à {DOSSARD_VAL_MIN}.");
+                }
+                _dossard = value;           
             }
         }
 
@@ -87,12 +115,17 @@ namespace _420_14B_FX_A24_TP2.classes
             get { return _nom; }
             set 
             {
-
-                _nom = value.Trim(); 
+                if (String.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentNullException("Le nom ne peut pas être nul ou n'avoir aucune valeur.");
+                }
+                if (value.Trim().Length < NOM_NB_CARC_MIN)
+                {
+                    throw new ArgumentOutOfRangeException($"Le nom doit contenir au moins {NOM_NB_CARC_MIN} caractères.");
+                }
+                _nom = value.Trim();          
             }
         }
-
-
 
         /// <summary>
         ///Obtien ou modifie le prénom du coureur.
@@ -106,8 +139,14 @@ namespace _420_14B_FX_A24_TP2.classes
             get { return _prenom; }
             set 
             {
-                
-
+                if (String.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentNullException("Le prénom ne peut pas être nul ou n'avoir aucune valeur.");
+                }
+                if (value.Trim().Length < PRENOM_NB_CARC_MIN)
+                {
+                    throw new ArgumentOutOfRangeException($"Le prénom doit contenir au moins {PRENOM_NB_CARC_MIN} caractères.");
+                }
                 _prenom = value.Trim(); 
             }
         }
@@ -140,7 +179,15 @@ namespace _420_14B_FX_A24_TP2.classes
             get { return _ville; }
             set 
             {
-                
+                if (String.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentNullException("La ville ne peut pas être nul ou n'avoir aucune valeur.");
+                }
+                if (value.Trim().Length < VILLE_NB_CARC_MIN)
+                {
+                    throw new ArgumentOutOfRangeException($"La ville doit contenir au moins {VILLE_NB_CARC_MIN} caractères.");
+                }
+
                 _ville = value.Trim(); 
             }
         }
@@ -170,6 +217,7 @@ namespace _420_14B_FX_A24_TP2.classes
             get { return _temps; }
             set  { _temps = value; }
         }
+
         /// <summary>
         /// Obtient ou défini le rang du coureur
         /// </summary>
@@ -189,8 +237,6 @@ namespace _420_14B_FX_A24_TP2.classes
             get { return _abandon; }
             set { _abandon = value; }
         }
-
-
 
         #endregion
 
@@ -229,13 +275,6 @@ namespace _420_14B_FX_A24_TP2.classes
 
         #region MÉTHODES
 
-        public override string ToString()
-        {
-            string padRight15 = "".PadRight(15, ' ');
-            string padRight30 = "".PadRight(30, ' ');
-            return $"{Dossard}{padRight15}{Nom}, {Prenom}{padRight30}{Categorie}{padRight15}{Temps}{padRight15}{Rang}";
-        }
-
         //public void CompareTo(Coureur other)
         //{
 
@@ -255,6 +294,13 @@ namespace _420_14B_FX_A24_TP2.classes
         //{
 
         //}
+
+        public override string ToString()
+        {
+            string padRight15 = "".PadRight(15, ' ');
+            string padRight30 = "".PadRight(30, ' ');
+            return $"{Dossard}{padRight15}{Nom}, {Prenom}{padRight30}{Categorie}{padRight15}{Temps}{padRight15}{Rang}";
+        }
 
         #endregion
     }

@@ -67,7 +67,9 @@ namespace _420_14B_FX_A24_TP2.formulaires
                     tsTemps.IsEnabled = false;
                     chkAbandon.IsEnabled = false;
                     break;
-            }         
+            }
+
+            
         }
 
         #endregion
@@ -76,8 +78,10 @@ namespace _420_14B_FX_A24_TP2.formulaires
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             InitializeComponent();
+
+            //cboCategorie.ItemsSource = Enum.GetValues();
         }
-        
+
         private void btnConfirmation_Click(object sender, RoutedEventArgs e)
         {
             if (btnConfirmation.Content == "Ajouter")
@@ -90,9 +94,12 @@ namespace _420_14B_FX_A24_TP2.formulaires
                 //nouveauCoureur.Categorie = ;
                 //nouveauCoureur.Ville = txtVille.Text;
                 //nouveauCoureur.Province = ;
-                //nouveauCoureur.Temps = 
-                //nouveauCoureur.Rang = ;
-                //nouveauCoureur.Abandon = ;
+                //nouveauCoureur.Temps = tsTemps.Value.Value;
+
+                if (chkAbandon.IsEnabled)
+                {
+                    nouveauCoureur.Abandon = true;
+                }
             }
             else if (btnConfirmation.Content == "Modifier")
             {
@@ -105,7 +112,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
                 switch (resultat)
                 {
                     case MessageBoxResult.Yes:
-                        MessageBox.Show("Le coureur a été supprimé avec succès", "Suppression d'un coureur", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Le coureur a été supprimé avec succès", "Suppression d'un coureur", MessageBoxButton.OK);
                         //Code pour suppression
                         this.Close();
                         break;
@@ -123,6 +130,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
 
         private void chkAbandon_Checked(object sender, RoutedEventArgs e)
         {
+            tsTemps.Value = TimeSpan.Zero;
             tsTemps.IsEnabled = false;    
         }        
 
