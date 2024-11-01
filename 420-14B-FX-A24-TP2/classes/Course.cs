@@ -7,13 +7,18 @@ namespace _420_14B_FX_A24_TP2.classes
     /// </summary>
     public class Course
     {
-        #region ATTRIBUTS
+        #region CONSTANTES
 
         public const int NOM_NB_CAR_MIN = 3;
 
         public const int VILLE_NB_CAR_MIN = 4;
 
         public const float DISTANCE_VAL_MIN = 1;
+
+        #endregion
+
+        #region ATTRIBUTS
+
 
         /// <summary>
         /// Identifiant unique de la course
@@ -239,6 +244,80 @@ namespace _420_14B_FX_A24_TP2.classes
         #endregion
 
         #region MÉTHODES
+
+        public void AjouterCoureur(Coureur coureur)
+        {
+           List<Coureur> coureurs = new List<Coureur>();
+           Coureur nouvcoureur = 
+            if (nouvcoureur == null)
+                throw new ArgumentNullException("Le coureur ne peut pas être nul.");
+           foreach (coureur in Coureur)
+           {
+                if (nouvcoureur.NoDossard == coureur.NoDossard)
+                    throw new ArgumentException("Le numéro de dossard ne peut pas être deja utilise.");
+                if (nouvcoureur.Equals(coureur))
+                    throw new ArgumentException("Le coureur ne peut pas être deja inscrit.");
+           }
+            coureurs.Add(coureur);
+            TrierCoureurs();
+        }
+
+        private TimeSpan CalculerTempsCourseMoyen()
+        {
+            int index = 0;
+            TimeSpan tempsTotal = 0;
+            foreach (var coureur in Course)
+            {
+                if (coureur.Abandon == false)
+                {
+                    TimeSpan temps = coureur.Temps;
+                    tempsTotal = temps + temps;
+                    index = index + 1;
+                }
+            }
+            return tempsTotal / index;
+        }   
+
+        public int CompareTo(Course other)
+        {
+
+        }
+            
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Coureur other)
+            {
+                return Nom == other.Nom && Date == other.Date && Ville == other.Ville && Province == other.Province && TypeCourse == other.TypeCourse && Distance == other.Distance;
+            }
+            return false;
+        }
+
+        public Coureur ObtenirCoureurParNoDossard(ushort noDossard)
+        {
+
+        }
+
+        public void SupprimerCoureur(Coureur coureur)
+        {
+
+        }
+
+        public override string ToString()
+        {
+
+        }
+
+        public void TrierCoureurs()
+        {
+            List<Coureur> coureurs = new List<Coureur>();
+            var coureursTries = coureurs.OrderBy(c => c.Temps).ToList();
+            for (int i = 0; i < coureursTries.Count; i++)
+            {
+                coureursTries[i].rang = (ushort)(i + 1);
+            }
+        }
+
 
         #endregion
     }
