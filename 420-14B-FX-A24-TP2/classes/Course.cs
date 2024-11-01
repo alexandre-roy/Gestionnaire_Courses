@@ -248,31 +248,33 @@ namespace _420_14B_FX_A24_TP2.classes
         public void AjouterCoureur(Coureur coureur)
         {
            List<Coureur> coureurs = new List<Coureur>();
-           Coureur nouvcoureur = 
-            if (nouvcoureur == null)
+           Coureur nouvcoureur = new Coureur();
+           nouvcoureur = 
+           if (nouvcoureur == null)
                 throw new ArgumentNullException("Le coureur ne peut pas être nul.");
-           foreach (coureur in Coureur)
+           for (int i = 0; i < coureurs.Count; i++)
            {
-                if (nouvcoureur.NoDossard == coureur.NoDossard)
+                if (nouvcoureur.Dossard == coureur.Dossard)
                     throw new ArgumentException("Le numéro de dossard ne peut pas être deja utilise.");
-                if (nouvcoureur.Equals(coureur))
+                if (nouvcoureur == coureur)
                     throw new ArgumentException("Le coureur ne peut pas être deja inscrit.");
            }
-            coureurs.Add(coureur);
+            coureurs.Add(nouvcoureur);
             TrierCoureurs();
         }
 
         private TimeSpan CalculerTempsCourseMoyen()
         {
             int index = 0;
-            TimeSpan tempsTotal = 0;
-            foreach (var coureur in Course)
+            TimeSpan tempsTotal = TimeSpan.Zero;
+
+            foreach (var coureur in Coureurs)
             {
-                if (coureur.Abandon == false)
+                if (!coureur.Abandon)
                 {
                     TimeSpan temps = coureur.Temps;
-                    tempsTotal = temps + temps;
-                    index = index + 1;
+                    tempsTotal += temps;
+                    index++;
                 }
             }
             return tempsTotal / index;
@@ -286,21 +288,34 @@ namespace _420_14B_FX_A24_TP2.classes
 
         public override bool Equals(object obj)
         {
-            if (obj is Coureur other)
+            if (obj is Course other)
             {
                 return Nom == other.Nom && Date == other.Date && Ville == other.Ville && Province == other.Province && TypeCourse == other.TypeCourse && Distance == other.Distance;
             }
             return false;
         }
 
-        public Coureur ObtenirCoureurParNoDossard(ushort noDossard)
+        public Coureur ObtenirCoureurParNoDossard(ushort dossard)
         {
+            List<Coureur> coureurs = new List<Coureur>();
+            foreach (var coureur in coureurs)
+            {
+                if (coureur.Dossard == dossard)
+                    return coureur;
+            }
+            return null;
 
         }
 
         public void SupprimerCoureur(Coureur coureur)
         {
-
+            List<Coureur> coureurs = new List<Coureur>();
+            if (coureur == null)
+                throw new ArgumentNullException("Le coureur ne peut pas être nul.");
+            if (!coureurs.Contains(coureur))
+                throw new ArgumentException("Le coureur ne peut pas être inexistant.");
+            coureurs.Remove(coureur);
+            TrierCoureurs();
         }
 
         public override string ToString()
@@ -314,7 +329,7 @@ namespace _420_14B_FX_A24_TP2.classes
             var coureursTries = coureurs.OrderBy(c => c.Temps).ToList();
             for (int i = 0; i < coureursTries.Count; i++)
             {
-                coureursTries[i].rang = (ushort)(i + 1);
+                coureursTries[i].Rang = (ushort)(i + 1);
             }
         }
 
