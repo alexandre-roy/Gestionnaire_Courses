@@ -9,6 +9,12 @@ namespace _420_14B_FX_A24_TP2.classes
     {
         #region ATTRIBUTS
 
+        public const int NOM_NB_CAR_MIN = 3;
+
+        public const int VILLE_NB_CAR_MIN = 4;
+
+        public const float DISTANCE_VAL_MIN = 1;
+
         /// <summary>
         /// Identifiant unique de la course
         /// </summary>
@@ -62,11 +68,7 @@ namespace _420_14B_FX_A24_TP2.classes
         public Guid Id
         {
             get { return _id; }
-            set {
-                    
-               
-                _id = value; 
-            }
+            set { _id = value; }
         }
 
 
@@ -83,7 +85,10 @@ namespace _420_14B_FX_A24_TP2.classes
 
             set 
             {
-
+                if (string.IsNullOrEmpty(value))
+                    throw new ArgumentNullException("Le nom ne peut pas être nulle ou n'avoir aucune valeure");
+                if (value.Length < NOM_NB_CAR_MIN)
+                    throw new ArgumentException("Le nom doit contenir au moins 3 caractères");
                 _nom = value.Trim().ToUpper(); 
             }
         }
@@ -111,8 +116,10 @@ namespace _420_14B_FX_A24_TP2.classes
             get { return _ville; }
             set 
             {
-             
-
+                if (string.IsNullOrEmpty(value))
+                    throw new ArgumentNullException("La ville ne peut pas être nulle ou n'avoir aucune valeure.");
+                if (value.Length < VILLE_NB_CAR_MIN)
+                    throw new ArgumentException("La ville doit contenir au moins 4 caractères");
                 _ville = value.Trim(); 
             }
         }
@@ -130,7 +137,8 @@ namespace _420_14B_FX_A24_TP2.classes
             get { return _province; }
             set 
             {
-
+                if (!Province.TryParse(value.ToString(), out _province))
+                    throw new ArgumentOutOfRangeException("La valeur de la province ne correspond pas à ceux attribué aux provinces.");
                 _province = value; 
             }
         }
@@ -146,7 +154,8 @@ namespace _420_14B_FX_A24_TP2.classes
             get { return _typeCourse; }
             set 
             {
-             
+                if (!TypeCourse.TryParse(value.ToString(), out _typeCourse))
+                    throw new ArgumentOutOfRangeException("La valeur de la course ne correspond pas à ceux attribué aux courses.");
                 _typeCourse = value; 
             }
         }
@@ -161,7 +170,8 @@ namespace _420_14B_FX_A24_TP2.classes
             get { return _distance; }
             set 
             {
-               
+               if (_distance < DISTANCE_VAL_MIN)
+                    throw new ArgumentOutOfRangeException("La distance ne peut pas être inférieure à la distance minimale.");
                 _distance = value; 
             }
         }
@@ -219,8 +229,13 @@ namespace _420_14B_FX_A24_TP2.classes
         /// <remarks>Initialise une liste de coureurs vide</remarks>
         public Course(Guid id, string nom, DateOnly date, string ville, Province province, TypeCourse typeCourse, ushort distance )
         {
-
-           
+            Id = id;
+            Nom = nom;
+            Date = date;
+            Ville = ville;
+            Province = province;
+            TypeCourse = typeCourse;
+            Distance = distance;
         }
 
         #endregion
