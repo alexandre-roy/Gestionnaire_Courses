@@ -5,8 +5,73 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_420_14B_FX_A24_TP2.formulaires"
         mc:Ignorable="d"
-        Title="FormCourse" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Course" Height="450" Width="700" ResizeMode="NoResize">
+    <StackPanel>
+        <TextBlock x:Name="tbTitre" HorizontalAlignment="Center" FontWeight="Bold" FontSize="23" Margin="20">-</TextBlock>
+        <TabControl Margin="10,0" Height="280">
+            <TabItem Header="Information sur la course">
+                <StackPanel Margin="5">
+
+                    <StackPanel Margin="0,20,0,5" Orientation="Horizontal">
+                        <Label Content="Nom" Width="75" HorizontalAlignment="Left"></Label>
+                        <TextBox x:Name="txtNom" Width="300" Margin="10,0"></TextBox>
+                        <Label Content="Nr. Participants" Width="140" Margin="10,0,0,0"></Label>
+                        <TextBox x:Name="txtParticipants" Width="75" Margin="10,0"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,5,0,5" Orientation="Horizontal">
+                        <Label Content="Ville" Width="75" HorizontalAlignment="Left"></Label>
+                        <TextBox x:Name="txtVille" Width="300" Margin="10,0"></TextBox>
+                        <Label Content="Temps de course moyen" Width="140" Margin="10,0,0,0"></Label>
+                        <TextBox x:Name="txtTempsMoyen" Width="75" Margin="10,0"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,5,0,5" Orientation="Horizontal">
+                        <Label Content="Province" Width="75" HorizontalAlignment="Left"></Label>
+                        <ComboBox x:Name="cboProvince" Width="220" Margin="10,0" SelectedIndex="0"></ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,5,0,5" Orientation="Horizontal">
+                        <Label Content="Province" Width="75" HorizontalAlignment="Left"></Label>
+                        <DatePicker x:Name="dpDate" Width="170" Margin="10,0"></DatePicker>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,5,0,5" Orientation="Horizontal">
+                        <Label Content="Type" Width="75" HorizontalAlignment="Left"></Label>
+                        <ComboBox x:Name="cboType" Width="220" Margin="10,0" SelectedIndex="0"></ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,5,0,5" Orientation="Horizontal">
+                        <Label Content="Distance" Width="75" HorizontalAlignment="Left"></Label>
+                        <TextBox x:Name="txtDistance" Width="60" Margin="10,0"></TextBox>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Coureurs">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="tbDossard" FontWeight="Bold" FontSize="15" Margin="5,15,0,0" Width="100">DOSSARD</TextBlock>
+                        <TextBlock x:Name="tbNom" FontWeight="Bold" FontSize="15" Margin="5,15,0,0" Width="180">NOM</TextBlock>
+                        <TextBlock x:Name="tbCategorie" FontWeight="Bold" FontSize="15" Margin="5,15,0,0" Width="140">CATÉGORIE</TextBlock>
+                        <TextBlock x:Name="tbTemps" FontWeight="Bold" FontSize="15" Margin="5,15,0,0" Width="120">TEMPS</TextBlock>
+                        <TextBlock x:Name="tbRang" FontWeight="Bold" FontSize="15" Margin="5,15,0,0">RANG</TextBlock>
+                    </StackPanel>
+                    
+                    <ListBox x:Name="lstCoureurs" Margin="5,0" Height="170"></ListBox>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10" Height="30">
+                        <Button x:Name="btnAjouterCoureur" Content="Ajouter" Width="110" Margin="0,0,10,0"></Button>
+                        <Button x:Name="btnModifierCoureur" Content="Modifier" Width="110" Margin="0,0,10,0"></Button>
+                        <Button x:Name="btnAnnulerCoureur" Content="Annuler" Width="110"></Button>
+                    </StackPanel>
+                    
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20" Height="30">
+            <Button x:Name="btnConfirmation" Content="-" Width="110" Margin="0,0,20,0" HorizontalAlignment="Left"></Button>
+            <Button x:Name="btnAnnuler" Content="Annuler" Width="110" HorizontalAlignment="Right"></Button>
+        </StackPanel>
+    </StackPanel>
 </Window>

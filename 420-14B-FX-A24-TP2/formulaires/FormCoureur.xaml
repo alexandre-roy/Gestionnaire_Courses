@@ -50,9 +50,9 @@
             <CheckBox x:Name="chkAbandon" Content="Abandon" Height="20" Checked="chkAbandon_Checked" Unchecked="chkAbandon_Unchecked"></CheckBox>
         </StackPanel>
 
-        <StackPanel Margin="85,0,0,5" Orientation="Horizontal">
-            <Button x:Name="btnConfirmation" Content="-" Width="100" Height="25" Margin="0,0,20,0" HorizontalAlignment="Left" Click="btnConfirmation_Click"></Button>
-            <Button x:Name="btnAnnuler" Content="Annuler" Width="100" Height="25" HorizontalAlignment="Right" Click="btnAnnuler_Click"></Button>
+        <StackPanel Margin="85,0,0,5" Orientation="Horizontal" Height="30">
+            <Button x:Name="btnConfirmation" Content="-" Width="100" Margin="0,0,20,0" HorizontalAlignment="Left" Click="btnConfirmation_Click"></Button>
+            <Button x:Name="btnAnnuler" Content="Annuler" Width="100" HorizontalAlignment="Right" Click="btnAnnuler_Click"></Button>
         </StackPanel>
         
     </StackPanel>
