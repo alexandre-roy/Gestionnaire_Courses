@@ -282,15 +282,18 @@ namespace _420_14B_FX_A24_TP2.classes
 
         public int CompareTo(Course other)
         {
+            if  (Nom == other.Nom && Date == other.Date && Ville == other.Ville && Province == other.Province && TypeCourse == other.TypeCourse && Distance == other.Distance)
+                return 0;
+            return 1;
 
         }
-            
+
 
         public override bool Equals(object obj)
         {
             if (obj is Course other)
             {
-                return Nom == other.Nom && Date == other.Date && Ville == other.Ville && Province == other.Province && TypeCourse == other.TypeCourse && Distance == other.Distance;
+                return CompareTo(other) == 0;
             }
             return false;
         }
@@ -326,10 +329,21 @@ namespace _420_14B_FX_A24_TP2.classes
         public void TrierCoureurs()
         {
             List<Coureur> coureurs = new List<Coureur>();
-            var coureursTries = coureurs.OrderBy(c => c.Temps).ToList();
-            for (int i = 0; i < coureursTries.Count; i++)
+            for (int i = 0; i < coureurs.Count; i++)
             {
-                coureursTries[i].Rang = (ushort)(i + 1);
+                for (int j = i + 1; j < coureurs.Count; j++)
+                {
+                    if (coureurs[i].Temps > coureurs[j].Temps)
+                    {
+                        Coureur temp = coureurs[i];
+                        coureurs[i] = coureurs[j];
+                        coureurs[j] = temp;
+                    }
+                }
+            }
+            for (int i = 0; i < coureurs.Count; i++)
+            {
+                coureurs[i].Rang = (ushort)(i + 1);
             }
         }
 
