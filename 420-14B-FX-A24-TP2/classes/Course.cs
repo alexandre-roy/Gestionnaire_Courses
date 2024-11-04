@@ -247,18 +247,18 @@ namespace _420_14B_FX_A24_TP2.classes
 
         public void AjouterCoureur(Coureur coureur)
         {
-           List<Coureur> coureurs = new List<Coureur>();
-           Coureur nouvcoureur = new Coureur();
-           nouvcoureur = 
+            List<Coureur> coureurs = new List<Coureur>();
+            Coureur nouvcoureur = new Coureur();
+            
            if (nouvcoureur == null)
                 throw new ArgumentNullException("Le coureur ne peut pas être nul.");
-           for (int i = 0; i < coureurs.Count; i++)
-           {
+            for (int i = 0; i < coureurs.Count; i++)
+            {
                 if (nouvcoureur.Dossard == coureur.Dossard)
                     throw new ArgumentException("Le numéro de dossard ne peut pas être deja utilise.");
                 if (nouvcoureur == coureur)
                     throw new ArgumentException("Le coureur ne peut pas être deja inscrit.");
-           }
+            }
             coureurs.Add(nouvcoureur);
             TrierCoureurs();
         }
@@ -282,10 +282,7 @@ namespace _420_14B_FX_A24_TP2.classes
 
         public int CompareTo(Course other)
         {
-            if  (Nom == other.Nom && Date == other.Date && Ville == other.Ville && Province == other.Province && TypeCourse == other.TypeCourse && Distance == other.Distance)
-                return 0;
             return 1;
-
         }
 
 
@@ -293,7 +290,7 @@ namespace _420_14B_FX_A24_TP2.classes
         {
             if (obj is Course other)
             {
-                return CompareTo(other) == 0;
+                return Nom == other.Nom && Date == other.Date && Ville == other.Ville && Province == other.Province && TypeCourse == other.TypeCourse && Distance == other.Distance;
             }
             return false;
         }
@@ -323,7 +320,7 @@ namespace _420_14B_FX_A24_TP2.classes
 
         public override string ToString()
         {
-
+            return"";
         }
 
         public void TrierCoureurs()
