@@ -1,12 +1,13 @@
 ﻿using System.CodeDom;
 using _420_14B_FX_A24_TP2.enums;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace _420_14B_FX_A24_TP2.classes
 {
     /// <summary>
     /// Classe représentant un coureur.
     /// </summary>
-    public class Coureur
+    public class Coureur : IComparable<Coureur>
     {
         #region CONSTANTES
 
@@ -264,24 +265,27 @@ namespace _420_14B_FX_A24_TP2.classes
             Temps = temps;
         }
 
-        public Coureur()
-        {
-
-        }
-
         #endregion
 
         #region MÉTHODES
 
-        //public void CompareTo(Coureur other)
-        //{
+        public int CompareTo(Coureur other)
+        {
+            if (other == null)
+            {
+                return 1;
+            }
+            return this.Temps.CompareTo(other.Temps);
+        }
 
-        //}
-
-        //public override bool Equals(object? obj)
-        //{
-
-        //}
+        public override bool Equals(object? obj)
+        {
+            if (obj is Coureur other)
+            {
+                return Nom == other.Nom && Prenom == other.Prenom && Ville == other.Ville && Province == other.Province;
+            }
+                return false;
+        }
 
         //public static bool operator ==(Coureur coureurGauche, Coureur coureurDroit)
         //{
