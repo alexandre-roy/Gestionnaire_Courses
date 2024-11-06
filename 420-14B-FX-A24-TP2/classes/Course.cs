@@ -75,7 +75,13 @@ namespace _420_14B_FX_A24_TP2.classes
         public Guid Id
         {
             get { return _id; }
-            set { _id = value; }
+            set { 
+                if (value == Guid.Empty)
+                {
+                    throw new ArgumentException("Le ID ne peut pas être nul ou n'avoir aucune valeur.");
+                }
+                _id = value; 
+            }
         }
 
 
@@ -99,7 +105,7 @@ namespace _420_14B_FX_A24_TP2.classes
                     
                 if (value.Length < NOM_NB_CAR_MIN)
                 {
-                    throw new ArgumentException("Le nom doit contenir au moins 3 caractères.");
+                    throw new ArgumentOutOfRangeException("Le nom doit contenir au moins 3 caractères.");
                 }
                     
                 _nom = value.Trim().ToUpper(); 
@@ -123,7 +129,7 @@ namespace _420_14B_FX_A24_TP2.classes
         /// </summary>
         /// <value>Obtien ou modifie la valeur de l'attribut :  _ville.</value>
         /// <exception cref="System.ArgumentNullException">Lancée lorsque que la ville est nulle ou n'a aucune valeur.</exception>
-        /// <exception cref="System.ArgumentException">Lancé lors que la ville a moins de VILLE_NB_CAR_MIN caractères.</exception>
+        /// <exception cref="System.ArgumenOutOfRangetException">Lancé lors que la ville a moins de VILLE_NB_CAR_MIN caractères.</exception>
         public string Ville
         {
             get { return _ville; }
@@ -134,9 +140,9 @@ namespace _420_14B_FX_A24_TP2.classes
                     throw new ArgumentNullException("La ville ne peut pas être nul ou n'avoir aucune valeur.");
                 }
                     
-                if (value.Length < VILLE_NB_CAR_MIN)
+                if (value.Trim().Length < VILLE_NB_CAR_MIN)
                 {
-                    throw new ArgumentException("La ville doit contenir au moins 4 caractères.");
+                    throw new ArgumentOutOfRangeException($"La ville doit contenir au moins {VILLE_NB_CAR_MIN} caractères.");
                 }
                     
                 _ville = value.Trim(); 
@@ -154,8 +160,10 @@ namespace _420_14B_FX_A24_TP2.classes
             get { return _province; }
             set 
             {
-                if (!Province.TryParse(value.ToString(), out _province))
-                    throw new ArgumentOutOfRangeException("La valeur de la province ne correspond pas à ceux attribué aux provinces.");
+                if (!Enum.IsDefined(typeof(Province), value))
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), "La valeur de la province n'existe pas dans les plages de valeurs possibles.");
+                }
                 _province = value; 
             }
         }
@@ -171,9 +179,11 @@ namespace _420_14B_FX_A24_TP2.classes
             get { return _typeCourse; }
             set 
             {
-                if (!TypeCourse.TryParse(value.ToString(), out _typeCourse))
-                    throw new ArgumentOutOfRangeException("La valeur de la course ne correspond pas à ceux attribué aux courses.");
-                _typeCourse = value; 
+                if (!Enum.IsDefined(typeof(TypeCourse), value))
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), "La valeur de la course ne correspond pas à ceux attribué aux courses.");      
+                }
+                _typeCourse = value;
             }
         }
 
@@ -187,7 +197,7 @@ namespace _420_14B_FX_A24_TP2.classes
             get { return _distance; }
             set 
             {
-               if (_distance < DISTANCE_VAL_MIN)
+               if (value < DISTANCE_VAL_MIN)
                     throw new ArgumentOutOfRangeException("La distance ne peut pas être inférieure à la distance minimale.");
                 _distance = value; 
             }
@@ -260,11 +270,16 @@ namespace _420_14B_FX_A24_TP2.classes
 
         public void AjouterCoureur(Coureur coureur)
         {
+            if (coureur == null)
+                throw new ArgumentNullException("Le coureur ne peut pas être nul.");
+
+
             List<Coureur> coureurs = new List<Coureur>();
             Coureur nouvcoureur = new Coureur();
-            
-           if (nouvcoureur == null)
+
+            if (nouvcoureur == null)
                 throw new ArgumentNullException("Le coureur ne peut pas être nul.");
+
             for (int i = 0; i < coureurs.Count; i++)
             {
                 if (nouvcoureur.Dossard == coureur.Dossard)
@@ -310,9 +325,14 @@ namespace _420_14B_FX_A24_TP2.classes
 
         public Coureur ObtenirCoureurParNoDossard(ushort dossard)
         {
+            if (dossard < Coureur.DOSSARD_VAL_MIN)
+            {
+                throw new ArgumentOutOfRangeException($"Le numéro du dossard ne doit pas être inférieur à {Coureur.DOSSARD_VAL_MIN}.");
+            }
+
             List<Coureur> coureurs = new List<Coureur>();
             foreach (var coureur in coureurs)
-            {
+            {               
                 if (coureur.Dossard == dossard)
                     return coureur;
             }
@@ -326,7 +346,7 @@ namespace _420_14B_FX_A24_TP2.classes
             if (coureur == null)
                 throw new ArgumentNullException("Le coureur ne peut pas être nul.");
             if (!coureurs.Contains(coureur))
-                throw new ArgumentException("Le coureur ne peut pas être inexistant.");
+                throw new InvalidOperationException("Le coureur ne peut pas être inexistant.");
             coureurs.Remove(coureur);
             TrierCoureurs();
         }
