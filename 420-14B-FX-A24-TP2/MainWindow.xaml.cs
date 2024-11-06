@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using _420_14B_FX_A24_TP2.classes;
 using _420_14B_FX_A24_TP2.formulaires;
 
 namespace _420_14B_FX_A24_TP2
@@ -24,6 +25,8 @@ namespace _420_14B_FX_A24_TP2
 
         #region ATTRIBUTS
 
+        private GestionCourse _gestionCourse;
+
 
         #endregion
 
@@ -39,17 +42,20 @@ namespace _420_14B_FX_A24_TP2
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //FormCoureur formCoureur = new FormCoureur(enums.EtatFormulaire.Ajouter);
-            //formCoureur.ShowDialog();
+            //formCoureur.ShowDialog()
+            //AfficherListeCourses();
         }
 
         #endregion
 
         #region MÉTHODES
 
-        private void AfficherListeCourses()
-        {
-           
-        }
+        //private void AfficherListeCourses()
+        //{
+        //    lstCourses.Items.Clear();
+
+        //    lstCourses.Items.Add(Courses.Items[0]);
+        //}
 
         #endregion
 

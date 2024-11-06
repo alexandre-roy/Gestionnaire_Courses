@@ -1,4 +1,6 @@
-﻿using _420_14B_FX_A24_TP2.enums;
+﻿using System;
+using _420_14B_FX_A24_TP2.enums;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace _420_14B_FX_A24_TP2.classes
 {
@@ -13,7 +15,7 @@ namespace _420_14B_FX_A24_TP2.classes
 
         public const int VILLE_NB_CAR_MIN = 4;
 
-        public const float DISTANCE_VAL_MIN = 1;
+        public const ushort DISTANCE_VAL_MIN = 1;
 
         #endregion
 
@@ -90,10 +92,16 @@ namespace _420_14B_FX_A24_TP2.classes
 
             set 
             {
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrWhiteSpace(value))
+                {
                     throw new ArgumentNullException("Le nom ne peut pas être nul ou n'avoir aucune valeur.");
+                }
+                    
                 if (value.Length < NOM_NB_CAR_MIN)
+                {
                     throw new ArgumentException("Le nom doit contenir au moins 3 caractères.");
+                }
+                    
                 _nom = value.Trim().ToUpper(); 
             }
         }
@@ -121,10 +129,16 @@ namespace _420_14B_FX_A24_TP2.classes
             get { return _ville; }
             set 
             {
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrWhiteSpace(value))
+                {
                     throw new ArgumentNullException("La ville ne peut pas être nul ou n'avoir aucune valeur.");
+                }
+                    
                 if (value.Length < VILLE_NB_CAR_MIN)
+                {
                     throw new ArgumentException("La ville doit contenir au moins 4 caractères.");
+                }
+                    
                 _ville = value.Trim(); 
             }
         }
@@ -191,7 +205,6 @@ namespace _420_14B_FX_A24_TP2.classes
 
 
      
-
         /// <summary>
         ///Obtien le nombre de coureurs participants à la course
         /// </summary>
@@ -320,7 +333,9 @@ namespace _420_14B_FX_A24_TP2.classes
 
         public override string ToString()
         {
-            return"";
+            string padRight15 = "".PadRight(15, ' ');
+            string padRight30 = "".PadRight(30, ' ');
+            return $"{Nom}{padRight15}{Ville}{padRight15}{Province}{padRight30}{Date}";
         }
 
         public void TrierCoureurs()

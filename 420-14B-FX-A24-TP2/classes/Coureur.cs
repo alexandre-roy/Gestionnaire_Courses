@@ -116,7 +116,7 @@ namespace _420_14B_FX_A24_TP2.classes
             get { return _nom; }
             set 
             {
-                if (String.IsNullOrEmpty(value))
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentNullException("Le nom ne peut pas être nul ou n'avoir aucune valeur.");
                 }
@@ -140,7 +140,7 @@ namespace _420_14B_FX_A24_TP2.classes
             get { return _prenom; }
             set 
             {
-                if (String.IsNullOrEmpty(value))
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentNullException("Le prénom ne peut pas être nul ou n'avoir aucune valeur.");
                 }
@@ -163,9 +163,11 @@ namespace _420_14B_FX_A24_TP2.classes
             get { return _categorie; }
             set 
             {
-               
-
-                _categorie = value; 
+                if (!Enum.IsDefined(typeof(Categorie), value))
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), "La valeur de la catégorie n'existe pas dans les plages de valeurs possibles.");
+                }
+                _categorie = value;
             }
         }
 
@@ -180,7 +182,7 @@ namespace _420_14B_FX_A24_TP2.classes
             get { return _ville; }
             set 
             {
-                if (String.IsNullOrEmpty(value))
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentNullException("La ville ne peut pas être nul ou n'avoir aucune valeur.");
                 }
@@ -203,8 +205,11 @@ namespace _420_14B_FX_A24_TP2.classes
             get { return _province; }
             set 
             {
-
-                _province = value; 
+                if (!Enum.IsDefined(typeof(Province), value))
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), "La valeur de la province n'existe pas dans les plages de valeurs possibles.");
+                }
+                _province = value;
             }
         }
 
@@ -263,6 +268,11 @@ namespace _420_14B_FX_A24_TP2.classes
             Ville = ville;
             Province = province;
             Temps = temps;
+        }
+
+        public Coureur()
+        {
+
         }
 
         #endregion
