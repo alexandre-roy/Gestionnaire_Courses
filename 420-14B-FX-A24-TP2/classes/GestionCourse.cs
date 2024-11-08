@@ -70,7 +70,26 @@ namespace _420_14B_FX_A24_TP2.classes
                 }
             }
 
-            #endregion
+            
         }
+
+        public void AjouterCourse(Course course)
+        {
+
+        }
+
+        public bool SupprimerCourse(Course course)
+        {
+            return false;
+        }
+
+        public void EnregistrerCourses(string cheminFichierCourses, string cheminFicherCoureurs)
+        {
+
+        }
+
+
+
+        #endregion
     }
 }

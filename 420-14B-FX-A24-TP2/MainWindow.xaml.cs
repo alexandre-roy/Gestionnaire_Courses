@@ -62,12 +62,18 @@ namespace _420_14B_FX_A24_TP2
         #region ACTIONS-FORMULAIRE
         private void btnNouveau_Click(object sender, RoutedEventArgs e)
         {
-            
+            FormCourse formCourseWindow = new FormCourse();
+            formCourseWindow.Show();
         }
 
         private void btnModifier_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (lstCourses.SelectedItem != null)
+            {
+                Course course = (Course)lstCourses.SelectedItem;
+                FormCourse formCourseWindow = new FormCourse(course);
+                formCourseWindow.Show();
+            }
         }
 
         private void btnSupprimer_Click(object sender, RoutedEventArgs e)

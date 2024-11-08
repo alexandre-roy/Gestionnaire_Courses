@@ -32,7 +32,7 @@
                     </StackPanel>
 
                     <StackPanel Margin="0,5,0,5" Orientation="Horizontal">
-                        <Label Content="Province" Width="75" HorizontalAlignment="Left"></Label>
+                        <Label Content="Date" Width="75" HorizontalAlignment="Left"></Label>
                         <DatePicker x:Name="dpDate" Width="170" Margin="10,0"></DatePicker>
                     </StackPanel>
 
