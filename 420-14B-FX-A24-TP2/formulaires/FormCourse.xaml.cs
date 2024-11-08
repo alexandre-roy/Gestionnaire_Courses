@@ -18,10 +18,9 @@ namespace _420_14B_FX_A24_TP2.formulaires
             {
                 txtNom.Text = course.Nom;
                 txtVille.Text = course.Ville;
-                cboProvince.Text = course.Province;
-                dpDate = course.Date;
-
-
+                cboProvince.Text = course.Province.ToString();
+                DateOnly dateOnly = course.Date;
+                dpDate.SelectedDate = dateOnly.ToDateTime(TimeOnly.MinValue);
             }
         }
     }

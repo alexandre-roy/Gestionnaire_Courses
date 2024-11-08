@@ -25,9 +25,9 @@ namespace _420_14B_FX_A24_TP2.classes
 
         #region CONSTRUCTEUR
             
-        public GestionCourse()
+        public GestionCourse(string cheminFichierCourses, string cheminFichierCoureurs)
         {
-            //ChargerCourses()
+            ChargerCourses(cheminFichierCourses, cheminFichierCoureurs);
         }
         #endregion
 
@@ -45,14 +45,13 @@ namespace _420_14B_FX_A24_TP2.classes
 
                 Guid id = Guid.Parse(detailsCourse[0]);
                 string nom = detailsCourse[1];
-                DateOnly date = DateOnly.Parse(detailsCourse[2]);
-                string ville = detailsCourse[3];
-                Province province = (Province)Enum.Parse(typeof(Province), detailsCourse[4]);
+                string ville = detailsCourse[2];
+                Province province = (Province)Enum.Parse(typeof(Province), detailsCourse[3]);
+                DateOnly date = DateOnly.Parse(detailsCourse[4]);
                 TypeCourse typeCourse = (TypeCourse)Enum.Parse(typeof(TypeCourse), detailsCourse[5]);
                 ushort distance = ushort.Parse(detailsCourse[6]);
-
                 Course course = new Course(id, nom, date, ville, province, typeCourse, distance);
-
+                ChargerCoureurs(course, cheminFichierCoureurs);
                 Courses.Add(course);
             }
         }
@@ -61,16 +60,27 @@ namespace _420_14B_FX_A24_TP2.classes
         {
             string[] vectLignes = Utilitaire.ChargerDonnees(cheminFichierCoureurs);
 
-            //Courses = new List<Coureur>();
+            course.Coureurs = new List<Coureur>();
 
             for (int i = 1; i < vectLignes.Length; i++)
             {
-                if (course.Coureurs[i].Nom != null)
+                string[] detailsCoureur = vectLignes[i].Split(',');
+                Guid idCourse = Guid.Parse(detailsCoureur[0]);
+                ushort dossard = ushort.Parse(detailsCoureur[1]);
+                string nom = detailsCoureur[2];
+                string prenom = detailsCoureur[3];
+                string ville = detailsCoureur[4];
+                Province province = (Province)Enum.Parse(typeof(Province), detailsCoureur[5]);
+                ushort rang = 0;
+                Categorie categorie = (Categorie)Enum.Parse(typeof(Categorie), detailsCoureur[6]);
+                TimeSpan temps = TimeSpan.Parse(detailsCoureur[8]);
+                bool abandon = bool.Parse(detailsCoureur[9]);
+                Coureur coureur = new Coureur(dossard, nom, prenom, categorie, ville, province, rang, temps, abandon);
+                if (idCourse == course.Id)
                 {
+                    course.Coureurs.Add(coureur);
                 }
-            }
-
-            
+            } 
         }
 
         public void AjouterCourse(Course course)

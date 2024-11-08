@@ -272,19 +272,16 @@ namespace _420_14B_FX_A24_TP2.classes
         {
             if (coureur == null)
                 throw new ArgumentNullException("Le coureur ne peut pas être nul.");
-
-
             List<Coureur> coureurs = new List<Coureur>();
             Coureur nouvcoureur = new Coureur();
-
             if (nouvcoureur == null)
                 throw new ArgumentNullException("Le coureur ne peut pas être nul.");
 
             for (int i = 0; i < coureurs.Count; i++)
             {
-                if (nouvcoureur.Dossard == coureur.Dossard)
+                if (nouvcoureur.Dossard == coureurs[i].Dossard)
                     throw new ArgumentException("Le numéro de dossard ne peut pas être deja utilise.");
-                if (nouvcoureur == coureur)
+                if (nouvcoureur == coureurs[i])
                     throw new ArgumentException("Le coureur ne peut pas être deja inscrit.");
             }
             coureurs.Add(nouvcoureur);

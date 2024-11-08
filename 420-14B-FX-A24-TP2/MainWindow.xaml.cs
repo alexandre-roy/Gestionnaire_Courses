@@ -34,6 +34,7 @@ namespace _420_14B_FX_A24_TP2
         public MainWindow()
         {
             InitializeComponent();
+            GestionCourse gestionCourse = new GestionCourse(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
         }
 
         #endregion
@@ -41,21 +42,23 @@ namespace _420_14B_FX_A24_TP2
         #region WINDOW_LOADED
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //FormCoureur formCoureur = new FormCoureur(enums.EtatFormulaire.Ajouter);
-            //formCoureur.ShowDialog()
-            //AfficherListeCourses();
+            FormCoureur formCoureur = new FormCoureur(enums.EtatFormulaire.Ajouter);
+            formCoureur.ShowDialog();
+            AfficherListeCourses();
         }
 
         #endregion
 
         #region MÉTHODES
 
-        //private void AfficherListeCourses()
-        //{
-        //    lstCourses.Items.Clear();
-
-        //    lstCourses.Items.Add(Courses.Items[0]);
-        //}
+        private void AfficherListeCourses()
+        {
+            lstCourses.Items.Clear();
+            for (int i = 0;i < _gestionCourse.Courses.Count; i++)
+            {
+                lstCourses.Items.Add(_gestionCourse.Courses);
+            }
+        }
 
         #endregion
 
