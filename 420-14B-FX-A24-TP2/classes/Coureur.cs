@@ -259,7 +259,7 @@ namespace _420_14B_FX_A24_TP2.classes
         /// <param name="province">Province du coureur</param>
         /// <param name="temps">Temps de course du coureur</param>
         /// <param name="abandon">Indicateur d'abandon de la course. Faux par défaut</param>
-        public Coureur(ushort dossard, string nom, string prenom, Categorie categorie, string ville, Province province, ushort rang, TimeSpan temps, bool abandon)
+        public Coureur(ushort dossard, string nom, string prenom, Categorie categorie, string ville, Province province, TimeSpan temps)
         {
             Dossard = dossard;
             Nom = nom;
@@ -267,9 +267,11 @@ namespace _420_14B_FX_A24_TP2.classes
             Categorie = categorie;
             Ville = ville;
             Province = province;
-            Rang = rang;
             Temps = temps;
-            Abandon = abandon;
+        }
+
+        public Coureur()
+        {
         }
 
         #endregion

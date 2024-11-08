@@ -83,14 +83,12 @@ namespace _420_14B_FX_A24_TP2.formulaires
 
        private void btnConfirmation_Click(object sender, RoutedEventArgs e)
 {
-    // Cas "Ajouter"
     if (btnConfirmation.Content.ToString() == "Ajouter")
-    {
-        // Vérifier que Dossard est bien un nombre valide
-        if (ushort.TryParse(txtDossard.Text, out ushort dossard))
+    {        
+           if (ushort.TryParse(txtDossard.Text, out ushort dossard))
         {
             Coureur nouveauCoureur = new Coureur();
-            nouveauCoureur.Dossard = dossard;
+            nouveauCoureur.Dossard = ushort.Parse(txtDossard.Text);
             nouveauCoureur.Nom = txtNom.Text;
             nouveauCoureur.Prenom = txtPrenom.Text;
             nouveauCoureur.Categorie = (Categorie)cboCategorie.SelectedItem;
@@ -99,16 +97,10 @@ namespace _420_14B_FX_A24_TP2.formulaires
             nouveauCoureur.Province = (Province)cboProvince.SelectedItem;
             nouveauCoureur.Temps = tsTemps.Value.Value;
 
-            // Si le champ Abandon est activé, affecter la valeur
-            if (chkAbandon.IsChecked == true)  // Corrigé pour .IsChecked
+            if (chkAbandon.IsChecked == true)
             {
                 nouveauCoureur.Abandon = true;
             }
-
-            // Ajouter le nouveau coureur (ici vous pouvez ajouter à une liste ou une base de données)
-            // Par exemple : 
-            // coureurs.Add(nouveauCoureur);
-
             MessageBox.Show("Le coureur a été ajouté avec succès.", "Ajout d'un coureur", MessageBoxButton.OK);
         }
         else
@@ -116,12 +108,9 @@ namespace _420_14B_FX_A24_TP2.formulaires
             MessageBox.Show("Le numéro de dossard est invalide. Veuillez entrer un nombre valide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
-    // Cas "Modifier"
     else if (btnConfirmation.Content.ToString() == "Modifier")
     {
-        // Implémentez ici la logique pour modifier un coureur
     }
-    // Cas "Supprimer"
     else if (btnConfirmation.Content.ToString() == "Supprimer")
     {
         MessageBoxResult resultat = MessageBox.Show("Désirez-vous vraiment supprimer ce coureur?", "Suppression d'un coureur", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
@@ -130,8 +119,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
         {
             case MessageBoxResult.Yes:
                 MessageBox.Show("Le coureur a été supprimé avec succès", "Suppression d'un coureur", MessageBoxButton.OK);
-                // Code pour supprimer le coureur
-                this.Close();  // Fermer la fenêtre
+                this.Close();
                 break;
             case MessageBoxResult.No:
                 break;

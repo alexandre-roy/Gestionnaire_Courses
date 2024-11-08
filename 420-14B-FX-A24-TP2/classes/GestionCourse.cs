@@ -1,4 +1,5 @@
 ﻿using _420_14B_FX_A24_TP2.enums;
+using System.Windows;
 
 namespace _420_14B_FX_A24_TP2.classes
 {
@@ -33,7 +34,7 @@ namespace _420_14B_FX_A24_TP2.classes
 
         #region MÉTHODES
 
-        private void ChargerCourses(string cheminFichierCourses, string cheminFichierCoureurs)
+        public void ChargerCourses(string cheminFichierCourses, string cheminFichierCoureurs)
         {
             string[] vectLignes = Utilitaire.ChargerDonnees(cheminFichierCourses);
 
@@ -42,7 +43,6 @@ namespace _420_14B_FX_A24_TP2.classes
             for (int i = 1; i < vectLignes.Length; i++)
             {
                 string[] detailsCourse = vectLignes[i].Split(';');
-
                 Guid id = Guid.Parse(detailsCourse[0]);
                 string nom = detailsCourse[1];
                 string ville = detailsCourse[2];
@@ -56,7 +56,7 @@ namespace _420_14B_FX_A24_TP2.classes
             }
         }
 
-        private void ChargerCoureurs(Course course, string cheminFichierCoureurs)
+        public void ChargerCoureurs(Course course, string cheminFichierCoureurs)
         {
             string[] vectLignes = Utilitaire.ChargerDonnees(cheminFichierCoureurs);
 
@@ -64,20 +64,19 @@ namespace _420_14B_FX_A24_TP2.classes
 
             for (int i = 1; i < vectLignes.Length; i++)
             {
-                string[] detailsCoureur = vectLignes[i].Split(',');
+                string[] detailsCoureur = vectLignes[i].Split(';');
                 Guid idCourse = Guid.Parse(detailsCoureur[0]);
                 ushort dossard = ushort.Parse(detailsCoureur[1]);
                 string nom = detailsCoureur[2];
                 string prenom = detailsCoureur[3];
                 string ville = detailsCoureur[4];
                 Province province = (Province)Enum.Parse(typeof(Province), detailsCoureur[5]);
-                ushort rang = 0;
                 Categorie categorie = (Categorie)Enum.Parse(typeof(Categorie), detailsCoureur[6]);
-                TimeSpan temps = TimeSpan.Parse(detailsCoureur[8]);
-                bool abandon = bool.Parse(detailsCoureur[9]);
-                Coureur coureur = new Coureur(dossard, nom, prenom, categorie, ville, province, rang, temps, abandon);
+                TimeSpan temps = TimeSpan.Parse(detailsCoureur[7]);
+                Coureur coureur = new Coureur(dossard, nom, prenom, categorie, ville, province, temps);
                 if (idCourse == course.Id)
                 {
+                    coureur.Abandon = bool.Parse(detailsCoureur[8]);
                     course.Coureurs.Add(coureur);
                 }
             } 
@@ -95,11 +94,13 @@ namespace _420_14B_FX_A24_TP2.classes
 
         public void EnregistrerCourses(string cheminFichierCourses, string cheminFicherCoureurs)
         {
-
+            string donneesSerialises = "Id;nom;ville;province;date;type;distance\r\n";
+            foreach (var course in Courses)
+            {
+                donneesSerialises += $"{course.Id};{course.Nom};{course.Ville};{course.Province};{course.Date};{course.TypeCourse};{course.Distance};\n";
+            }
+            Utilitaire.EnregistrerDonnees(cheminFichierCourses, donneesSerialises);
         }
-
-
-
         #endregion
     }
 }

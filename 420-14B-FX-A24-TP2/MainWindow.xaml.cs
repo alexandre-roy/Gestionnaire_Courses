@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using _420_14B_FX_A24_TP2.classes;
+using _420_14B_FX_A24_TP2.enums;
 using _420_14B_FX_A24_TP2.formulaires;
 
 namespace _420_14B_FX_A24_TP2
@@ -14,12 +15,12 @@ namespace _420_14B_FX_A24_TP2
         /// <summary>
         /// Le chemin d'accès pour accèder au fichier des coureurs.
         /// </summary>
-        public const string CHEMIN_FICHIER_COUREURS = @"C:\data\420-14B-FX\TP1\coureurs.csv";
+        public const string CHEMIN_FICHIER_COUREURS = @"C:\data\420-14B-FX\TP2\coureurs.csv";
 
         /// <summary>
         /// Le chemin d'accès pour accèder au fichier des courses.
         /// </summary>
-        public const string CHEMIN_FICHIER_COURSES = @"C:\data\420-14B-FX\TP1\courses.csv";
+        public const string CHEMIN_FICHIER_COURSES = @"C:\data\420-14B-FX\TP2\courses.csv";
 
         #endregion
 
@@ -33,8 +34,8 @@ namespace _420_14B_FX_A24_TP2
         #region CONSTRUCTEUR
         public MainWindow()
         {
+            _gestionCourse = new GestionCourse(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
             InitializeComponent();
-            GestionCourse gestionCourse = new GestionCourse(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
         }
 
         #endregion
@@ -42,8 +43,6 @@ namespace _420_14B_FX_A24_TP2
         #region WINDOW_LOADED
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            FormCoureur formCoureur = new FormCoureur(enums.EtatFormulaire.Ajouter);
-            formCoureur.ShowDialog();
             AfficherListeCourses();
         }
 
@@ -51,12 +50,12 @@ namespace _420_14B_FX_A24_TP2
 
         #region MÉTHODES
 
-        private void AfficherListeCourses()
+        public void AfficherListeCourses()
         {
             lstCourses.Items.Clear();
             for (int i = 0;i < _gestionCourse.Courses.Count; i++)
             {
-                lstCourses.Items.Add(_gestionCourse.Courses);
+                lstCourses.Items.Add(_gestionCourse.Courses[i]);
             }
         }
 
@@ -65,17 +64,19 @@ namespace _420_14B_FX_A24_TP2
         #region ACTIONS-FORMULAIRE
         private void btnNouveau_Click(object sender, RoutedEventArgs e)
         {
-            FormCourse formCourseWindow = new FormCourse();
-            formCourseWindow.Show();
+            EtatFormulaire etat = EtatFormulaire.Ajouter;
+            FormCourse formCourseWindow = new FormCourse(etat);
+            formCourseWindow.ShowDialog();
         }
 
         private void btnModifier_Click(object sender, RoutedEventArgs e)
         {
             if (lstCourses.SelectedItem != null)
             {
+                EtatFormulaire etat = EtatFormulaire.Modifier;
                 Course course = (Course)lstCourses.SelectedItem;
-                FormCourse formCourseWindow = new FormCourse(course);
-                formCourseWindow.Show();
+                FormCourse formCourseWindow = new FormCourse(etat,course);
+                formCourseWindow.ShowDialog();
             }
         }
 
