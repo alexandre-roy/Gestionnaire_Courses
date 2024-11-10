@@ -351,9 +351,7 @@ namespace _420_14B_FX_A24_TP2.classes
 
         public override string ToString()
         {
-            string padRight15 = "".PadRight(15, ' ');
-            string padRight30 = "".PadRight(30, ' ');
-            return $"{Nom}{padRight15}{Ville}{padRight15}{Province}{padRight30}{Date}";
+            return $"{Nom.PadRight(40, ' ')}{Ville.PadRight(25, ' ')}{Province.ToString().PadRight(25, ' ')}{Date}";
         }
 
         public void TrierCoureurs()
