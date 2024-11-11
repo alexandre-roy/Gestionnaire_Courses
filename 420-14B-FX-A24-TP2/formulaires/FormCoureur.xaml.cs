@@ -123,12 +123,40 @@ namespace _420_14B_FX_A24_TP2.formulaires
             }
             else
             {
-              MessageBox.Show(ValiderCoureur());
+              MessageBox.Show(ValiderCoureur(), "Ajout d'un coureur");
             }         
         }
-        else if (btnConfirmation.Content.ToString() == "Modifier")
-        {
-        }
+            else if (btnConfirmation.Content.ToString() == "Modifier")
+            {
+                if (ValiderCoureur() == "")
+                {
+                    if (ushort.TryParse(txtDossard.Text, out ushort dossard))
+                    {
+                        
+                        //.Dossard = ushort.Parse(txtDossard.Text);
+                        //.Nom = txtNom.Text;
+                        //.Prenom = txtPrenom.Text;
+                        //.Categorie = (Categorie)cboCategorie.SelectedItem;
+                        //.Ville = txtVille.Text;
+                        //.Rang = 0;
+                        //.Province = (Province)cboProvince.SelectedItem;
+                        //.Temps = tsTemps.Value.Value;
+                        if (chkAbandon.IsChecked == true)
+                        {
+                            //.Abandon = true;
+                        }
+                        MessageBox.Show("Le coureur a été ajouté avec succès.", "Modification d'un coureur", MessageBoxButton.OK);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Le numéro de dossard est invalide. Veuillez entrer un nombre valide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(ValiderCoureur(), "Modification d'un coureur");
+                }
+            }
         else if (btnConfirmation.Content.ToString() == "Supprimer")
         {
             MessageBoxResult resultat = MessageBox.Show("Désirez-vous vraiment supprimer ce coureur?", "Suppression d'un coureur", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
@@ -154,7 +182,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
                 messageErreur += "Vous devez inscrire le dossard du coureur.\n";
             }
 
-            if (ushort.Parse(txtDossard.Text) < Coureur.DOSSARD_VAL_MIN)
+            if (string.IsNullOrWhiteSpace(txtDossard.Text) || ushort.Parse(txtDossard.Text) < Coureur.DOSSARD_VAL_MIN)
             {
                 messageErreur += $"Le dossard doit être une valeur supérieure ou égale à {Coureur.DOSSARD_VAL_MIN}.\n";
             }
