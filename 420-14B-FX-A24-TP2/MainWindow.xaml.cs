@@ -36,6 +36,7 @@ namespace _420_14B_FX_A24_TP2
         {
             _gestionCourse = new GestionCourse(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
             InitializeComponent();
+
         }
 
         #endregion
@@ -44,6 +45,9 @@ namespace _420_14B_FX_A24_TP2
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             AfficherListeCourses();
+
+            FormCoureur blabla = new FormCoureur(EtatFormulaire.Ajouter);
+            blabla.ShowDialog();
         }
 
         #endregion

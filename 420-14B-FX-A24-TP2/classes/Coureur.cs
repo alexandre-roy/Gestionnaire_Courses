@@ -1,5 +1,9 @@
 ﻿using System.CodeDom;
+using System.Threading.Channels;
+using System.Windows.Input;
+using System.Xml.Linq;
 using _420_14B_FX_A24_TP2.enums;
+using static System.Net.Mime.MediaTypeNames;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace _420_14B_FX_A24_TP2.classes
@@ -29,7 +33,7 @@ namespace _420_14B_FX_A24_TP2.classes
         /// <summary>
         /// Constante qui représente le nombre de caractères minimal dans une ville.
         /// </summary>
-        public const int VILLE_NB_CARC_MIN =  4;
+        public const int VILLE_NB_CARC_MIN = 4;
 
         #endregion
 
@@ -50,7 +54,7 @@ namespace _420_14B_FX_A24_TP2.classes
         /// </summary>
         private string _prenom;
 
-     
+
         /// <summary>
         /// Catégorie d'âge du coureur
         /// </summary>
@@ -77,7 +81,7 @@ namespace _420_14B_FX_A24_TP2.classes
         /// </summary>
         private ushort _rang;
 
-       
+
         /// <summary>
         /// Indicateur d'abandon de la course
         /// </summary>
@@ -95,13 +99,13 @@ namespace _420_14B_FX_A24_TP2.classes
         public ushort Dossard
         {
             get { return _dossard; }
-            set 
+            set
             {
                 if (value < DOSSARD_VAL_MIN)
                 {
                     throw new ArgumentOutOfRangeException($"Le numéro du dossard ne doit pas être inférieur à {DOSSARD_VAL_MIN}.");
                 }
-                _dossard = value;           
+                _dossard = value;
             }
         }
 
@@ -114,7 +118,7 @@ namespace _420_14B_FX_A24_TP2.classes
         public string Nom
         {
             get { return _nom; }
-            set 
+            set
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
@@ -124,7 +128,7 @@ namespace _420_14B_FX_A24_TP2.classes
                 {
                     throw new ArgumentOutOfRangeException($"Le nom doit contenir au moins {NOM_NB_CARC_MIN} caractères.");
                 }
-                _nom = value.Trim();          
+                _nom = value.Trim();
             }
         }
 
@@ -138,7 +142,7 @@ namespace _420_14B_FX_A24_TP2.classes
         public string Prenom
         {
             get { return _prenom; }
-            set 
+            set
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
@@ -148,7 +152,7 @@ namespace _420_14B_FX_A24_TP2.classes
                 {
                     throw new ArgumentOutOfRangeException($"Le prénom doit contenir au moins {PRENOM_NB_CARC_MIN} caractères.");
                 }
-                _prenom = value.Trim(); 
+                _prenom = value.Trim();
             }
         }
 
@@ -161,7 +165,7 @@ namespace _420_14B_FX_A24_TP2.classes
         public Categorie Categorie
         {
             get { return _categorie; }
-            set 
+            set
             {
                 if (!Enum.IsDefined(typeof(Categorie), value))
                 {
@@ -180,7 +184,7 @@ namespace _420_14B_FX_A24_TP2.classes
         public string Ville
         {
             get { return _ville; }
-            set 
+            set
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
@@ -191,7 +195,7 @@ namespace _420_14B_FX_A24_TP2.classes
                     throw new ArgumentOutOfRangeException($"La ville doit contenir au moins {VILLE_NB_CARC_MIN} caractères.");
                 }
 
-                _ville = value.Trim(); 
+                _ville = value.Trim();
             }
         }
 
@@ -203,7 +207,7 @@ namespace _420_14B_FX_A24_TP2.classes
         public Province Province
         {
             get { return _province; }
-            set 
+            set
             {
                 if (!Enum.IsDefined(typeof(Province), value))
                 {
@@ -221,7 +225,7 @@ namespace _420_14B_FX_A24_TP2.classes
         public TimeSpan Temps
         {
             get { return _temps; }
-            set  { _temps = value; }
+            set { _temps = value; }
         }
 
         /// <summary>
@@ -270,14 +274,21 @@ namespace _420_14B_FX_A24_TP2.classes
             Temps = temps;
         }
 
+
         public Coureur()
         {
+
         }
 
         #endregion
 
         #region MÉTHODES
 
+        /// <summary>
+        /// Permet de comparer deux coureurs. Deux coureurs sont identiques s’ils ont le même nom, prénom, ville et province.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns>Un int qui représente la position du coureur comparé a l'autre.</returns>
         public int CompareTo(Coureur other)
         {
             if (other == null)
@@ -287,25 +298,64 @@ namespace _420_14B_FX_A24_TP2.classes
             return this.Temps.CompareTo(other.Temps);
         }
 
+        /// <summary>
+        /// Permet de comparer deux coureurs. Deux coureurs sont identiques s’ils ont le même nom, prénom, ville et province
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns>Un bool qui indique si les coureurs sont identiques</returns>
         public override bool Equals(object? obj)
         {
             if (obj is Coureur other)
             {
                 return Nom == other.Nom && Prenom == other.Prenom && Ville == other.Ville && Province == other.Province;
             }
-                return false;
+            return false;
         }
 
-        //public static bool operator ==(Coureur coureurGauche, Coureur coureurDroit)
-        //{
+        /// <summary>
+        /// Permet de comparer deux coureurs.
+        /// </summary>
+        /// <param name="coureurGauche">Un coureur</param>
+        /// <param name="coureurDroit">Un autre coureur</param>
+        /// <returns>Un bool qui indique si les coureurs sont pareils</returns>
+        public static bool operator ==(Coureur coureurGauche, Coureur coureurDroit)
+        {
+            if (ReferenceEquals(coureurGauche, coureurDroit))
+            {
+                return true;
+            }
+            if (coureurGauche == null || coureurDroit == null)
+            {
+                return false;
+            }
 
-        //}
+            return coureurGauche.Nom == coureurDroit.Nom && coureurGauche.Prenom == coureurDroit.Prenom && coureurGauche.Ville == coureurDroit.Ville && coureurGauche.Province == coureurDroit.Province;
+        }
 
-        //public static bool operator !=(Coureur coureurGauche, Coureur coureurDroit)
-        //{
+        /// <summary>
+        /// Permet de comparer deux coureurs.
+        /// </summary>
+        /// <param name="coureurGauche">Un coureur</param>
+        /// <param name="coureurDroit">Un autre coureur</param>
+        /// <returns>Un bool qui indique si les coureurs sont pareils</returns>
+        public static bool operator !=(Coureur coureurGauche, Coureur coureurDroit)
+        {
+            if (ReferenceEquals(coureurGauche, coureurDroit))
+            {
+                return false;
+            }
+            if (coureurGauche == null || coureurDroit == null)
+            {
+                return true;
+            }
 
-        //}
+            return !(coureurGauche.Nom == coureurDroit.Nom && coureurGauche.Prenom == coureurDroit.Prenom && coureurGauche.Ville == coureurDroit.Ville && coureurGauche.Province == coureurDroit.Province);
+        }
 
+        /// <summary>
+        /// Retourne la représentation d'un coureur sous forme de chaîne de caractère de la manière suivante : Dossard Nom, Prenom Categorie Temps.
+        /// Cette représentation est utilisée l’alignement du texte pour l’affichage la liste des résultats.
+        /// </summary>
         public override string ToString()
         {
             string padRight15 = "".PadRight(15, ' ');
