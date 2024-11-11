@@ -84,7 +84,7 @@ namespace _420_14B_FX_A24_TP2.classes
 
         public void AjouterCourse(Course course)
         {
-
+            Courses.Add(course);
         }
 
         public bool SupprimerCourse(Course course)

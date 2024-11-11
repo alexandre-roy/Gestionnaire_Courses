@@ -11,12 +11,9 @@ namespace _420_14B_FX_A24_TP2.formulaires
     /// </summary>
     public partial class FormCourse : Window
     {
-        public const string cheminFichierCoureurs = @"C:\data\420-14B-FX\TP2\coureurs.csv";
-        public const string cheminFichierCourses = @"C:\data\420-14B-FX\TP2\courses.csv";
         private Course _course;
         private EtatFormulaire _etat;
-        private GestionCourse _gestionCourse;
-        private MainWindow _mainWindow;
+      
         public EtatFormulaire Etat
         {
             get { return _etat; }
@@ -38,10 +35,9 @@ namespace _420_14B_FX_A24_TP2.formulaires
         public FormCourse(EtatFormulaire etat, Course course = null)
         {
             InitializeComponent();
-            _gestionCourse = new GestionCourse(cheminFichierCourses, cheminFichierCoureurs);
             txtTempsMoyen.IsEnabled = false;
             txtParticipants.IsEnabled = false;
-            _mainWindow = new MainWindow();
+       
             cboProvince.ItemsSource = Enum.GetValues(typeof(Province));
             cboType.ItemsSource = Enum.GetValues(typeof(TypeCourse));
             Etat = etat;
@@ -73,36 +69,24 @@ namespace _420_14B_FX_A24_TP2.formulaires
         {         
             if (btnConfirmation.Content.ToString() == "Ajouter")
             {
-                Course course = new Course(Guid.NewGuid(), txtNom.Text, DateOnly.FromDateTime(dpDate.SelectedDate.Value), txtVille.Text, (Province)cboProvince.SelectedItem, (TypeCourse)cboType.SelectedItem, ushort.Parse(txtDistance.Text));
-                _gestionCourse.AjouterCourse(course);
-                MessageBox.Show("Course ajoutée avec succès");
-                _gestionCourse.EnregistrerCourses(cheminFichierCourses, cheminFichierCoureurs);
-                _mainWindow.AfficherListeCourses();
+                Course  = new Course(Guid.NewGuid(), txtNom.Text, DateOnly.FromDateTime(dpDate.SelectedDate.Value), txtVille.Text, (Province)cboProvince.SelectedItem, (TypeCourse)cboType.SelectedItem, ushort.Parse(txtDistance.Text));
                 this.DialogResult = true;
-                this.Close();
             }
             else if (btnConfirmation.Content.ToString() == "Modifier")
             {
-                Course newcourse = new Course(_course.Id, txtNom.Text, DateOnly.FromDateTime(dpDate.SelectedDate.Value), txtVille.Text, (Province)cboProvince.SelectedItem, (TypeCourse)cboType.SelectedItem, ushort.Parse(txtDistance.Text));
-                for (int i = 0; i < _gestionCourse.Courses.Count; i++)
-                {
-                    if (_gestionCourse.Courses[i].Id == newcourse.Id)
-                    {
-                        _gestionCourse.Courses[i] = newcourse;
-                        break;
-                    }
-                }
-                MessageBox.Show("Course modifiée avec succès");
-                _gestionCourse.EnregistrerCourses(cheminFichierCourses, cheminFichierCoureurs);
-                _mainWindow.AfficherListeCourses();
+                Course.Nom = txtNom.Text;
+                Course.Ville = txtVille.Text;
+                Course.Province = (Province)cboProvince.SelectedItem;
+                Course.Date = DateOnly.FromDateTime(dpDate.SelectedDate.Value);
+                Course.TypeCourse = (TypeCourse)cboType.SelectedItem;
+                Course.Distance = ushort.Parse(txtDistance.Text);
                 this.DialogResult = true;
-                this.Close();
             }
         }
 
         private void btnAnnuler_Click_1(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            this.DialogResult = false;
         }
     }
 }

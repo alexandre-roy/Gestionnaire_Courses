@@ -67,6 +67,13 @@ namespace _420_14B_FX_A24_TP2
             EtatFormulaire etat = EtatFormulaire.Ajouter;
             FormCourse formCourseWindow = new FormCourse(etat);
             formCourseWindow.ShowDialog();
+            if (formCourseWindow.DialogResult == true)
+            {
+                _gestionCourse.AjouterCourse(formCourseWindow.Course);
+                MessageBox.Show("Course ajoutée avec succès");
+                AfficherListeCourses();
+                _gestionCourse.EnregistrerCourses(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
+            }
         }
 
         private void btnModifier_Click(object sender, RoutedEventArgs e)
@@ -77,6 +84,12 @@ namespace _420_14B_FX_A24_TP2
                 Course course = (Course)lstCourses.SelectedItem;
                 FormCourse formCourseWindow = new FormCourse(etat,course);
                 formCourseWindow.ShowDialog();
+                if (formCourseWindow.DialogResult == true)
+                {
+                    MessageBox.Show("Course modifiée avec succès");
+                    AfficherListeCourses();
+                    _gestionCourse.EnregistrerCourses(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
+                }
             }
         }
 

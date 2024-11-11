@@ -316,7 +316,11 @@ namespace _420_14B_FX_A24_TP2.classes
         {
             if (obj is Course other)
             {
-                return Nom == other.Nom && Date == other.Date && Ville == other.Ville && Province == other.Province && TypeCourse == other.TypeCourse && Distance == other.Distance;
+                if (Nom == other.Nom && Date == other.Date && Ville == other.Ville && Province == other.Province && TypeCourse == other.TypeCourse && Distance == other.Distance)
+                {
+                    return true;
+                }
+                return false;
             }
             return false;
         }
