@@ -80,7 +80,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
                         MessageBox.Show("Erreur lors de la création de la course");
                     }
                 }
-                this.DialogResult = true;F
+                this.DialogResult = true;
             }
             else if (btnConfirmation.Content.ToString() == "Modifier")
             {
