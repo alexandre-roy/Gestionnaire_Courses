@@ -76,9 +76,11 @@ namespace _420_14B_FX_A24_TP2.formulaires
         #region ACTIONS-FORMULAIRE
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            
             InitializeComponent();
+            cboProvince.ItemsSource = Enum.GetValues(typeof(Province));
+            cboCategorie.ItemsSource = Enum.GetValues(typeof(Categorie));
 
-            //cboCategorie.ItemsSource = Enum.GetValues();
         }
 
        private void btnConfirmation_Click(object sender, RoutedEventArgs e)
