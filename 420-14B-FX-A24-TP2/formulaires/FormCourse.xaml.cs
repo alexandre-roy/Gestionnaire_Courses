@@ -69,8 +69,18 @@ namespace _420_14B_FX_A24_TP2.formulaires
         {         
             if (btnConfirmation.Content.ToString() == "Ajouter")
             {
-                Course  = new Course(Guid.NewGuid(), txtNom.Text, DateOnly.FromDateTime(dpDate.SelectedDate.Value), txtVille.Text, (Province)cboProvince.SelectedItem, (TypeCourse)cboType.SelectedItem, ushort.Parse(txtDistance.Text));
-                this.DialogResult = true;
+                if (ValidationAjout())
+                {
+                    try
+                    {
+                        Course = new Course(Guid.NewGuid(), txtNom.Text, DateOnly.FromDateTime(dpDate.SelectedDate.Value), txtVille.Text, (Province)cboProvince.SelectedItem, (TypeCourse)cboType.SelectedItem, ushort.Parse(txtDistance.Text));
+                    }
+                    catch (ArgumentException)
+                    {
+                        MessageBox.Show("Erreur lors de la création de la course");
+                    }
+                }
+                this.DialogResult = true;F
             }
             else if (btnConfirmation.Content.ToString() == "Modifier")
             {
@@ -87,6 +97,51 @@ namespace _420_14B_FX_A24_TP2.formulaires
         private void btnAnnuler_Click_1(object sender, RoutedEventArgs e)
         {
             this.DialogResult = false;
+        }
+
+        private bool ValidationAjout()
+        {
+            ushort distance;
+            string message ="";
+            if (!string.IsNullOrWhiteSpace(txtNom.Text.Trim()))
+            {
+                if (txtNom.Text.Trim().Length < Course.NOM_NB_CAR_MIN)
+                {
+                    message += $"Le nom de la course doit contenir au moins {Course.NOM_NB_CAR_MIN} caractères\n";
+                }
+            }
+            else
+            {
+                message += "Le nom de la course ne peut pas etre null\n";
+            }
+            if (!string.IsNullOrWhiteSpace(txtVille.Text.Trim()))
+            {
+                if (txtVille.Text.Trim().Length < Course.VILLE_NB_CAR_MIN)
+                {
+                    message += $"Le nom de la ville doit contenir au moins {Course.VILLE_NB_CAR_MIN} caractères\n";
+                }
+            }
+            else
+            {
+                message += "Le nom de la ville ne peut pas etre null\n";
+            }
+            if (!ushort.TryParse(txtDistance.Text, out distance))
+            {
+                if (distance < Course.DISTANCE_VAL_MIN)
+                {
+                    message += $"La distance doit être supérieure à {Course.DISTANCE_VAL_MIN}.\n";
+                }
+            }
+            else
+            {
+                message += "La distance ne peut pas etre null";
+            }
+            if (!string.IsNullOrWhiteSpace(message))
+            {
+                MessageBox.Show(message);
+                return false;
+            }
+            return true;
         }
     }
 }
