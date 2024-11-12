@@ -278,18 +278,14 @@ namespace _420_14B_FX_A24_TP2.classes
         {
             if (coureur == null)
                 throw new ArgumentNullException("Le coureur ne peut pas être nul.");
-            Coureur nouvcoureur = new Coureur();
-            if (nouvcoureur == null)
-                throw new ArgumentNullException("Le coureur ne peut pas être nul.");
-
             for (int i = 0; i < Coureurs.Count; i++)
             {
-                if (nouvcoureur.Dossard == Coureurs[i].Dossard)
-                    throw new ArgumentException("Le numéro de dossard ne peut pas être deja utilise.");
-                if (nouvcoureur == Coureurs[i])
-                    throw new ArgumentException("Le coureur ne peut pas être deja inscrit.");
+                if (coureur == Coureurs[i])
+                    throw new InvalidOperationException("Le coureur ne peut pas être deja inscrit.");
+                if (coureur.Dossard == Coureurs[i].Dossard)
+                    throw new ArgumentException("Le numéro de dossard ne peut pas être deja utilise.");  
             }
-            Coureurs.Add(nouvcoureur);
+            Coureurs.Add(coureur);
             TrierCoureurs();
         }
 
@@ -362,17 +358,17 @@ namespace _420_14B_FX_A24_TP2.classes
 
         public void TrierCoureurs()
         {
-            List<Coureur> coureurs = new List<Coureur>();
-            for (int i = 0; i < coureurs.Count; i++)
-            {
-                for (int j = i + 1; j < coureurs.Count; j++)
-                {
-                    coureurs[i].CompareTo(coureurs[i + 1]);
-                }
-            }
+            Coureurs.Sort();
             for (int i = 0; i < Coureurs.Count; i++)
             {
-                Coureurs[i].Rang = (ushort)(i + 1);
+                if (Coureurs[i].Abandon != true)
+                {
+                    Coureurs[i].Rang = (ushort)(i + 1);
+                }
+                else
+                {
+                    Coureurs[i].Rang = 0;
+                }
             }
         }
         public static bool operator ==(Course courseGauche, Course courseDroit)

@@ -114,8 +114,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
             if (course != null && course.Coureurs != null)
             {
                 lstCoureurs.Items.Clear();
-                course.Coureurs.Sort();
-                //course.TrierCoureurs();
+                Course.TrierCoureurs();
                 for (int i = 0; i < course.Coureurs.Count; i++)
                 {
                     lstCoureurs.Items.Add(course.Coureurs[i]);

@@ -291,6 +291,14 @@ namespace _420_14B_FX_A24_TP2.classes
         /// <returns>Un int qui représente la position du coureur comparé a l'autre.</returns>
         public int CompareTo(Coureur other)
         {
+            if (this.Abandon == true && other.Abandon == false)
+            {
+                return 1;
+            }
+            if (this.Abandon == false && other.Abandon == true)
+            {
+                return -1;
+            }
             int comparaison = Temps.CompareTo(other.Temps);
             if (comparaison == 0)
             {
