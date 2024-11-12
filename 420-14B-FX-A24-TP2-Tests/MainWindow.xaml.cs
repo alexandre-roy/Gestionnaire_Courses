@@ -26,15 +26,12 @@ namespace _420_14B_FX_A24_TP2
 
         #region ATTRIBUTS
 
-        /// <summary>
-        /// Le gestionnaire de course.
-        /// </summary>
         private GestionCourse _gestionCourse;
+
 
         #endregion
 
         #region CONSTRUCTEUR
-
         public MainWindow()
         {
             _gestionCourse = new GestionCourse(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
@@ -44,16 +41,16 @@ namespace _420_14B_FX_A24_TP2
 
         #endregion
 
-        #region MÉTHODES
-
+        #region WINDOW_LOADED
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             AfficherListeCourses();
         }
 
-        /// <summary>
-        /// Affiche la liste des courses.
-        /// </summary>
+        #endregion
+
+        #region MÉTHODES
+
         public void AfficherListeCourses()
         {
             lstCourses.Items.Clear();
@@ -67,7 +64,6 @@ namespace _420_14B_FX_A24_TP2
         #endregion
 
         #region ACTIONS-FORMULAIRE
-
         private void btnNouveau_Click(object sender, RoutedEventArgs e)
         {
             EtatFormulaire etat = EtatFormulaire.Ajouter;

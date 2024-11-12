@@ -1,9 +1,6 @@
 ﻿using _420_14B_FX_A24_TP2.classes;
 using _420_14B_FX_A24_TP2.enums;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-
 namespace _420_14B_FX_A24_TP2.formulaires
 {
     /// <summary>
@@ -11,18 +8,24 @@ namespace _420_14B_FX_A24_TP2.formulaires
     /// </summary>
     public partial class FormCourse : Window
     {
+        #region ATTRIBUTS
+
         /// <summary>
-        /// Champ pour stocker l'objet Course
+        /// Champ pour stocker l'objet Course.
         /// </summary>
         private Course _course;
 
         /// <summary>
-        /// Champ pour stocker l'etat du formulaire
+        /// Champ pour stocker l'etat du formulaire.
         /// </summary>
         private EtatFormulaire _etat;
 
+        #endregion
+
+        #region PROPRIÉTÉS
+
         /// <summary>
-        /// Propriete qui permet d'obtenir et de definir l'etat du formulaire
+        /// Propriete qui permet d'obtenir et de definir l'etat du formulaire.
         /// </summary>
         public EtatFormulaire Etat
         {
@@ -37,7 +40,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
         }
 
         /// <summary>
-        /// Propriete qui permet d'obtenier et de definir l'object Course du formulaire
+        /// Propriete qui permet d'obtenier et de definir l'object Course du formulaire.
         /// </summary>
         public Course Course
         {
@@ -45,10 +48,14 @@ namespace _420_14B_FX_A24_TP2.formulaires
             set { _course = value; }
         }
 
+        #endregion
+
+        #region CONSTRUCTEUR
+
         /// <summary>
-        /// Constructeur pour initialiser le formulaire avec l'etat et optionellement la course
+        /// Constructeur pour initialiser le formulaire avec l'etat et optionellement la course.
         /// </summary>
-        /// <param name="etat"> Etat du formulaire, soit Ajouter ou Modifier</
+        /// <param name="etat"> Etat du formulaire, soit Ajouter ou Modifier</param>
         public FormCourse(EtatFormulaire etat, Course course = null)
         {
             InitializeComponent();
@@ -108,9 +115,16 @@ namespace _420_14B_FX_A24_TP2.formulaires
             }
         }
 
+        #endregion
+
+        #region MÉTHODES
+
+        /// <summary>
+        /// Affiche la liste des coureurs.
+        /// </summary>
+        /// <param name="course">Une course</param>
         public void AfficherListeCoureurs(Course course = null)
         {
-
             if (course != null && course.Coureurs != null)
             {
                 lstCoureurs.Items.Clear();
@@ -124,6 +138,69 @@ namespace _420_14B_FX_A24_TP2.formulaires
             {
                 return;
             }
+        }
+
+        /// <summary>
+        /// Valide les paramètres de la course.
+        /// </summary>
+        /// <returns>Un bool qui indique si la course est valide</returns>
+        private bool ValidationAjout()
+        {
+            ushort distance;
+            string message = "";
+            if (!string.IsNullOrWhiteSpace(txtNom.Text.Trim()))
+            {
+                if (txtNom.Text.Trim().Length < Course.NOM_NB_CAR_MIN)
+                {
+                    message += $"Le nom de la course doit contenir au moins {Course.NOM_NB_CAR_MIN} caractères\n";
+                }
+            }
+            else
+            {
+                message += "Le nom de la course ne peut pas etre null\n";
+            }
+            if (!string.IsNullOrWhiteSpace(txtVille.Text.Trim()))
+            {
+                if (txtVille.Text.Trim().Length < Course.VILLE_NB_CAR_MIN)
+                {
+                    message += $"Le nom de la ville doit contenir au moins {Course.VILLE_NB_CAR_MIN} caractères\n";
+                }
+            }
+            else
+            {
+                message += "Le nom de la ville ne peut pas etre null\n";
+            }
+            if (dpDate.SelectedDate == null)
+            {
+                message += "Veuillez choisir une date pour la course\n";
+            }
+
+            if (ushort.TryParse(txtDistance.Text, out distance))
+            {
+                if (distance < Course.DISTANCE_VAL_MIN)
+                {
+                    message += $"La distance doit être supérieure à {Course.DISTANCE_VAL_MIN}.\n";
+                }
+            }
+            else
+            {
+                message += "La distance ne peut pas etre nulle";
+            }
+            if (!string.IsNullOrWhiteSpace(message))
+            {
+                MessageBox.Show(message, "Erreur de parametre");
+                return false;
+            }
+            return true;
+        }
+
+        #endregion
+
+        #region ACTIONS-FORMULAIRE
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void btnConfirmation_Click_1(object sender, RoutedEventArgs e)
@@ -181,54 +258,34 @@ namespace _420_14B_FX_A24_TP2.formulaires
             this.DialogResult = false;
         }
 
-        private bool ValidationAjout()
+
+        private void btnAjouterCoureur_Click(object sender, RoutedEventArgs e)
         {
-            ushort distance;
-            string message ="";
-            if (!string.IsNullOrWhiteSpace(txtNom.Text.Trim()))
-            {
-                if (txtNom.Text.Trim().Length < Course.NOM_NB_CAR_MIN)
-                {
-                    message += $"Le nom de la course doit contenir au moins {Course.NOM_NB_CAR_MIN} caractères\n";
-                }
-            }
-            else
-            {
-                message += "Le nom de la course ne peut pas etre null\n";
-            }
-            if (!string.IsNullOrWhiteSpace(txtVille.Text.Trim()))
-            {
-                if (txtVille.Text.Trim().Length < Course.VILLE_NB_CAR_MIN)
-                {
-                    message += $"Le nom de la ville doit contenir au moins {Course.VILLE_NB_CAR_MIN} caractères\n";
-                }
-            }
-            else
-            {
-                message += "Le nom de la ville ne peut pas etre null\n";
-            }
-            if (dpDate.SelectedDate == null) 
-            {
-                message += "Veuillez choisir une date pour la course\n";
-            }
-            
-            if (ushort.TryParse(txtDistance.Text, out distance))
-            {
-                if (distance < Course.DISTANCE_VAL_MIN)
-                {
-                    message += $"La distance doit être supérieure à {Course.DISTANCE_VAL_MIN}.\n";
-                }
-            }
-            else
-            {
-                message += "La distance ne peut pas etre nulle";
-            }
-            if (!string.IsNullOrWhiteSpace(message))
-            {
-                MessageBox.Show(message, "Erreur de parametre");
-                return false;
-            }
-            return true;
+
         }
+
+        private void btnModifierCoureur_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSupprimerCoureur_Click(object sender, RoutedEventArgs e)
+        {
+            if (lstCoureurs.SelectedItem != null)
+            {
+                Coureur coureur = (Coureur)lstCoureurs.SelectedItem;
+                EtatFormulaire etat = EtatFormulaire.Supprimer;               
+                FormCoureur formCoureurWindow = new FormCoureur(etat, coureur);
+                formCoureurWindow.ShowDialog();
+                if (formCoureurWindow.DialogResult == true)
+                {
+                    Course.SupprimerCoureur(coureur);
+                    AfficherListeCoureurs();
+                    MessageBox.Show("Le coureur a été supprimée avec succès.", "Suppression d'un coureur", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+        }
+
+        #endregion
     }
 }

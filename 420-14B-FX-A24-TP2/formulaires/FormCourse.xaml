@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_420_14B_FX_A24_TP2.formulaires"
         mc:Ignorable="d"
-        Title="Course" Height="450" Width="700" ResizeMode="NoResize">
+        Title="Course" Height="450" Width="700" Loaded="Window_Loaded" ResizeMode="NoResize">
     <StackPanel>
         <TextBlock x:Name="tbTitre" HorizontalAlignment="Center" FontWeight="Bold" FontSize="23" Margin="20">-</TextBlock>
         <TabControl Margin="10,0" Height="280">
@@ -62,9 +62,9 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10" Height="30">
-                        <Button x:Name="btnAjouterCoureur" Content="Ajouter" Width="110" Margin="0,0,10,0"></Button>
-                        <Button x:Name="btnModifierCoureur" Content="Modifier" Width="110" Margin="0,0,10,0"></Button>
-                        <Button x:Name="btnAnnulerCoureur" Content="Annuler" Width="110"></Button>
+                        <Button x:Name="btnAjouterCoureur" Content="Ajouter" Width="110" Margin="0,0,10,0" Click="btnAjouterCoureur_Click"></Button>
+                        <Button x:Name="btnModifierCoureur" Content="Modifier" Width="110" Margin="0,0,10,0" Click="btnModifierCoureur_Click"></Button>
+                        <Button x:Name="btnSupprimerCoureur" Content="Supprimer" Width="110" Click="btnSupprimerCoureur_Click"></Button>
                     </StackPanel>
                     
                 </StackPanel>

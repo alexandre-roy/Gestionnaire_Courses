@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_420_14B_FX_A24_TP2"
         mc:Ignorable="d"
-        Title="La clinique du coureur" Height="360" Width="820" Loaded="Window_Loaded" ResizeMode="NoResize">
+        Title="La clinique du coureur" Height="360" Width="820" Loaded="Window_Loaded">
     <StackPanel Margin="10">
         <GroupBox Header="Liste des courses">
             <StackPanel Margin="10">

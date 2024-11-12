@@ -1,6 +1,4 @@
-﻿using System;
-using _420_14B_FX_A24_TP2.enums;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using _420_14B_FX_A24_TP2.enums;
 
 namespace _420_14B_FX_A24_TP2.classes
 {
@@ -11,57 +9,64 @@ namespace _420_14B_FX_A24_TP2.classes
     {
         #region CONSTANTES
 
+        /// <summary>
+        /// Constante qui représente le nombre minimal de caractères dans le nom d'une course.
+        /// </summary>
         public const int NOM_NB_CAR_MIN = 3;
 
+        /// <summary>
+        /// Constante qui représente le nombre minimal de caractères dans la ville d'une course.
+        /// </summary>
         public const int VILLE_NB_CAR_MIN = 4;
 
+        /// <summary>
+        /// Constante qui représente la distance minimale d'une course.
+        /// </summary>
         public const ushort DISTANCE_VAL_MIN = 1;
 
         #endregion
 
         #region ATTRIBUTS
 
-
         /// <summary>
-        /// Identifiant unique de la course
+        /// Identifiant unique de la course.
         /// </summary>
         private Guid _id;
 
-
         /// <summary>
-        /// Nom de la course
+        /// Nom de la course.
         /// </summary>
         private string _nom;
 
         /// <summary>
-        /// Date de la course
+        /// Date de la course.
         /// </summary>
         private DateOnly _date;
 
         /// <summary>
-        /// Ville où a lieu la course
+        /// Ville où a lieu la course.
         /// </summary>
         private string _ville;
 
         /// <summary>
-        /// Province où a lieu la course
+        /// Province où a lieu la course.
         /// </summary>
         private Province _province;
 
         /// <summary>
-        /// Type de course
+        /// Type de course.
         /// </summary>
         private TypeCourse _typeCourse;
 
 
         /// <summary>
-        /// Distance de la course
+        /// Distance de la course.
         /// </summary>
         private ushort _distance;
 
 
         /// <summary>
-        /// Liste des coureurs 
+        /// Liste des coureurs qui participent à la course.
         /// </summary>
         private List<Coureur> _coureurs;
 
@@ -72,6 +77,8 @@ namespace _420_14B_FX_A24_TP2.classes
         /// <summary>
         /// Obtient ou définit l'identifiant unique d'une course
         /// </summary>
+        /// <value>Obtient ou modifie la valeur de l'attribut :  _guid.</value>
+        /// <exception cref="System.ArgumentException">Lancée lorsque que le guid est nul ou n'a aucune valeur.</exception>
         public Guid Id
         {
             get { return _id; }
@@ -84,18 +91,16 @@ namespace _420_14B_FX_A24_TP2.classes
             }
         }
 
-
         /// <summary>
-        ///Obtien ou modifie le nom de la course.
+        /// Obtient ou modifie le nom de la course.
         /// </summary>
-        /// <value>Obtien ou modifie la valeur de l'attribut :  _nom.</value>
+        /// <value>Obtient ou modifie la valeur de l'attribut :  _nom.</value>
         /// <exception cref="System.ArgumentNullException">Lancée lorsque que le nom est nul ou n'a aucune valeur.</exception>
         /// <exception cref="System.ArgumentException">Lancé lors que le nom a moins de NOM_NB_CAR_MIN caractères.</exception>
 
         public string Nom
         {
             get { return _nom; }
-
             set 
             {
                 if (string.IsNullOrWhiteSpace(value))
@@ -114,9 +119,9 @@ namespace _420_14B_FX_A24_TP2.classes
 
 
         /// <summary>
-        ///Obtien ou modifie la date de la course
+        /// Obtient ou modifie la date de la course
         /// </summary>
-        /// <value>Obtien ou modifie la valeur de l'attribut :  _date.</value>
+        /// <value>Obtient ou modifie la valeur de l'attribut :  _date.</value>
         public DateOnly Date
         {
             get { return _date; }
@@ -125,11 +130,11 @@ namespace _420_14B_FX_A24_TP2.classes
 
 
         /// <summary>
-        ///Obtien ou modifie la ville où a lieu la course
+        /// Obtient ou modifie la ville où a lieu la course
         /// </summary>
-        /// <value>Obtien ou modifie la valeur de l'attribut :  _ville.</value>
+        /// <value>Obtient ou modifie la valeur de l'attribut :  _ville.</value>
         /// <exception cref="System.ArgumentNullException">Lancée lorsque que la ville est nulle ou n'a aucune valeur.</exception>
-        /// <exception cref="System.ArgumenOutOfRangetException">Lancé lors que la ville a moins de VILLE_NB_CAR_MIN caractères.</exception>
+        /// <exception cref="System.ArgumentOutOfRangeException">Lancé lors que la ville a moins de VILLE_NB_CAR_MIN caractères.</exception>
         public string Ville
         {
             get { return _ville; }
@@ -151,9 +156,9 @@ namespace _420_14B_FX_A24_TP2.classes
 
 
         /// <summary>
-        ///Obtien ou modifie la province où a lieu la course
+        /// Obtient ou modifie la province où a lieu la course
         /// </summary>
-        /// <value>Obtien ou modifie la valeur de l'attribut :  _province.</value>
+        /// <value>Obtient ou modifie la valeur de l'attribut :  _province.</value>
         /// <exception cref="System.ArgumentOutOfRangeException">Lancée lorsque la valeur de la province n'est pas entre PROVINCE_MIN_VAL et PROVINCE_MAX_VAL.</exception>
         public Province Province
         {
@@ -170,9 +175,9 @@ namespace _420_14B_FX_A24_TP2.classes
 
 
         /// <summary>
-        ///Obtien ou modifie le type de course.
+        /// Obtient ou modifie le type de course.
         /// </summary>
-        /// <value>Obtien ou modifie la valeur de l'attribut :  _type.</value>
+        /// <value>Obtient ou modifie la valeur de l'attribut :  _type.</value>
         /// <exception cref="System.ArgumentOutOfRangeException">Lancée lorsque que le type de course n'est pas entre TYPE_COURSE_MIN_VAL et TYPE_COURSE_MAX_VAL.</exception>
         public TypeCourse TypeCourse
         {
@@ -188,9 +193,9 @@ namespace _420_14B_FX_A24_TP2.classes
         }
 
         /// <summary>
-        ///Obtien ou modifie la distance de la course en km
+        /// Obtient ou modifie la distance de la course en km
         /// </summary>
-        /// <value>Obtien ou modifie la valeur de l'attribut :  _distance.</value>
+        /// <value>Obtient ou modifie la valeur de l'attribut :  _distance.</value>
         /// <exception cref="System.ArgumentOutOfRangeException">Lancée lorsque que la distance est inférieure à DISTANCE_VAL_MIN.</exception>
         public ushort Distance
         {
@@ -204,43 +209,40 @@ namespace _420_14B_FX_A24_TP2.classes
         }
 
         /// <summary>
-        ///Obtien ou modifie la liste des coureurs
+        /// Obtient ou modifie la liste des coureurs
         /// </summary>
-        /// <value>Obtien ou modifie la valeur de l'attribut :  _coureurs.</value>
+        /// <value>Obtient ou modifie la valeur de l'attribut :  _coureurs.</value>
         public List<Coureur> Coureurs
         {
             get { return _coureurs; }
             set { _coureurs = value; }
         }
-
-
      
         /// <summary>
-        ///Obtien le nombre de coureurs participants à la course
+        /// Obtient le nombre de coureurs participants à la course
         /// </summary>
-        /// <value>Obtien la valeur de l'attribut :  _coureurs.Count.</value>
+        /// <value>Obtient la valeur de l'attribut :  _coureurs.Count.</value>
         public int NbParticipants
         {
             get {
                 return _coureurs.Count;
                     
                 throw new NotImplementedException();
-            }
-      
+            }    
         }
 
         /// <summary>
-        ///Obtien le temps de course moyen
+        /// Obtient le temps de course moyen
         /// </summary>
-        /// <value>Obtien la valeur retourné par la méthode : CalculerTempsCourseMoyen() </value>
+        /// <value>Obtient la valeur retourné par la méthode : CalculerTempsCourseMoyen() </value>
         public TimeSpan TempCourseMoyen
         {
             get {
+
                 return CalculerTempsCourseMoyen();
 
                 throw new NotImplementedException(); 
-            }
-          
+            }         
         }
 
         #endregion
@@ -269,11 +271,17 @@ namespace _420_14B_FX_A24_TP2.classes
             Coureurs = new List<Coureur>();
         }
 
-
         #endregion
 
         #region MÉTHODES
 
+        /// <summary>
+        /// Permet l'ajout d'un coureur à la liste des coureurs.
+        /// </summary>
+        /// <param name="coureur"></param>
+        /// <exception cref="ArgumentNullException">Le coureur ne peut pas être nul.</exception>
+        /// <exception cref="InvalidOperationException">Le numéro de dossard du coureur ne doit pas être utilisé par un autre coureur.</exception>
+        /// <exception cref="ArgumentException">Un coureur avec les mêmes informations (sans le numéro de dossard) existe déjà.</exception>
         public void AjouterCoureur(Coureur coureur)
         {
             if (coureur == null)
@@ -289,43 +297,12 @@ namespace _420_14B_FX_A24_TP2.classes
             TrierCoureurs();
         }
 
-        private TimeSpan CalculerTempsCourseMoyen()
-        {
-            int index = 0;
-            TimeSpan tempsTotal = TimeSpan.Zero;
-
-            foreach (var coureur in Coureurs)
-            {
-                if (!coureur.Abandon)
-                {
-                    TimeSpan temps = coureur.Temps;
-                    tempsTotal += temps;
-                    index++;
-                }
-            }
-            return tempsTotal / index;
-        }   
-
-        public int CompareTo(Course other)
-        {
-            int comparaison = Date.CompareTo(other.Date);
-            if (comparaison == 0)
-            {
-                return string.Compare(Nom, other.Nom);
-            }
-            return comparaison;
-        }
-
-
-        public override bool Equals(object obj)
-        {
-            if (obj is Course other)
-            {
-                return this == other;
-            }
-            return false;
-        }
-
+        /// <summary>
+        /// Permet d'obtenir un coureur à partir de son numéro de dossard.
+        /// </summary>
+        /// <param name="dossard">Le dossard du coureur</param>
+        /// <returns>Si aucun coureur ne porte le numéro de dossard  recherché, alors la valeur nulle est retournée sinon le coureur trouvé est retourné.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Cette méthode doit lancer une exception si le numéro du dossard est plus petit que 1.</exception>
         public Coureur ObtenirCoureurParNoDossard(ushort dossard)
         {
             if (dossard < Coureur.DOSSARD_VAL_MIN)
@@ -333,14 +310,19 @@ namespace _420_14B_FX_A24_TP2.classes
                 throw new ArgumentOutOfRangeException($"Le numéro du dossard ne doit pas être inférieur à {Coureur.DOSSARD_VAL_MIN}.");
             }
             foreach (Coureur coureur in Coureurs)
-            {               
+            {
                 if (coureur.Dossard == dossard)
                     return coureur;
             }
             return null;
-
         }
 
+        /// <summary>
+        /// Permet de retirer un coureur de la liste de coureurs.
+        /// </summary>
+        /// <param name="coureur">Un coureur</param>
+        /// <exception cref="ArgumentNullException">Le coureur ne doit pas être nul.</exception>
+        /// <exception cref="InvalidOperationException">Le coureur doit exister dans la liste.</exception>
         public void SupprimerCoureur(Coureur coureur)
         {
             if (coureur == null)
@@ -351,11 +333,30 @@ namespace _420_14B_FX_A24_TP2.classes
             TrierCoureurs();
         }
 
-        public override string ToString()
+        /// <summary>
+        /// Permet de calculer le temps moyen de la course. Les coureurs ayant abandonné la course sont exclus du calcul.
+        /// </summary>
+        /// <returns>Retourne le temps moyen de la course.</returns>
+        private TimeSpan CalculerTempsCourseMoyen()
         {
-            return $"{Nom.PadRight(40)}{Ville.PadRight(25)}{Province.ToString().PadRight(25)}{Date}";
+            int index = 0;
+            double tempsTotal = 0;
+
+            foreach (Coureur coureur in Coureurs)
+            {
+                if (!coureur.Abandon && coureur.Temps != TimeSpan.Zero)
+                {
+                    tempsTotal += coureur.Temps.TotalMilliseconds;
+                    index++;
+                }
+            }
+
+            return TimeSpan.FromMilliseconds(tempsTotal / index);
         }
 
+        /// <summary>
+        /// Permet de trier la liste des coureurs selon le temps de course en ajustant le rang des coureurs.
+        /// </summary>
         public void TrierCoureurs()
         {
             Coureurs.Sort();
@@ -371,6 +372,51 @@ namespace _420_14B_FX_A24_TP2.classes
                 }
             }
         }
+
+        /// <summary>
+        /// Retourne la représentation d'une course sous forme de chaîne de caractère de la manière.
+        /// </summary>
+        /// <returns>la représentation d'une course sous forme de chaîne de caractère de la manière</returns>
+        public override string ToString()
+        {
+            return $"{Nom.PadRight(40)}{Ville.PadRight(25)}{Province.ToString().PadRight(25)}{Date}";
+        }
+
+        /// <summary>
+        /// Compare deux courses.
+        /// </summary>
+        /// <param name="other">Une course</param>
+        /// <returns>Un int qui représente sa place comparé a l'autre</returns>
+        public int CompareTo(Course other)
+        {
+            int comparaison = Date.CompareTo(other.Date);
+            if (comparaison == 0)
+            {
+                return string.Compare(Nom, other.Nom);
+            }
+            return comparaison;
+        }
+
+        /// <summary>
+        /// Permet de comparer deux courses. Deux courses sont identiques s’ils ont le même nom, date, ville, province, type et distance.
+        /// </summary>
+        /// <param name="obj">Une autre course</param>
+        /// <returns>Un bool qui indique si les courses sont identiques</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is Course other)
+            {
+                return this == other;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Permet de comparer deux courses.
+        /// </summary>
+        /// <param name="courseGauche">Une course</param>
+        /// <param name="courseDroit">Une autre course</param>
+        /// <returns>Un bool qui indique si les courses sont identiques</returns>
         public static bool operator ==(Course courseGauche, Course courseDroit)
         {
             if (ReferenceEquals(courseGauche, courseDroit))
@@ -384,6 +430,12 @@ namespace _420_14B_FX_A24_TP2.classes
             return courseGauche.Id == courseDroit.Id && courseGauche.Nom == courseDroit.Nom && courseGauche.Ville == courseDroit.Ville && courseGauche.Province == courseDroit.Province && courseGauche.Date == courseDroit.Date && courseGauche.TypeCourse == courseDroit.TypeCourse && courseGauche.Distance == courseDroit.Distance;
         }
 
+        /// <summary>
+        /// Permet de comparer deux courses.
+        /// </summary>
+        /// <param name="courseGauche">Une course</param>
+        /// <param name="courseDroit">Une autre course</param>
+        /// <returns>Un bool qui indique si les courses sont identiques</returns>
         public static bool operator !=(Course courseGauche, Course courseDroit)
         {
             if (ReferenceEquals(courseGauche, courseDroit))

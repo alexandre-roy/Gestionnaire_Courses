@@ -11,12 +11,18 @@ namespace _420_14B_FX_A24_TP2.classes
     {
         #region ATTRIBUTS
 
+        /// <summary>
+        /// Les courses.
+        /// </summary>
         private List<Course> _courses;
 
         #endregion
 
         #region PROPRIÉTÉS
 
+        /// <summary>
+        /// Obtient ou définit la course.
+        /// </summary>
         public List<Course> Courses
         {
             get { return _courses; }
@@ -26,15 +32,26 @@ namespace _420_14B_FX_A24_TP2.classes
         #endregion
 
         #region CONSTRUCTEUR
-            
+
+        /// <summary>
+        /// Un seul constructeur ayant comme paramètre le chemin d’accès au fichier de courses et celui des coureurs et qui charge les courses.
+        /// </summary>
+        /// <param name="cheminFichierCourses"></param>
+        /// <param name="cheminFichierCoureurs"></param>
         public GestionCourse(string cheminFichierCourses, string cheminFichierCoureurs)
         {
             ChargerCourses(cheminFichierCourses, cheminFichierCoureurs);
         }
+
         #endregion
 
         #region MÉTHODES
 
+        /// <summary>
+        /// Permet de charger les données de la course et ses coureurs.
+        /// </summary>
+        /// <param name="cheminFichierCourses"></param>
+        /// <param name="cheminFichierCoureurs"></param>
         public void ChargerCourses(string cheminFichierCourses, string cheminFichierCoureurs)
         {
             try
@@ -77,7 +94,12 @@ namespace _420_14B_FX_A24_TP2.classes
                 MessageBox.Show("Une erreur est survenue lors du chargement des courses", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-           
+
+        /// <summary>
+        /// Permet de charger les coureurs dans la course.
+        /// </summary>
+        /// <param name="course"></param>
+        /// <param name="cheminFichierCoureurs"></param>
         public void ChargerCoureurs(Course course, string cheminFichierCoureurs)
         {
             try
@@ -126,16 +148,29 @@ namespace _420_14B_FX_A24_TP2.classes
             }
         }
 
+        /// <summary>
+        ///  Permet l’ajout de la couse à la liste des courses.
+        /// </summary>
+        /// <param name="course"></param>
         public void AjouterCourse(Course course)
         {
             Courses.Add(course);
         }
 
+        /// <summary>
+        /// Permet de retirer une course de la liste des courses.
+        /// </summary>
+        /// <param name="course"></param>
         public void SupprimerCourse(Course course)
         {
             Courses.Remove(course);
         }
 
+        /// <summary>
+        /// Permet l'enregistrement des données de la course et les données des coureurs dans les fichiers correspondants.
+        /// </summary>
+        /// <param name="cheminFichierCourses"></param>
+        /// <param name="cheminFicherCoureurs"></param>
         public void EnregistrerCourses(string cheminFichierCourses, string cheminFicherCoureurs)
         {
             try
@@ -153,6 +188,7 @@ namespace _420_14B_FX_A24_TP2.classes
 
             }
         }
+
         #endregion
     }
 }

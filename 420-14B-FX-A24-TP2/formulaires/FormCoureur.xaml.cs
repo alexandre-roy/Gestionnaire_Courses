@@ -1,12 +1,6 @@
-﻿using System;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents.Serialization;
-using System.Windows.Media;
+﻿using System.Windows;
 using _420_14B_FX_A24_TP2.classes;
 using _420_14B_FX_A24_TP2.enums;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace _420_14B_FX_A24_TP2.formulaires
 {
@@ -17,12 +11,18 @@ namespace _420_14B_FX_A24_TP2.formulaires
     {
         #region ATTRIBUTS 
 
+        /// <summary>
+        /// L'état du formulaire.
+        /// </summary>
         EtatFormulaire _etat;
 
         #endregion
 
         #region PROPRIÉTÉS
 
+        /// <summary>
+        /// Obtient ou définis l'état du formulaire.
+        /// </summary>
         public EtatFormulaire Etat
         {
             get { return _etat; }
@@ -38,7 +38,12 @@ namespace _420_14B_FX_A24_TP2.formulaires
 
         #region CONSTRUCTEUR
 
-        public FormCoureur(EtatFormulaire etat)
+        /// <summary>
+        /// Constructeur pour initialiser le formulaire avec l'etat et optionellement le coureur.
+        /// </summary>
+        /// <param name="etat"></param>
+        /// <param name="coureur"></param>
+        public FormCoureur(EtatFormulaire etat, Coureur coureur = null)
         {
             InitializeComponent();
 
@@ -60,6 +65,14 @@ namespace _420_14B_FX_A24_TP2.formulaires
                 case EtatFormulaire.Supprimer:
                     tbTitre.Text = "Suppression d'un coureur";
                     btnConfirmation.Content = "Supprimer";
+                    txtDossard.Text = coureur.Dossard.ToString();
+                    txtNom.Text = coureur.Nom;
+                    txtPrenom.Text = coureur.Prenom;
+                    txtVille.Text = coureur.Ville;
+                    cboCategorie.Text = coureur.Categorie.ToString();
+                    cboProvince.Text = coureur.Province.ToString();
+                    tsTemps.Text = coureur.Temps.ToString();
+
                     txtDossard.IsEnabled = false;
                     txtNom.IsEnabled = false;
                     txtPrenom.IsEnabled = false;
@@ -75,103 +88,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
 
         #endregion
 
-        #region ACTIONS-FORMULAIRE
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        { 
-            InitializeComponent();
-
-            string[] provinces = UtilEnum.GetAllDescriptions<Province>();
-            for (int i = 0; i < provinces.Length; i++)
-            {
-                cboProvince.Items.Add(provinces[i]);
-            }
-
-            string[] categories = UtilEnum.GetAllDescriptions<Categorie>();
-            for (int i = 0; i < categories.Length; i++)
-            {
-                cboCategorie.Items.Add(categories[i]);
-            }
-        }
-
-        private void btnConfirmation_Click(object sender, RoutedEventArgs e)
-{
-        if (btnConfirmation.Content.ToString() == "Ajouter")
-        {        
-            if (ValiderCoureur() == "")
-            {
-                if (ushort.TryParse(txtDossard.Text, out ushort dossard)) 
-                {
-                    Coureur nouveauCoureur = new Coureur();
-                    nouveauCoureur.Dossard = ushort.Parse(txtDossard.Text);
-                    nouveauCoureur.Nom = txtNom.Text;
-                    nouveauCoureur.Prenom = txtPrenom.Text;
-                    nouveauCoureur.Categorie = (Categorie)cboCategorie.SelectedItem;
-                    nouveauCoureur.Ville = txtVille.Text;
-                    nouveauCoureur.Rang = 0;
-                    nouveauCoureur.Province = (Province)cboProvince.SelectedItem;
-                    nouveauCoureur.Temps = tsTemps.Value.Value;
-                    if (chkAbandon.IsChecked == true)
-                    {
-                        nouveauCoureur.Abandon = true;
-                    }
-                    MessageBox.Show("Le coureur a été ajouté avec succès.", "Ajout d'un coureur", MessageBoxButton.OK);
-                }
-                else
-                {
-                    MessageBox.Show("Le numéro de dossard est invalide. Veuillez entrer un nombre valide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            else
-            {
-              MessageBox.Show(ValiderCoureur(), "Ajout d'un coureur");
-            }         
-        }
-            else if (btnConfirmation.Content.ToString() == "Modifier")
-            {
-                if (ValiderCoureur() == "")
-                {
-                    if (ushort.TryParse(txtDossard.Text, out ushort dossard))
-                    {
-                        
-                        //.Dossard = ushort.Parse(txtDossard.Text);
-                        //.Nom = txtNom.Text;
-                        //.Prenom = txtPrenom.Text;
-                        //.Categorie = (Categorie)cboCategorie.SelectedItem;
-                        //.Ville = txtVille.Text;
-                        //.Rang = 0;
-                        //.Province = (Province)cboProvince.SelectedItem;
-                        //.Temps = tsTemps.Value.Value;
-                        if (chkAbandon.IsChecked == true)
-                        {
-                            //.Abandon = true;
-                        }
-                        MessageBox.Show("Le coureur a été ajouté avec succès.", "Modification d'un coureur", MessageBoxButton.OK);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Le numéro de dossard est invalide. Veuillez entrer un nombre valide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show(ValiderCoureur(), "Modification d'un coureur");
-                }
-            }
-        else if (btnConfirmation.Content.ToString() == "Supprimer")
-        {
-            MessageBoxResult resultat = MessageBox.Show("Désirez-vous vraiment supprimer ce coureur?", "Suppression d'un coureur", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-
-            switch (resultat)
-            {
-                case MessageBoxResult.Yes:
-                    MessageBox.Show("Le coureur a été supprimé avec succès", "Suppression d'un coureur", MessageBoxButton.OK);
-                    this.Close();
-                    break;
-                case MessageBoxResult.No:
-                    break;
-                }
-            }
-        }
+        #region MÉTHODES
 
         private string ValiderCoureur()
         {
@@ -227,8 +144,101 @@ namespace _420_14B_FX_A24_TP2.formulaires
                 messageErreur += "Vous devez sélectionner une catégorie.\n";
             }
 
-            return messageErreur;          
+            return messageErreur;
         }
+
+        #endregion
+
+        #region ACTIONS-FORMULAIRE
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        { 
+            InitializeComponent();
+
+            string[] provinces = UtilEnum.GetAllDescriptions<Province>();
+            for (int i = 0; i < provinces.Length; i++)
+            {
+                cboProvince.Items.Add(provinces[i]);
+            }
+
+            string[] categories = UtilEnum.GetAllDescriptions<Categorie>();
+            for (int i = 0; i < categories.Length; i++)
+            {
+                cboCategorie.Items.Add(categories[i]);
+            }
+        }
+
+        private void btnConfirmation_Click(object sender, RoutedEventArgs e)
+{
+        if (btnConfirmation.Content.ToString() == "Ajouter")
+        {        
+            if (ValiderCoureur() == "")
+            {
+                if (ushort.TryParse(txtDossard.Text, out ushort dossard)) 
+                {
+                    Coureur nouveauCoureur = new Coureur(ushort.Parse(txtDossard.Text), txtNom.Text, txtPrenom.Text, (Categorie)cboCategorie.SelectedItem, txtVille.Text, (Province)cboProvince.SelectedItem, tsTemps.Value.Value);
+                    nouveauCoureur.Rang = 0;
+                    if (chkAbandon.IsChecked == true)
+                    {
+                        nouveauCoureur.Abandon = true;
+                    }
+                    MessageBox.Show("Le coureur a été ajouté avec succès.", "Ajout d'un coureur", MessageBoxButton.OK);
+                }
+                else
+                {
+                    MessageBox.Show("Le numéro de dossard est invalide. Veuillez entrer un nombre valide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+              MessageBox.Show(ValiderCoureur(), "Ajout d'un coureur");
+            }         
+        }
+            else if (btnConfirmation.Content.ToString() == "Modifier")
+            {
+                if (ValiderCoureur() == "")
+                {
+                    if (ushort.TryParse(txtDossard.Text, out ushort dossard))
+                    {
+                        
+                        //.Dossard = ushort.Parse(txtDossard.Text);
+                        //.Nom = txtNom.Text;
+                        //.Prenom = txtPrenom.Text;
+                        //.Categorie = (Categorie)cboCategorie.SelectedItem;
+                        //.Ville = txtVille.Text;
+                        //.Rang = 0;
+                        //.Province = (Province)cboProvince.SelectedItem;
+                        //.Temps = tsTemps.Value.Value;
+                        if (chkAbandon.IsChecked == true)
+                        {
+                            //.Abandon = true;
+                        }
+                        MessageBox.Show("Le coureur a été ajouté avec succès.", "Modification d'un coureur", MessageBoxButton.OK);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Le numéro de dossard est invalide. Veuillez entrer un nombre valide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(ValiderCoureur(), "Modification d'un coureur");
+                }
+            }
+            else if (btnConfirmation.Content.ToString() == "Supprimer")
+            {
+                MessageBoxResult resultat = MessageBox.Show("Désirez-vous vraiment supprimer ce coureur?", "Suppression d'un coureur", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                
+                switch (resultat)
+                {
+                    case MessageBoxResult.Yes:
+                        this.DialogResult = true;
+                        break;
+                    case MessageBoxResult.No:
+                        this.DialogResult = false;
+                        break;
+                }
+            }
+        }       
 
         private void btnAnnuler_Click(object sender, RoutedEventArgs e)
         {
