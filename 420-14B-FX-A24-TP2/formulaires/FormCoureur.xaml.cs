@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Data;
+using System.Windows;
 using _420_14B_FX_A24_TP2.classes;
 using _420_14B_FX_A24_TP2.enums;
 
@@ -10,6 +11,11 @@ namespace _420_14B_FX_A24_TP2.formulaires
     public partial class FormCoureur : Window
     {
         #region ATTRIBUTS 
+
+        /// <summary>
+        /// Champ pour stocker l'objet Coureur.
+        /// </summary>
+        private Coureur _coureur;
 
         /// <summary>
         /// L'état du formulaire.
@@ -34,6 +40,15 @@ namespace _420_14B_FX_A24_TP2.formulaires
             }
         }
 
+        /// <summary>
+        /// Propriete qui permet d'obtenier et de definir l'objet Coureur du formulaire.
+        /// </summary>
+        public Coureur Coureur
+        {
+            get { return _coureur; }
+            set { _coureur = value; }
+        }
+
         #endregion
 
         #region CONSTRUCTEUR
@@ -46,20 +61,27 @@ namespace _420_14B_FX_A24_TP2.formulaires
         public FormCoureur(EtatFormulaire etat, Coureur coureur = null)
         {
             InitializeComponent();
-
             Etat = etat;
 
             switch (etat)
             {
                 case EtatFormulaire.Ajouter:
                     tbTitre.Text = "Ajouter un coureur";
-                    btnConfirmation.Content = "Ajouter";
-                    
+                    btnConfirmation.Content = "Ajouter";                   
                     break;
 
                 case EtatFormulaire.Modifier:
                     tbTitre.Text = "Modification d'un coureur";
                     btnConfirmation.Content = "Modifier";
+                    txtDossard.Text = coureur.Dossard.ToString();
+                    txtNom.Text = coureur.Nom;
+                    txtPrenom.Text = coureur.Prenom;
+                    txtVille.Text = coureur.Ville;
+                    cboCategorie.SelectedItem = coureur.Categorie.GetDescription();
+                    cboProvince.SelectedItem = coureur.Province.GetDescription();
+                    tsTemps.Text = coureur.Temps.ToString();
+
+                    txtDossard.IsEnabled = false;
                     break;
 
                 case EtatFormulaire.Supprimer:
@@ -69,8 +91,8 @@ namespace _420_14B_FX_A24_TP2.formulaires
                     txtNom.Text = coureur.Nom;
                     txtPrenom.Text = coureur.Prenom;
                     txtVille.Text = coureur.Ville;
-                    cboCategorie.Text = coureur.Categorie.ToString();
-                    cboProvince.Text = coureur.Province.ToString();
+                    cboCategorie.SelectedItem = coureur.Categorie.GetDescription();
+                    cboProvince.SelectedItem = coureur.Province.GetDescription();
                     tsTemps.Text = coureur.Temps.ToString();
 
                     txtDossard.IsEnabled = false;
@@ -82,8 +104,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
                     tsTemps.IsEnabled = false;
                     chkAbandon.IsEnabled = false;
                     break;
-            }
-            
+            }           
         }
 
         #endregion
@@ -169,48 +190,47 @@ namespace _420_14B_FX_A24_TP2.formulaires
 
         private void btnConfirmation_Click(object sender, RoutedEventArgs e)
 {
-        if (btnConfirmation.Content.ToString() == "Ajouter")
-        {        
-            if (ValiderCoureur() == "")
-            {
-                if (ushort.TryParse(txtDossard.Text, out ushort dossard)) 
+            if (btnConfirmation.Content.ToString() == "Ajouter")
+            {        
+                if (ValiderCoureur() == "")
                 {
-                    Coureur nouveauCoureur = new Coureur(ushort.Parse(txtDossard.Text), txtNom.Text, txtPrenom.Text, (Categorie)cboCategorie.SelectedItem, txtVille.Text, (Province)cboProvince.SelectedItem, tsTemps.Value.Value);
-                    nouveauCoureur.Rang = 0;
-                    if (chkAbandon.IsChecked == true)
+                    if (ushort.TryParse(txtDossard.Text, out ushort dossard)) 
                     {
-                        nouveauCoureur.Abandon = true;
+                        Coureur nouveauCoureur = new Coureur(ushort.Parse(txtDossard.Text), txtNom.Text, txtPrenom.Text, (Categorie)cboCategorie.SelectedItem, txtVille.Text, (Province)cboProvince.SelectedItem, tsTemps.Value.Value);
+                        nouveauCoureur.Rang = 0;
+                        if (chkAbandon.IsChecked == true)
+                        {
+                            nouveauCoureur.Abandon = true;
+                        }
                     }
-                    MessageBox.Show("Le coureur a été ajouté avec succès.", "Ajout d'un coureur", MessageBoxButton.OK);
+                    else
+                    {
+                        MessageBox.Show("Le numéro de dossard est invalide. Veuillez entrer un nombre valide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    this.DialogResult = true;
                 }
                 else
                 {
-                    MessageBox.Show("Le numéro de dossard est invalide. Veuillez entrer un nombre valide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                  MessageBox.Show(ValiderCoureur(), "Ajout d'un coureur");
+                }                
             }
-            else
-            {
-              MessageBox.Show(ValiderCoureur(), "Ajout d'un coureur");
-            }         
-        }
             else if (btnConfirmation.Content.ToString() == "Modifier")
             {
                 if (ValiderCoureur() == "")
                 {
                     if (ushort.TryParse(txtDossard.Text, out ushort dossard))
-                    {
-                        
-                        //.Dossard = ushort.Parse(txtDossard.Text);
-                        //.Nom = txtNom.Text;
-                        //.Prenom = txtPrenom.Text;
-                        //.Categorie = (Categorie)cboCategorie.SelectedItem;
-                        //.Ville = txtVille.Text;
-                        //.Rang = 0;
-                        //.Province = (Province)cboProvince.SelectedItem;
-                        //.Temps = tsTemps.Value.Value;
+                    {                        
+                        Coureur.Dossard = ushort.Parse(txtDossard.Text);
+                        Coureur.Nom = txtNom.Text;
+                        Coureur.Prenom = txtPrenom.Text;
+                        Coureur.Categorie = (Categorie)cboCategorie.SelectedItem;
+                        Coureur.Ville = txtVille.Text;
+                        Coureur.Rang = 0;
+                        Coureur.Province = (Province)cboProvince.SelectedItem;
+                        Coureur.Temps = tsTemps.Value.Value;
                         if (chkAbandon.IsChecked == true)
                         {
-                            //.Abandon = true;
+                            Coureur.Abandon = true;
                         }
                         MessageBox.Show("Le coureur a été ajouté avec succès.", "Modification d'un coureur", MessageBoxButton.OK);
                     }

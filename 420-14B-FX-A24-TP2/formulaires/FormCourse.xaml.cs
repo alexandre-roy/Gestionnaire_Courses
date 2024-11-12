@@ -40,7 +40,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
         }
 
         /// <summary>
-        /// Propriete qui permet d'obtenier et de definir l'object Course du formulaire.
+        /// Propriete qui permet d'obtenier et de definir l'objet Course du formulaire.
         /// </summary>
         public Course Course
         {
@@ -61,9 +61,6 @@ namespace _420_14B_FX_A24_TP2.formulaires
             InitializeComponent();
             txtTempsMoyen.IsEnabled = false;
             txtParticipants.IsEnabled = false;
-       
-            cboProvince.ItemsSource = Enum.GetValues(typeof(Province));
-            cboType.ItemsSource = Enum.GetValues(typeof(TypeCourse));
 
             Etat = etat;
             Course = course;
@@ -82,7 +79,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
                         btnConfirmation.Content = "Modifier";
                         txtNom.Text = course.Nom;
                         txtVille.Text = course.Ville;
-                        cboProvince.Text = course.Province.ToString();
+                        cboProvince.SelectedItem = course.Province.GetDescription();
                         DateOnly dateOnly = course.Date;
                         dpDate.SelectedDate = dateOnly.ToDateTime(TimeOnly.MinValue);
                         txtDistance.Text = course.Distance.ToString();
@@ -97,7 +94,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
                         btnConfirmation.Content = "Supprimer";
                         txtNom.Text = course.Nom;
                         txtVille.Text = course.Ville;
-                        cboProvince.Text = course.Province.ToString();
+                        cboProvince.SelectedItem = course.Province.GetDescription();
                         DateOnly dateOnly = course.Date;
                         dpDate.SelectedDate = dateOnly.ToDateTime(TimeOnly.MinValue);
                         txtDistance.Text = course.Distance.ToString();
@@ -200,7 +197,17 @@ namespace _420_14B_FX_A24_TP2.formulaires
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            string[] provinces = UtilEnum.GetAllDescriptions<Province>();
+            for (int i = 0; i < provinces.Length; i++)
+            {
+                cboProvince.Items.Add(provinces[i]);
+            }
 
+            string[] typeCourse = UtilEnum.GetAllDescriptions<Categorie>();
+            for (int i = 0; i < typeCourse.Length; i++)
+            {
+                cboType.Items.Add(typeCourse[i]);
+            }
         }
 
         private void btnConfirmation_Click_1(object sender, RoutedEventArgs e)
@@ -258,15 +265,44 @@ namespace _420_14B_FX_A24_TP2.formulaires
             this.DialogResult = false;
         }
 
-
         private void btnAjouterCoureur_Click(object sender, RoutedEventArgs e)
         {
-
+            FormCoureur formCoureurWindow = new FormCoureur(EtatFormulaire.Ajouter);
+            formCoureurWindow.ShowDialog();
+            if (formCoureurWindow.DialogResult == true)
+            {
+                //for (int i = 0; i < Course.Coureurs.Count; i++)
+                //{
+                //    if (Coureur.Equals(formCoureurWindow.Coureur, Coureur[i]))
+                //    {
+                //        MessageBox.Show("Impossible d'ajouter ce coureur car elle existe deja", "Ajout d'un coureur", MessageBoxButton.OK);
+                //        return;
+                //    }
+                //}
+                AfficherListeCoureurs();
+                MessageBox.Show("Le coureur a été ajouté avec succès.", "Ajout d'un coureur", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         private void btnModifierCoureur_Click(object sender, RoutedEventArgs e)
         {
-
+            if (lstCoureurs.SelectedItem != null)
+            {
+                EtatFormulaire etat = EtatFormulaire.Modifier;
+                Coureur coureur = (Coureur)lstCoureurs.SelectedItem;
+                FormCoureur formCoureurWindow = new FormCoureur(etat, coureur);
+                formCoureurWindow.ShowDialog();
+                if (formCoureurWindow.DialogResult == true)
+                {
+                    MessageBox.Show("Coureur modifiée avec succès", "Modification d'un coureur", MessageBoxButton.OK, MessageBoxImage.Information);
+                    AfficherListeCoureurs();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Selectionner le coureur a modifier", "Modification d'un coureur");
+                return;
+            }
         }
 
         private void btnSupprimerCoureur_Click(object sender, RoutedEventArgs e)

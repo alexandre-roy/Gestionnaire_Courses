@@ -79,7 +79,7 @@ namespace _420_14B_FX_A24_TP2
                 {
                     if (Course.Equals(formCourseWindow.Course, _gestionCourse.Courses[i]))
                     {
-                        MessageBox.Show("Impossible d'ajouter cette course car elle existe deja", "Ajout d'une Course", MessageBoxButton.OK);
+                        MessageBox.Show("Impossible d'ajouter cette course car elle existe deja", "Ajout d'une course", MessageBoxButton.OK);
                         return;
                     }
                 }

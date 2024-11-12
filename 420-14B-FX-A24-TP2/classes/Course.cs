@@ -379,7 +379,7 @@ namespace _420_14B_FX_A24_TP2.classes
         /// <returns>la représentation d'une course sous forme de chaîne de caractère de la manière</returns>
         public override string ToString()
         {
-            return $"{Nom.PadRight(40)}{Ville.PadRight(25)}{Province.ToString().PadRight(25)}{Date}";
+            return $"{Nom.PadRight(40)}{Ville.PadRight(25)}{Province.GetDescription().PadRight(25)}{Date}";
         }
 
         /// <summary>
