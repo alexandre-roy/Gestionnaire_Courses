@@ -278,19 +278,18 @@ namespace _420_14B_FX_A24_TP2.classes
         {
             if (coureur == null)
                 throw new ArgumentNullException("Le coureur ne peut pas être nul.");
-            List<Coureur> coureurs = new List<Coureur>();
             Coureur nouvcoureur = new Coureur();
             if (nouvcoureur == null)
                 throw new ArgumentNullException("Le coureur ne peut pas être nul.");
 
-            for (int i = 0; i < coureurs.Count; i++)
+            for (int i = 0; i < Coureurs.Count; i++)
             {
-                if (nouvcoureur.Dossard == coureurs[i].Dossard)
+                if (nouvcoureur.Dossard == Coureurs[i].Dossard)
                     throw new ArgumentException("Le numéro de dossard ne peut pas être deja utilise.");
-                if (nouvcoureur == coureurs[i])
+                if (nouvcoureur == Coureurs[i])
                     throw new ArgumentException("Le coureur ne peut pas être deja inscrit.");
             }
-            coureurs.Add(nouvcoureur);
+            Coureurs.Add(nouvcoureur);
             TrierCoureurs();
         }
 
@@ -337,9 +336,7 @@ namespace _420_14B_FX_A24_TP2.classes
             {
                 throw new ArgumentOutOfRangeException($"Le numéro du dossard ne doit pas être inférieur à {Coureur.DOSSARD_VAL_MIN}.");
             }
-
-            List<Coureur> coureurs = new List<Coureur>();
-            foreach (var coureur in coureurs)
+            foreach (Coureur coureur in Coureurs)
             {               
                 if (coureur.Dossard == dossard)
                     return coureur;
@@ -350,12 +347,11 @@ namespace _420_14B_FX_A24_TP2.classes
 
         public void SupprimerCoureur(Coureur coureur)
         {
-            List<Coureur> coureurs = new List<Coureur>();
             if (coureur == null)
                 throw new ArgumentNullException("Le coureur ne peut pas être nul.");
-            if (!coureurs.Contains(coureur))
+            if (!Coureurs.Contains(coureur))
                 throw new InvalidOperationException("Le coureur ne peut pas être inexistant.");
-            coureurs.Remove(coureur);
+            Coureurs.Remove(coureur);
             TrierCoureurs();
         }
 
@@ -374,9 +370,9 @@ namespace _420_14B_FX_A24_TP2.classes
                     coureurs[i].CompareTo(coureurs[i + 1]);
                 }
             }
-            for (int i = 0; i < coureurs.Count; i++)
+            for (int i = 0; i < Coureurs.Count; i++)
             {
-                coureurs[i].Rang = (ushort)(i + 1);
+                Coureurs[i].Rang = (ushort)(i + 1);
             }
         }
         public static bool operator ==(Course courseGauche, Course courseDroit)

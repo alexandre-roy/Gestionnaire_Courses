@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="CoureurTests.cs" />
     <Compile Remove="GestionCourseTests.cs" />
   </ItemGroup>
 
