@@ -324,11 +324,10 @@ namespace _420_14B_FX_A24_TP2.classes
             {
                 return true;
             }
-            if (coureurGauche == null || coureurDroit == null)
+            if (ReferenceEquals(coureurGauche, null) || ReferenceEquals(coureurDroit, null))
             {
                 return false;
             }
-
             return coureurGauche.Nom == coureurDroit.Nom && coureurGauche.Prenom == coureurDroit.Prenom && coureurGauche.Ville == coureurDroit.Ville && coureurGauche.Province == coureurDroit.Province;
         }
 
@@ -344,11 +343,10 @@ namespace _420_14B_FX_A24_TP2.classes
             {
                 return false;
             }
-            if (coureurGauche == null || coureurDroit == null)
+            if (ReferenceEquals(coureurGauche, null) || ReferenceEquals(coureurDroit, null))
             {
                 return true;
             }
-
             return !(coureurGauche.Nom == coureurDroit.Nom && coureurGauche.Prenom == coureurDroit.Prenom && coureurGauche.Ville == coureurDroit.Ville && coureurGauche.Province == coureurDroit.Province);
         }
 

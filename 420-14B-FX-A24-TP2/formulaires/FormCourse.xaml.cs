@@ -59,6 +59,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
             cboType.ItemsSource = Enum.GetValues(typeof(TypeCourse));
             Etat = etat;
             Course = course;
+            AfficherListeCoureurs(course);
             switch (etat)
             {
                 case EtatFormulaire.Ajouter:
@@ -79,6 +80,24 @@ namespace _420_14B_FX_A24_TP2.formulaires
                         txtDistance.Text = course.Distance.ToString();
                     }
                     break;
+            }
+        }
+
+        public void AfficherListeCoureurs(Course course = null)
+        {
+
+            if (course != null && course.Coureurs != null)
+            {
+                lstCoureurs.Items.Clear();
+                course.Coureurs.Sort();
+                for (int i = 0; i < course.Coureurs.Count; i++)
+                {
+                    lstCoureurs.Items.Add(course.Coureurs[i]);
+                }
+            }
+            else
+            {
+                return;
             }
         }
 
@@ -160,11 +179,11 @@ namespace _420_14B_FX_A24_TP2.formulaires
             }
             else
             {
-                message += "La distance ne peut pas etre null";
+                message += "La distance ne peut pas etre nulle";
             }
             if (!string.IsNullOrWhiteSpace(message))
             {
-                MessageBox.Show(message);
+                MessageBox.Show(message, "Erreur de parametre");
                 return false;
             }
             return true;

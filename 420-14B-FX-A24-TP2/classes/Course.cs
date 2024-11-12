@@ -321,11 +321,7 @@ namespace _420_14B_FX_A24_TP2.classes
         {
             if (obj is Course other)
             {
-                if (Nom == other.Nom && Date == other.Date && Ville == other.Ville && Province == other.Province && TypeCourse == other.TypeCourse && Distance == other.Distance)
-                {
-                    return true;
-                }
-                return false;
+                return this == other;
             }
             return false;
         }
@@ -383,7 +379,31 @@ namespace _420_14B_FX_A24_TP2.classes
                 coureurs[i].Rang = (ushort)(i + 1);
             }
         }
+        public static bool operator ==(Course courseGauche, Course courseDroit)
+        {
+            if (ReferenceEquals(courseGauche, courseDroit))
+            {
+                return true;
+            }
+            if (ReferenceEquals(courseGauche, null) || ReferenceEquals(courseDroit, null))
+            {
+                return false;
+            }
+            return courseGauche.Id == courseDroit.Id && courseGauche.Nom == courseDroit.Nom && courseGauche.Ville == courseDroit.Ville && courseGauche.Province == courseDroit.Province && courseGauche.Date == courseDroit.Date && courseGauche.TypeCourse == courseDroit.TypeCourse && courseGauche.Distance == courseDroit.Distance;
+        }
 
+        public static bool operator !=(Course courseGauche, Course courseDroit)
+        {
+            if (ReferenceEquals(courseGauche, courseDroit))
+            {
+                return false;
+            }
+            if (ReferenceEquals(courseGauche, null) || ReferenceEquals(courseDroit, null))
+            {
+                return true;
+            }
+            return !(courseGauche == courseDroit);
+        }
 
         #endregion
     }
