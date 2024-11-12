@@ -7,7 +7,7 @@ namespace _420_14B_FX_A24_TP2.classes
     /// <summary>
     /// Classe représentant une course à pied.
     /// </summary>
-    public class Course
+    public class Course : IComparable<Course>
     {
         #region CONSTANTES
 
@@ -308,7 +308,12 @@ namespace _420_14B_FX_A24_TP2.classes
 
         public int CompareTo(Course other)
         {
-            return 1;
+            int comparaison = Date.CompareTo(other.Date);
+            if (comparaison == 0)
+            {
+                return string.Compare(Nom, other.Nom);
+            }
+            return comparaison;
         }
 
 

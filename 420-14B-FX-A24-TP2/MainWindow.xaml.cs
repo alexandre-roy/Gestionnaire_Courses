@@ -57,6 +57,7 @@ namespace _420_14B_FX_A24_TP2
         public void AfficherListeCourses()
         {
             lstCourses.Items.Clear();
+            _gestionCourse.Courses.Sort();
             for (int i = 0;i < _gestionCourse.Courses.Count; i++)
             {
                 lstCourses.Items.Add(_gestionCourse.Courses[i]);
