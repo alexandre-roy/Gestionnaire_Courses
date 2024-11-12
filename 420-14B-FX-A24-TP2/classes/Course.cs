@@ -222,6 +222,8 @@ namespace _420_14B_FX_A24_TP2.classes
         public int NbParticipants
         {
             get {
+                return _coureurs.Count;
+                    
                 throw new NotImplementedException();
             }
       
@@ -233,7 +235,9 @@ namespace _420_14B_FX_A24_TP2.classes
         /// <value>Obtien la valeur retourné par la méthode : CalculerTempsCourseMoyen() </value>
         public TimeSpan TempCourseMoyen
         {
-            get { 
+            get {
+                return CalculerTempsCourseMoyen();
+
                 throw new NotImplementedException(); 
             }
           
@@ -253,7 +257,7 @@ namespace _420_14B_FX_A24_TP2.classes
         /// <param name="typeCourse">Type de course</param>
         /// <param name="distance">Distance de la course</param>
         /// <remarks>Initialise une liste de coureurs vide</remarks>
-        public Course(Guid id, string nom, DateOnly date, string ville, Province province, TypeCourse typeCourse, ushort distance )
+        public Course(Guid id, string nom, DateOnly date, string ville, Province province, TypeCourse typeCourse, ushort distance)
         {
             Id = id;
             Nom = nom;
@@ -262,6 +266,7 @@ namespace _420_14B_FX_A24_TP2.classes
             Province = province;
             TypeCourse = typeCourse;
             Distance = distance;
+            Coureurs = new List<Coureur>();
         }
 
 
@@ -356,7 +361,7 @@ namespace _420_14B_FX_A24_TP2.classes
 
         public override string ToString()
         {
-            return $"{Nom.PadRight(40, ' ')}{Ville.PadRight(25, ' ')}{Province.ToString().PadRight(25, ' ')}{Date}";
+            return $"{Nom.PadRight(40)}{Ville.PadRight(25)}{Province.ToString().PadRight(25)}{Date}";
         }
 
         public void TrierCoureurs()
@@ -366,12 +371,7 @@ namespace _420_14B_FX_A24_TP2.classes
             {
                 for (int j = i + 1; j < coureurs.Count; j++)
                 {
-                    if (coureurs[i].Temps > coureurs[j].Temps)
-                    {
-                        Coureur temp = coureurs[i];
-                        coureurs[i] = coureurs[j];
-                        coureurs[j] = temp;
-                    }
+                    coureurs[i].CompareTo(coureurs[i + 1]);
                 }
             }
             for (int i = 0; i < coureurs.Count; i++)

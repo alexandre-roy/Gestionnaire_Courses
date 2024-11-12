@@ -112,19 +112,16 @@ namespace _420_14B_FX_A24_TP2
         {
             if (lstCourses.SelectedItem != null)
             {
+                EtatFormulaire etat = EtatFormulaire.Supprimer;
                 Course course = (Course)lstCourses.SelectedItem;
-                MessageBoxResult reponse = MessageBox.Show($"Êtes-vous certain de vouloir supprimer la course : {course.Nom} ?", "Confirmation de suppression", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                switch (reponse)
+                FormCourse formCourseWindow = new FormCourse(etat, course);
+                formCourseWindow.ShowDialog();
+                if (formCourseWindow.DialogResult == true)
                 {
-                    case MessageBoxResult.Yes:
-                        _gestionCourse.SupprimerCourse(course);
-                        MessageBox.Show("La course a été supprimée avec succès.", "Suppression réussite", MessageBoxButton.OK, MessageBoxImage.Information);
-                        AfficherListeCourses();
-                        _gestionCourse.EnregistrerCourses(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
-                        break;
-                    case MessageBoxResult.No:
-                        MessageBox.Show("La suppression a été annulée.", "Suppression annulée", MessageBoxButton.OK, MessageBoxImage.Information);
-                        break;
+                    _gestionCourse.SupprimerCourse(course);
+                    AfficherListeCourses();
+                    MessageBox.Show("La course a été supprimée avec succès.", "Suppression réussite", MessageBoxButton.OK, MessageBoxImage.Information);
+                    _gestionCourse.EnregistrerCourses(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
                 }
             }
         }

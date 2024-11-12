@@ -291,11 +291,12 @@ namespace _420_14B_FX_A24_TP2.classes
         /// <returns>Un int qui représente la position du coureur comparé a l'autre.</returns>
         public int CompareTo(Coureur other)
         {
-            if (other == null)
+            int comparaison = Temps.CompareTo(other.Temps);
+            if (comparaison == 0)
             {
-                return 1;
+                return string.Compare(Nom, other.Nom);
             }
-            return this.Temps.CompareTo(other.Temps);
+            return comparaison;
         }
 
         /// <summary>
@@ -356,9 +357,9 @@ namespace _420_14B_FX_A24_TP2.classes
         /// </summary>
         public override string ToString()
         {
-            string padRight15 = "".PadRight(15, ' ');
-            string padRight30 = "".PadRight(30, ' ');
-            return $"{Dossard}{padRight15}{Nom}, {Prenom}{padRight30}{Categorie}{padRight15}{Temps}{padRight15}{Rang}";
+            string nomPrenom = $"{Nom}, {Prenom}".PadRight(26);
+
+            return $"{Dossard.ToString().PadRight(14, ' ')}{nomPrenom}{Categorie.ToString().PadRight(20)}{Temps.ToString().PadRight(19)}{Rang}";
         }
 
         #endregion

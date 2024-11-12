@@ -57,6 +57,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
        
             cboProvince.ItemsSource = Enum.GetValues(typeof(Province));
             cboType.ItemsSource = Enum.GetValues(typeof(TypeCourse));
+
             Etat = etat;
             Course = course;
             AfficherListeCoureurs(course);
@@ -78,6 +79,30 @@ namespace _420_14B_FX_A24_TP2.formulaires
                         DateOnly dateOnly = course.Date;
                         dpDate.SelectedDate = dateOnly.ToDateTime(TimeOnly.MinValue);
                         txtDistance.Text = course.Distance.ToString();
+                        txtParticipants.Text = course.NbParticipants.ToString();
+                        txtTempsMoyen.Text = course.TempCourseMoyen.ToString(@"hh\:mm\:ss");
+                    }
+                    break;
+                case EtatFormulaire.Supprimer:
+                    if (course != null)
+                    {
+                        tbTitre.Text = "Suppression d'une course";
+                        btnConfirmation.Content = "Supprimer";
+                        txtNom.Text = course.Nom;
+                        txtVille.Text = course.Ville;
+                        cboProvince.Text = course.Province.ToString();
+                        DateOnly dateOnly = course.Date;
+                        dpDate.SelectedDate = dateOnly.ToDateTime(TimeOnly.MinValue);
+                        txtDistance.Text = course.Distance.ToString();
+                        txtParticipants.Text = course.NbParticipants.ToString();
+                        txtTempsMoyen.Text = course.TempCourseMoyen.ToString(@"hh\:mm\:ss");
+
+                        txtNom.IsEnabled = false;
+                        txtVille.IsEnabled = false;
+                        txtDistance.IsEnabled = false;
+                        cboProvince.IsEnabled = false;
+                        dpDate.IsEnabled = false;
+                        cboType.IsEnabled = false;
                     }
                     break;
             }
@@ -90,6 +115,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
             {
                 lstCoureurs.Items.Clear();
                 course.Coureurs.Sort();
+                //course.TrierCoureurs();
                 for (int i = 0; i < course.Coureurs.Count; i++)
                 {
                     lstCoureurs.Items.Add(course.Coureurs[i]);
@@ -102,7 +128,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
         }
 
         private void btnConfirmation_Click_1(object sender, RoutedEventArgs e)
-        {         
+        {
             if (btnConfirmation.Content.ToString() == "Ajouter")
             {
                 if (ValidationAjout())
@@ -127,9 +153,26 @@ namespace _420_14B_FX_A24_TP2.formulaires
                     Course.Distance = ushort.Parse(txtDistance.Text);
                     this.DialogResult = true;
                 }
-                else 
-                { 
+                else
+                {
                     return;
+                }
+            }
+            else if (btnConfirmation.Content.ToString() == "Supprimer")
+            {
+                if (ValidationAjout())
+                {
+                    MessageBoxResult reponse = MessageBox.Show($"Êtes-vous certain de vouloir supprimer la course ?", "Confirmation de suppression", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    switch (reponse)
+                    {
+                        case MessageBoxResult.Yes:
+                            this.DialogResult = true;
+
+                            break;
+                        case MessageBoxResult.No:
+                            this.DialogResult = false;
+                            break;
+                    }
                 }
             }
         }
