@@ -45,9 +45,6 @@ namespace _420_14B_FX_A24_TP2
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             AfficherListeCourses();
-
-            FormCoureur blabla = new FormCoureur(EtatFormulaire.Ajouter);
-            blabla.ShowDialog();
         }
 
         #endregion
@@ -83,7 +80,7 @@ namespace _420_14B_FX_A24_TP2
                     }
                 }
                 _gestionCourse.AjouterCourse(formCourseWindow.Course);
-                MessageBox.Show("Course ajoutée avec succès");
+                MessageBox.Show("Course ajoutée avec succès", "Ajout d'une course", MessageBoxButton.OK, MessageBoxImage.Information);
                 AfficherListeCourses();
                 _gestionCourse.EnregistrerCourses(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
             }
@@ -99,7 +96,7 @@ namespace _420_14B_FX_A24_TP2
                 formCourseWindow.ShowDialog();
                 if (formCourseWindow.DialogResult == true)
                 {
-                    MessageBox.Show("Course modifiée avec succès");
+                    MessageBox.Show("Course modifiée avec succès", "Modification effectue", MessageBoxButton.OK, MessageBoxImage.Information);
                     AfficherListeCourses();
                     _gestionCourse.EnregistrerCourses(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
                 }
@@ -113,9 +110,24 @@ namespace _420_14B_FX_A24_TP2
 
         private void btnSupprimer_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (lstCourses.SelectedItem != null)
+            {
+                Course course = (Course)lstCourses.SelectedItem;
+                MessageBoxResult reponse = MessageBox.Show($"Êtes-vous certain de vouloir supprimer la course : {course.Nom} ?", "Confirmation de suppression", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                switch (reponse)
+                {
+                    case MessageBoxResult.Yes:
+                        _gestionCourse.SupprimerCourse(course);
+                        MessageBox.Show("La course a été supprimée avec succès.", "Suppression réussite", MessageBoxButton.OK, MessageBoxImage.Information);
+                        AfficherListeCourses();
+                        _gestionCourse.EnregistrerCourses(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
+                        break;
+                    case MessageBoxResult.No:
+                        MessageBox.Show("La suppression a été annulée.", "Suppression annulée", MessageBoxButton.OK, MessageBoxImage.Information);
+                        break;
+                }
+            }
         }
-
         #endregion
     }
 }

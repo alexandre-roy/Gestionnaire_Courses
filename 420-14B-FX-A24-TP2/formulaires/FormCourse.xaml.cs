@@ -11,9 +11,19 @@ namespace _420_14B_FX_A24_TP2.formulaires
     /// </summary>
     public partial class FormCourse : Window
     {
+        /// <summary>
+        /// Champ pour stocker l'objet Course
+        /// </summary>
         private Course _course;
+
+        /// <summary>
+        /// Champ pour stocker l'etat du formulaire
+        /// </summary>
         private EtatFormulaire _etat;
-      
+
+        /// <summary>
+        /// Propriete qui permet d'obtenir et de definir l'etat du formulaire
+        /// </summary>
         public EtatFormulaire Etat
         {
             get { return _etat; }
@@ -26,12 +36,19 @@ namespace _420_14B_FX_A24_TP2.formulaires
             }
         }
 
+        /// <summary>
+        /// Propriete qui permet d'obtenier et de definir l'object Course du formulaire
+        /// </summary>
         public Course Course
         {
             get { return _course; }
             set { _course = value; }
         }
 
+        /// <summary>
+        /// Constructeur pour initialiser le formulaire avec l'etat et optionellement la course
+        /// </summary>
+        /// <param name="etat"> Etat du formulaire, soit Ajouter ou Modifier</
         public FormCourse(EtatFormulaire etat, Course course = null)
         {
             InitializeComponent();
