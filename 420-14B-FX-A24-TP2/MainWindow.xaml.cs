@@ -73,6 +73,14 @@ namespace _420_14B_FX_A24_TP2
             formCourseWindow.ShowDialog();
             if (formCourseWindow.DialogResult == true)
             {
+                for (int i = 0; i < _gestionCourse.Courses.Count; i++)
+                {
+                    if (Course.Equals(formCourseWindow.Course, _gestionCourse.Courses[i]))
+                    {
+                        MessageBox.Show("Impossible d'ajouter cette course car elle existe deja", "Ajout d'une Course", MessageBoxButton.OK);
+                        return;
+                    }
+                }
                 _gestionCourse.AjouterCourse(formCourseWindow.Course);
                 MessageBox.Show("Course ajoutée avec succès");
                 AfficherListeCourses();
@@ -94,6 +102,11 @@ namespace _420_14B_FX_A24_TP2
                     AfficherListeCourses();
                     _gestionCourse.EnregistrerCourses(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
                 }
+            }
+            else
+            {
+                MessageBox.Show("Selectionner la course a modifier", "Modification d'une course");
+                return;
             }
         }
 

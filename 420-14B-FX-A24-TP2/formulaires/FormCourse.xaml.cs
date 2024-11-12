@@ -71,26 +71,30 @@ namespace _420_14B_FX_A24_TP2.formulaires
             {
                 if (ValidationAjout())
                 {
-                    try
-                    {
-                        Course = new Course(Guid.NewGuid(), txtNom.Text, DateOnly.FromDateTime(dpDate.SelectedDate.Value), txtVille.Text, (Province)cboProvince.SelectedItem, (TypeCourse)cboType.SelectedItem, ushort.Parse(txtDistance.Text));
-                    }
-                    catch (ArgumentException)
-                    {
-                        MessageBox.Show("Erreur lors de la création de la course");
-                    }
+                    Course = new Course(Guid.NewGuid(), txtNom.Text, DateOnly.FromDateTime(dpDate.SelectedDate.Value), txtVille.Text, (Province)cboProvince.SelectedItem, (TypeCourse)cboType.SelectedItem, ushort.Parse(txtDistance.Text));
+                    this.DialogResult = true;
                 }
-                this.DialogResult = true;
+                else
+                {
+                    return;
+                }
             }
             else if (btnConfirmation.Content.ToString() == "Modifier")
             {
-                Course.Nom = txtNom.Text;
-                Course.Ville = txtVille.Text;
-                Course.Province = (Province)cboProvince.SelectedItem;
-                Course.Date = DateOnly.FromDateTime(dpDate.SelectedDate.Value);
-                Course.TypeCourse = (TypeCourse)cboType.SelectedItem;
-                Course.Distance = ushort.Parse(txtDistance.Text);
-                this.DialogResult = true;
+                if (ValidationAjout())
+                {
+                    Course.Nom = txtNom.Text;
+                    Course.Ville = txtVille.Text;
+                    Course.Province = (Province)cboProvince.SelectedItem;
+                    Course.Date = DateOnly.FromDateTime(dpDate.SelectedDate.Value);
+                    Course.TypeCourse = (TypeCourse)cboType.SelectedItem;
+                    Course.Distance = ushort.Parse(txtDistance.Text);
+                    this.DialogResult = true;
+                }
+                else 
+                { 
+                    return;
+                }
             }
         }
 
@@ -125,7 +129,12 @@ namespace _420_14B_FX_A24_TP2.formulaires
             {
                 message += "Le nom de la ville ne peut pas etre null\n";
             }
-            if (!ushort.TryParse(txtDistance.Text, out distance))
+            if (dpDate.SelectedDate == null) 
+            {
+                message += "Veuillez choisir une date pour la course\n";
+            }
+            
+            if (ushort.TryParse(txtDistance.Text, out distance))
             {
                 if (distance < Course.DISTANCE_VAL_MIN)
                 {
