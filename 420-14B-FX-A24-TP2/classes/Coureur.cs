@@ -293,7 +293,7 @@ namespace _420_14B_FX_A24_TP2.classes
         {
             if (other == null)
             {
-                return 1;
+                return -1;
             }
             return this.Temps.CompareTo(other.Temps);
         }
