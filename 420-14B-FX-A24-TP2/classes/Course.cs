@@ -402,7 +402,7 @@ namespace _420_14B_FX_A24_TP2.classes
         /// </summary>
         /// <param name="obj">Une autre course</param>
         /// <returns>Un bool qui indique si les courses sont identiques</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is Course other)
             {

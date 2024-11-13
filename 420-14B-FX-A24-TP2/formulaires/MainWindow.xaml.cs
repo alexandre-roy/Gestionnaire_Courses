@@ -37,19 +37,14 @@ namespace _420_14B_FX_A24_TP2
 
         public MainWindow()
         {
-            _gestionCourse = new GestionCourse(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
             InitializeComponent();
 
+            _gestionCourse = new GestionCourse(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);           
         }
 
         #endregion
 
         #region MÉTHODES
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            AfficherListeCourses();
-        }
 
         /// <summary>
         /// Affiche la liste des courses.
@@ -67,6 +62,11 @@ namespace _420_14B_FX_A24_TP2
         #endregion
 
         #region ACTIONS-FORMULAIRE
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            AfficherListeCourses();
+        }
 
         private void btnNouveau_Click(object sender, RoutedEventArgs e)
         {

@@ -1,5 +1,4 @@
-﻿using System.Data;
-using System.Windows;
+﻿using System.Windows;
 using _420_14B_FX_A24_TP2.classes;
 using _420_14B_FX_A24_TP2.enums;
 
@@ -61,50 +60,9 @@ namespace _420_14B_FX_A24_TP2.formulaires
         public FormCoureur(EtatFormulaire etat, Coureur coureur = null)
         {
             InitializeComponent();
-            Etat = etat;
 
-            switch (etat)
-            {
-                case EtatFormulaire.Ajouter:
-                    tbTitre.Text = "Ajouter un coureur";
-                    btnConfirmation.Content = "Ajouter";                   
-                    break;
-
-                case EtatFormulaire.Modifier:
-                    tbTitre.Text = "Modification d'un coureur";
-                    btnConfirmation.Content = "Modifier";
-                    txtDossard.Text = coureur.Dossard.ToString();
-                    txtNom.Text = coureur.Nom;
-                    txtPrenom.Text = coureur.Prenom;
-                    txtVille.Text = coureur.Ville;
-                    cboCategorie.SelectedItem = coureur.Categorie.GetDescription();
-                    cboProvince.SelectedItem = coureur.Province.GetDescription();
-                    tsTemps.Text = coureur.Temps.ToString();
-
-                    txtDossard.IsEnabled = false;
-                    break;
-
-                case EtatFormulaire.Supprimer:
-                    tbTitre.Text = "Suppression d'un coureur";
-                    btnConfirmation.Content = "Supprimer";
-                    txtDossard.Text = coureur.Dossard.ToString();
-                    txtNom.Text = coureur.Nom;
-                    txtPrenom.Text = coureur.Prenom;
-                    txtVille.Text = coureur.Ville;
-                    cboCategorie.SelectedItem = coureur.Categorie.GetDescription();
-                    cboProvince.SelectedItem = coureur.Province.GetDescription();
-                    tsTemps.Text = coureur.Temps.ToString();
-
-                    txtDossard.IsEnabled = false;
-                    txtNom.IsEnabled = false;
-                    txtPrenom.IsEnabled = false;
-                    txtVille.IsEnabled = false;
-                    cboCategorie.IsEnabled = false;
-                    cboProvince.IsEnabled = false;
-                    tsTemps.IsEnabled = false;
-                    chkAbandon.IsEnabled = false;
-                    break;
-            }           
+            Etat = etat;     
+            Coureur = coureur;
         }
 
         #endregion
@@ -173,8 +131,6 @@ namespace _420_14B_FX_A24_TP2.formulaires
         #region ACTIONS-FORMULAIRE
         private void Window_Loaded(object sender, RoutedEventArgs e)
         { 
-            InitializeComponent();
-
             string[] provinces = UtilEnum.GetAllDescriptions<Province>();
             for (int i = 0; i < provinces.Length; i++)
             {
@@ -185,6 +141,49 @@ namespace _420_14B_FX_A24_TP2.formulaires
             for (int i = 0; i < categories.Length; i++)
             {
                 cboCategorie.Items.Add(categories[i]);
+            }
+
+            switch (Etat)
+            {
+                case EtatFormulaire.Ajouter:
+                    tbTitre.Text = "Ajouter un coureur";
+                    btnConfirmation.Content = "Ajouter";
+                    break;
+
+                case EtatFormulaire.Modifier:
+                    tbTitre.Text = "Modification d'un coureur";
+                    btnConfirmation.Content = "Modifier";
+                    txtDossard.Text = Coureur.Dossard.ToString();
+                    txtNom.Text = Coureur.Nom;
+                    txtPrenom.Text = Coureur.Prenom;
+                    txtVille.Text = Coureur.Ville;
+                    cboCategorie.SelectedItem = Coureur.Categorie.GetDescription();
+                    cboProvince.SelectedItem = Coureur.Province.GetDescription();
+                    tsTemps.Text = Coureur.Temps.ToString();
+
+                    txtDossard.IsEnabled = false;
+                    break;
+
+                case EtatFormulaire.Supprimer:
+                    tbTitre.Text = "Suppression d'un coureur";
+                    btnConfirmation.Content = "Supprimer";
+                    txtDossard.Text = Coureur.Dossard.ToString();
+                    txtNom.Text = Coureur.Nom;
+                    txtPrenom.Text = Coureur.Prenom;
+                    txtVille.Text = Coureur.Ville;
+                    cboCategorie.SelectedItem = Coureur.Categorie.GetDescription();
+                    cboProvince.SelectedItem = Coureur.Province.GetDescription();
+                    tsTemps.Text = Coureur.Temps.ToString();
+
+                    txtDossard.IsEnabled = false;
+                    txtNom.IsEnabled = false;
+                    txtPrenom.IsEnabled = false;
+                    txtVille.IsEnabled = false;
+                    cboCategorie.IsEnabled = false;
+                    cboProvince.IsEnabled = false;
+                    tsTemps.IsEnabled = false;
+                    chkAbandon.IsEnabled = false;
+                    break;
             }
         }
 

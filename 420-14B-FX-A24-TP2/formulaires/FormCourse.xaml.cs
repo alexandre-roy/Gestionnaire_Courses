@@ -59,57 +59,9 @@ namespace _420_14B_FX_A24_TP2.formulaires
         public FormCourse(EtatFormulaire etat, Course course = null)
         {
             InitializeComponent();
-            txtTempsMoyen.IsEnabled = false;
-            txtParticipants.IsEnabled = false;
-
+          
             Etat = etat;
-            Course = course;
-            AfficherListeCoureurs(course);
-            switch (etat)
-            {
-                case EtatFormulaire.Ajouter:
-                    tbTitre.Text = "Ajouter une course";
-                    btnConfirmation.Content = "Ajouter";
-                    break;
-
-                case EtatFormulaire.Modifier:
-                    if (course != null)
-                    {
-                        tbTitre.Text = "Modification d'une course";
-                        btnConfirmation.Content = "Modifier";
-                        txtNom.Text = course.Nom;
-                        txtVille.Text = course.Ville;
-                        cboProvince.SelectedItem = course.Province.GetDescription();
-                        DateOnly dateOnly = course.Date;
-                        dpDate.SelectedDate = dateOnly.ToDateTime(TimeOnly.MinValue);
-                        txtDistance.Text = course.Distance.ToString();
-                        txtParticipants.Text = course.NbParticipants.ToString();
-                        txtTempsMoyen.Text = course.TempCourseMoyen.ToString(@"hh\:mm\:ss");
-                    }
-                    break;
-                case EtatFormulaire.Supprimer:
-                    if (course != null)
-                    {
-                        tbTitre.Text = "Suppression d'une course";
-                        btnConfirmation.Content = "Supprimer";
-                        txtNom.Text = course.Nom;
-                        txtVille.Text = course.Ville;
-                        cboProvince.SelectedItem = course.Province.GetDescription();
-                        DateOnly dateOnly = course.Date;
-                        dpDate.SelectedDate = dateOnly.ToDateTime(TimeOnly.MinValue);
-                        txtDistance.Text = course.Distance.ToString();
-                        txtParticipants.Text = course.NbParticipants.ToString();
-                        txtTempsMoyen.Text = course.TempCourseMoyen.ToString(@"hh\:mm\:ss");
-
-                        txtNom.IsEnabled = false;
-                        txtVille.IsEnabled = false;
-                        txtDistance.IsEnabled = false;
-                        cboProvince.IsEnabled = false;
-                        dpDate.IsEnabled = false;
-                        cboType.IsEnabled = false;
-                    }
-                    break;
-            }
+            Course = course;                  
         }
 
         #endregion
@@ -197,6 +149,9 @@ namespace _420_14B_FX_A24_TP2.formulaires
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            txtTempsMoyen.IsEnabled = false;
+            txtParticipants.IsEnabled = false;
+
             string[] provinces = UtilEnum.GetAllDescriptions<Province>();
             for (int i = 0; i < provinces.Length; i++)
             {
@@ -208,6 +163,54 @@ namespace _420_14B_FX_A24_TP2.formulaires
             {
                 cboType.Items.Add(typeCourse[i]);
             }
+
+            switch (Etat)
+            {
+                case EtatFormulaire.Ajouter:
+                    tbTitre.Text = "Ajouter une course";
+                    btnConfirmation.Content = "Ajouter";
+                    break;
+
+                case EtatFormulaire.Modifier:
+                    if (Course != null)
+                    {
+                        tbTitre.Text = "Modification d'une course";
+                        btnConfirmation.Content = "Modifier";
+                        txtNom.Text = Course.Nom;
+                        txtVille.Text = Course.Ville;
+                        cboProvince.SelectedItem = Course.Province.GetDescription();
+                        DateOnly dateOnly = Course.Date;
+                        dpDate.SelectedDate = dateOnly.ToDateTime(TimeOnly.MinValue);
+                        txtDistance.Text = Course.Distance.ToString();
+                        txtParticipants.Text = Course.NbParticipants.ToString();
+                        txtTempsMoyen.Text = Course.TempCourseMoyen.ToString(@"hh\:mm\:ss");
+                    }
+                    break;
+                case EtatFormulaire.Supprimer:
+                    if (Course != null)
+                    {
+                        tbTitre.Text = "Suppression d'une course";
+                        btnConfirmation.Content = "Supprimer";
+                        txtNom.Text = Course.Nom;
+                        txtVille.Text = Course.Ville;
+                        cboProvince.SelectedItem = Course.Province.GetDescription();
+                        DateOnly dateOnly = Course.Date;
+                        dpDate.SelectedDate = dateOnly.ToDateTime(TimeOnly.MinValue);
+                        txtDistance.Text = Course.Distance.ToString();
+                        txtParticipants.Text = Course.NbParticipants.ToString();
+                        txtTempsMoyen.Text = Course.TempCourseMoyen.ToString(@"hh\:mm\:ss");
+
+                        txtNom.IsEnabled = false;
+                        txtVille.IsEnabled = false;
+                        txtDistance.IsEnabled = false;
+                        cboProvince.IsEnabled = false;
+                        dpDate.IsEnabled = false;
+                        cboType.IsEnabled = false;
+                    }
+                    break;
+            }
+
+            AfficherListeCoureurs(Course);
         }
 
         private void btnConfirmation_Click_1(object sender, RoutedEventArgs e)
