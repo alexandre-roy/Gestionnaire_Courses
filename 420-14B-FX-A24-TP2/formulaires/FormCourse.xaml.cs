@@ -233,9 +233,17 @@ namespace _420_14B_FX_A24_TP2.formulaires
                 {
                     Course.Nom = txtNom.Text;
                     Course.Ville = txtVille.Text;
-                    Course.Province = (Province)cboProvince.SelectedItem;
+                    string province = cboProvince.SelectedItem.ToString();
+                    if (Enum.TryParse(province, out Province selectedProvince))
+                    {
+                        Course.Province = selectedProvince;
+                    }
                     Course.Date = DateOnly.FromDateTime(dpDate.SelectedDate.Value);
-                    Course.TypeCourse = (TypeCourse)cboType.SelectedItem;
+                    string course = cboType.SelectedItem.ToString();
+                    if (Enum.TryParse(course, out Province selectedCourse))
+                    {
+                        Course.Province = selectedCourse;
+                    }
                     Course.Distance = ushort.Parse(txtDistance.Text);
                     this.DialogResult = true;
                 }
