@@ -77,11 +77,11 @@ namespace _420_14B_FX_A24_TP2.formulaires
             if (course != null && course.Coureurs != null)
             {
                 lstCoureurs.Items.Clear();
-                Course.TrierCoureurs();
                 for (int i = 0; i < course.Coureurs.Count; i++)
                 {
                     lstCoureurs.Items.Add(course.Coureurs[i]);
                 }
+                Course.TrierCoureurs();
             }
             else
             {
@@ -181,6 +181,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
                         cboProvince.SelectedItem = Course.Province.GetDescription();
                         DateOnly dateOnly = Course.Date;
                         dpDate.SelectedDate = dateOnly.ToDateTime(TimeOnly.MinValue);
+                        cboType.SelectedItem = Course.TypeCourse.GetDescription();
                         txtDistance.Text = Course.Distance.ToString();
                         txtParticipants.Text = Course.NbParticipants.ToString();
                         txtTempsMoyen.Text = Course.TempCourseMoyen.ToString(@"hh\:mm\:ss");
@@ -196,6 +197,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
                         cboProvince.SelectedItem = Course.Province.GetDescription();
                         DateOnly dateOnly = Course.Date;
                         dpDate.SelectedDate = dateOnly.ToDateTime(TimeOnly.MinValue);
+                        cboType.SelectedItem = Course.TypeCourse.GetDescription();
                         txtDistance.Text = Course.Distance.ToString();
                         txtParticipants.Text = Course.NbParticipants.ToString();
                         txtTempsMoyen.Text = Course.TempCourseMoyen.ToString(@"hh\:mm\:ss");
@@ -239,10 +241,10 @@ namespace _420_14B_FX_A24_TP2.formulaires
                         Course.Province = selectedProvince;
                     }
                     Course.Date = DateOnly.FromDateTime(dpDate.SelectedDate.Value);
-                    string course = cboType.SelectedItem.ToString();
-                    if (Enum.TryParse(course, out Province selectedCourse))
+                    string type = cboType.SelectedItem.ToString();
+                    if (Enum.TryParse(type, out TypeCourse selectedType))
                     {
-                        Course.Province = selectedCourse;
+                        Course.TypeCourse = selectedType;
                     }
                     Course.Distance = ushort.Parse(txtDistance.Text);
                     this.DialogResult = true;
@@ -282,15 +284,19 @@ namespace _420_14B_FX_A24_TP2.formulaires
             formCoureurWindow.ShowDialog();
             if (formCoureurWindow.DialogResult == true)
             {
-                //for (int i = 0; i < Course.Coureurs.Count; i++)
-                //{
-                //    if (Coureur.Equals(formCoureurWindow.Coureur, Coureur[i]))
-                //    {
-                //        MessageBox.Show("Impossible d'ajouter ce coureur car elle existe deja", "Ajout d'un coureur", MessageBoxButton.OK);
-                //        return;
-                //    }
-                //}
-                AfficherListeCoureurs();
+                for (int i = 0; i < Course.Coureurs.Count; i++)
+                {
+                    if (Coureur.Equals(formCoureurWindow.Coureur, Course.Coureurs[i]))
+                    {
+                        MessageBox.Show("Impossible d'ajouter ce coureur car elle existe deja", "Ajout d'un coureur", MessageBoxButton.OK);
+                        return;
+                    }
+                    else
+                    {
+                        Course.AjouterCoureur(formCoureurWindow.Coureur);
+                    }
+                }
+                AfficherListeCoureurs(Course);
                 MessageBox.Show("Le coureur a été ajouté avec succès.", "Ajout d'un coureur", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
@@ -305,8 +311,8 @@ namespace _420_14B_FX_A24_TP2.formulaires
                 formCoureurWindow.ShowDialog();
                 if (formCoureurWindow.DialogResult == true)
                 {
+                    AfficherListeCoureurs(Course);
                     MessageBox.Show("Coureur modifiée avec succès", "Modification d'un coureur", MessageBoxButton.OK, MessageBoxImage.Information);
-                    AfficherListeCoureurs();
                 }
             }
             else
@@ -327,7 +333,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
                 if (formCoureurWindow.DialogResult == true)
                 {
                     Course.SupprimerCoureur(coureur);
-                    AfficherListeCoureurs();
+                    AfficherListeCoureurs(Course);
                     MessageBox.Show("Le coureur a été supprimée avec succès.", "Suppression d'un coureur", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }

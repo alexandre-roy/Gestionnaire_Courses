@@ -148,6 +148,8 @@ namespace _420_14B_FX_A24_TP2.formulaires
                 case EtatFormulaire.Ajouter:
                     tbTitre.Text = "Ajouter un coureur";
                     btnConfirmation.Content = "Ajouter";
+                    cboCategorie.SelectedItem = Coureur.Categorie.GetDescription();
+                    cboProvince.SelectedItem = Coureur.Province.GetDescription();
                     break;
 
                 case EtatFormulaire.Modifier:
@@ -201,6 +203,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
                         {
                             nouveauCoureur.Abandon = true;
                         }
+                        this.DialogResult = true;
                     }
                     else
                     {
@@ -222,16 +225,24 @@ namespace _420_14B_FX_A24_TP2.formulaires
                         Coureur.Dossard = ushort.Parse(txtDossard.Text);
                         Coureur.Nom = txtNom.Text;
                         Coureur.Prenom = txtPrenom.Text;
-                        Coureur.Categorie = (Categorie)cboCategorie.SelectedItem;
+                        string categorie = cboCategorie.SelectedItem.ToString();
+                        if (Enum.TryParse(categorie, out Categorie selectedCategorie))
+                        {
+                            Coureur.Categorie = selectedCategorie;
+                        }
                         Coureur.Ville = txtVille.Text;
                         Coureur.Rang = 0;
-                        Coureur.Province = (Province)cboProvince.SelectedItem;
+                        string province = cboProvince.SelectedItem.ToString();
+                        if (Enum.TryParse(province, out Province selectedProvince))
+                        {
+                            Coureur.Province = selectedProvince;
+                        }
                         Coureur.Temps = tsTemps.Value.Value;
                         if (chkAbandon.IsChecked == true)
                         {
                             Coureur.Abandon = true;
                         }
-                        MessageBox.Show("Le coureur a été ajouté avec succès.", "Modification d'un coureur", MessageBoxButton.OK);
+                        this.DialogResult = true;
                     }
                     else
                     {
@@ -241,6 +252,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
                 else
                 {
                     MessageBox.Show(ValiderCoureur(), "Modification d'un coureur");
+                    
                 }
             }
             else if (btnConfirmation.Content.ToString() == "Supprimer")

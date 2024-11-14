@@ -176,19 +176,24 @@ namespace _420_14B_FX_A24_TP2.classes
             try
             {
                 string donneesSerialises = "Id;nom;ville;province;date;type;distance\r\n";
+                string donneesSerialisesD = "IdCourse;dossard;nom;prenom;ville;province;categorie;temps;abandon\r\n";
                 foreach (var course in Courses)
                 {
-                    donneesSerialises += $"{course.Id};{course.Nom};{course.Ville};{course.Province};{course.Date};{course.TypeCourse};{course.Distance};\n";
+                    donneesSerialises += $"{course.Id};{course.Nom};{course.Ville};{(int)course.Province};{course.Date};{(int)course.TypeCourse};{course.Distance};\n";
+                    foreach (var coureur in course.Coureurs)
+                    {
+                        donneesSerialisesD += $"{course.Id};{coureur.Dossard};{coureur.Nom};{coureur.Prenom};{coureur.Ville};{(int)coureur.Province};{(int)coureur.Categorie};{coureur.Temps};{coureur.Abandon};\n";
+                    }
                 }
                 Utilitaire.EnregistrerDonnees(cheminFichierCourses, donneesSerialises);
+                Utilitaire.EnregistrerDonnees(cheminFicherCoureurs, donneesSerialisesD);
             }
             catch (Exception)
             {
-                MessageBox.Show("Une erreur est survenue lors de l'enregistrement des courses", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Une erreur est survenue lors de l'enregistrement des courses et des coureurs", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
 
             }
         }
-
         #endregion
     }
 }
