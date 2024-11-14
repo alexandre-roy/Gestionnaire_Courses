@@ -158,7 +158,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
                 cboProvince.Items.Add(provinces[i]);
             }
 
-            string[] typeCourse = UtilEnum.GetAllDescriptions<Categorie>();
+            string[] typeCourse = UtilEnum.GetAllDescriptions<TypeCourse>();
             for (int i = 0; i < typeCourse.Length; i++)
             {
                 cboType.Items.Add(typeCourse[i]);
