@@ -154,7 +154,28 @@ namespace _420_14B_FX_A24_TP2.classes
         /// <param name="course"></param>
         public void AjouterCourse(Course course)
         {
+            if (course == null)
+            {
+                throw new ArgumentNullException(nameof(course), "La course ne peut pas être nulle.");
+            }
+            foreach (var Course in Courses)
+            {
+                if (course.Equals(Course))
+                {
+                    throw new InvalidOperationException($"Cette course existe deja");
+                }
+                if (Course.Id == course.Id)
+                {
+                    throw new InvalidOperationException($"Une course possède déjà cet Id");
+                }
+            }
+            
+            if (string.IsNullOrEmpty(course.Nom) || course.Date == default)
+            {
+                throw new ArgumentException("La course n'a pas des propriétés valides.");
+            }
             Courses.Add(course);
+            Courses.Sort();
         }
 
         /// <summary>
@@ -163,6 +184,10 @@ namespace _420_14B_FX_A24_TP2.classes
         /// <param name="course"></param>
         public void SupprimerCourse(Course course)
         {
+            if (course == null)
+                throw new ArgumentNullException("La course a supprimer ne peut pas etre nulle");
+            if (!Courses.Contains(course))
+                throw new InvalidOperationException("La course a supprimer n'existe pas dans la liste des courses");
             Courses.Remove(course);
         }
 
@@ -173,6 +198,10 @@ namespace _420_14B_FX_A24_TP2.classes
         /// <param name="cheminFicherCoureurs"></param>
         public void EnregistrerCourses(string cheminFichierCourses, string cheminFicherCoureurs)
         {
+            if (string.IsNullOrWhiteSpace(cheminFicherCoureurs))
+                throw new ArgumentNullException("cheminFichierCoureurs ne peut pas etre nul ");
+            if (string.IsNullOrWhiteSpace(cheminFichierCourses))
+                throw new ArgumentNullException("cheminFichierCourses ne peut pas etre nul ");
             try
             {
                 string donneesSerialises = "Id;nom;ville;province;date;type;distance\r\n";

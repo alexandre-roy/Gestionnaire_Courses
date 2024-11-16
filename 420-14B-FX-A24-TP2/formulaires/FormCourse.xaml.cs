@@ -221,7 +221,16 @@ namespace _420_14B_FX_A24_TP2.formulaires
             {
                 if (ValidationAjout())
                 {
-                    Course = new Course(Guid.NewGuid(), txtNom.Text, DateOnly.FromDateTime(dpDate.SelectedDate.Value), txtVille.Text, (Province)cboProvince.SelectedItem, (TypeCourse)cboType.SelectedItem, ushort.Parse(txtDistance.Text));
+                    string province = cboProvince.SelectedItem.ToString();
+                    string type = cboType.SelectedItem.ToString();
+
+                    if (Enum.TryParse(province, out Province selectedProvince))
+                    {
+                        if (Enum.TryParse(type, out TypeCourse selectedType))
+                        {
+                            Course = new Course(Guid.NewGuid(), txtNom.Text, DateOnly.FromDateTime(dpDate.SelectedDate.Value), txtVille.Text, selectedProvince, selectedType, ushort.Parse(txtDistance.Text));
+                        }
+                    }
                     this.DialogResult = true;
                 }
                 else

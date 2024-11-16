@@ -406,7 +406,8 @@ namespace _420_14B_FX_A24_TP2.classes
         {
             if (obj is Course other)
             {
-                return this == other;
+                return this.Nom == other.Nom && this.Date == other.Date && this.Ville == other.Ville && this.Province == other.Province && this.TypeCourse == other.TypeCourse && this.Distance == other.Distance;
+              
             }
             return false;
         }
