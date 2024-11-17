@@ -142,7 +142,7 @@ namespace _420_14B_FX_A24_TP2.classes
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentNullException("La ville ne peut pas être nul ou n'avoir aucune valeur.");
+                    throw new ArgumentNullException("La ville ne peut pas être nulle ou n'avoir aucune valeur.");
                 }
                     
                 if (value.Trim().Length < VILLE_NB_CAR_MIN)
@@ -186,7 +186,7 @@ namespace _420_14B_FX_A24_TP2.classes
             {
                 if (!Enum.IsDefined(typeof(TypeCourse), value))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), "La valeur de la course ne correspond pas à ceux attribué aux courses.");      
+                    throw new ArgumentOutOfRangeException(nameof(value), "La valeur de la course ne corresponds pas à ceux attribué aux courses.");      
                 }
                 _typeCourse = value;
             }
@@ -289,9 +289,9 @@ namespace _420_14B_FX_A24_TP2.classes
             for (int i = 0; i < Coureurs.Count; i++)
             {
                 if (coureur == Coureurs[i])
-                    throw new InvalidOperationException("Le coureur ne peut pas être deja inscrit.");
+                    throw new InvalidOperationException("Le coureur ne peut pas être déjà inscrit.");
                 if (coureur.Dossard == Coureurs[i].Dossard)
-                    throw new ArgumentException("Le numéro de dossard ne peut pas être deja utilise.");  
+                    throw new ArgumentException("Le numéro de dossard ne peut pas être déjà utilisé.");  
             }
             Coureurs.Add(coureur);
             TrierCoureurs();
@@ -339,19 +339,26 @@ namespace _420_14B_FX_A24_TP2.classes
         /// <returns>Retourne le temps moyen de la course.</returns>
         private TimeSpan CalculerTempsCourseMoyen()
         {
-            int index = 0;
-            double tempsTotal = 0;
-
-            foreach (Coureur coureur in Coureurs)
+            if (Coureurs.Count > 1)
             {
-                if (!coureur.Abandon && coureur.Temps != TimeSpan.Zero)
-                {
-                    tempsTotal += coureur.Temps.TotalMilliseconds;
-                    index++;
-                }
-            }
+                int index = 0;
+                double tempsTotal = 0;
 
-            return TimeSpan.FromMilliseconds(tempsTotal / index);
+                foreach (Coureur coureur in Coureurs)
+                {
+                    if (!coureur.Abandon && coureur.Temps != TimeSpan.Zero)
+                    {
+                        tempsTotal += coureur.Temps.TotalMilliseconds;
+                        index++;
+                    }
+                }
+
+                return TimeSpan.FromMilliseconds(tempsTotal / index);
+            }
+            else 
+            { 
+                return TimeSpan.Zero;
+            }
         }
 
         /// <summary>
@@ -362,6 +369,14 @@ namespace _420_14B_FX_A24_TP2.classes
             Coureurs.Sort();
             for (int i = 0; i < Coureurs.Count; i++)
             {
+                if (Coureurs[i].Temps == TimeSpan.Zero)
+                {
+                    Coureurs[i].Abandon = true;
+                }
+                else
+                {
+                    Coureurs[i].Abandon = false;
+                }
                 if (Coureurs[i].Abandon != true)
                 {
                     Coureurs[i].Rang = (ushort)(i + 1);
@@ -389,7 +404,7 @@ namespace _420_14B_FX_A24_TP2.classes
         /// <returns>Un int qui représente sa place comparé a l'autre</returns>
         public int CompareTo(Course other)
         {
-            int comparaison = Date.CompareTo(other.Date);
+            int comparaison = other.Date.CompareTo(Date);
             if (comparaison == 0)
             {
                 return string.Compare(Nom, other.Nom);

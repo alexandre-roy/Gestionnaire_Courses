@@ -77,21 +77,21 @@ namespace _420_14B_FX_A24_TP2.classes
                     }
                     catch (FormatException)
                     {
-                        MessageBox.Show($"Erreur de format lors du chargement de la course a la ligne {i}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"Erreur de format lors du chargement de la course à la ligne {i}.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     catch (ArgumentException)
                     {
-                        MessageBox.Show($"Erreur lors du chargement de la course a la ligne {i}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"Erreur lors du chargement de la course à la ligne {i}.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
             catch (FileNotFoundException)
             {
-                MessageBox.Show("Le fichier de courses n'a pas ete trouve", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Le fichier de courses n'a pas été trouvé.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception)
             {
-                MessageBox.Show("Une erreur est survenue lors du chargement des courses", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Une erreur est survenue lors du chargement des courses.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -130,21 +130,21 @@ namespace _420_14B_FX_A24_TP2.classes
                     }
                     catch (FormatException)
                     {
-                        MessageBox.Show($"Erreur de format lors du chargement du coureur a la ligne {i}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"Erreur de format lors du chargement du coureur à la ligne {i}.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     catch (ArgumentException)
                     {
-                        MessageBox.Show($"Erreur d'argument lors du chargement du coureur a la ligne {i}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"Erreur d'argument lors du chargement du coureur à la ligne {i}.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
             catch (FileNotFoundException)
             {
-                MessageBox.Show("Le fichier des coureurs n'a pas ete trouve", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Le fichier des coureurs n'a pas été trouvé.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception)
             {
-                MessageBox.Show("Une erreur est survenue lors du chargement des coureurs", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Une erreur est survenue lors du chargement des coureurs.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -162,17 +162,17 @@ namespace _420_14B_FX_A24_TP2.classes
             {
                 if (course.Equals(Course))
                 {
-                    throw new InvalidOperationException($"Cette course existe deja");
+                    throw new InvalidOperationException($"Cette course existe déjà.");
                 }
                 if (Course.Id == course.Id)
                 {
-                    throw new InvalidOperationException($"Une course possède déjà cet Id");
+                    throw new InvalidOperationException($"Une course possède déjà cet Id.");
                 }
             }
             
             if (string.IsNullOrEmpty(course.Nom) || course.Date == default)
             {
-                throw new ArgumentException("La course n'a pas des propriétés valides.");
+                throw new ArgumentException("La course n'a pas des propriétées valides.");
             }
             Courses.Add(course);
             Courses.Sort();
@@ -185,9 +185,9 @@ namespace _420_14B_FX_A24_TP2.classes
         public void SupprimerCourse(Course course)
         {
             if (course == null)
-                throw new ArgumentNullException("La course a supprimer ne peut pas etre nulle");
+                throw new ArgumentNullException("La course à supprimer ne peut pas être nulle.");
             if (!Courses.Contains(course))
-                throw new InvalidOperationException("La course a supprimer n'existe pas dans la liste des courses");
+                throw new InvalidOperationException("La course à supprimer n'existe pas dans la liste des courses");
             Courses.Remove(course);
         }
 
@@ -199,9 +199,9 @@ namespace _420_14B_FX_A24_TP2.classes
         public void EnregistrerCourses(string cheminFichierCourses, string cheminFicherCoureurs)
         {
             if (string.IsNullOrWhiteSpace(cheminFicherCoureurs))
-                throw new ArgumentNullException("cheminFichierCoureurs ne peut pas etre nul ");
+                throw new ArgumentNullException("cheminFichierCoureurs ne peut pas être nul.");
             if (string.IsNullOrWhiteSpace(cheminFichierCourses))
-                throw new ArgumentNullException("cheminFichierCourses ne peut pas etre nul ");
+                throw new ArgumentNullException("cheminFichierCourses ne peut pas être nul.");
             try
             {
                 string donneesSerialises = "Id;nom;ville;province;date;type;distance\r\n";
@@ -219,7 +219,7 @@ namespace _420_14B_FX_A24_TP2.classes
             }
             catch (Exception)
             {
-                MessageBox.Show("Une erreur est survenue lors de l'enregistrement des courses et des coureurs", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Une erreur est survenue lors de l'enregistrement des courses et des coureurs.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
 
             }
         }

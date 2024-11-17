@@ -58,8 +58,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
         /// <param name="etat"> Etat du formulaire, soit Ajouter ou Modifier</param>
         public FormCourse(EtatFormulaire etat, Course course = null)
         {
-            InitializeComponent();
-          
+            InitializeComponent();          
             Etat = etat;
             Course = course;                  
         }
@@ -97,31 +96,40 @@ namespace _420_14B_FX_A24_TP2.formulaires
         {
             ushort distance;
             string message = "";
-            if (!string.IsNullOrWhiteSpace(txtNom.Text.Trim()))
+
+            if (string.IsNullOrWhiteSpace(txtNom.Text.Trim()))
             {
-                if (txtNom.Text.Trim().Length < Course.NOM_NB_CAR_MIN)
-                {
-                    message += $"Le nom de la course doit contenir au moins {Course.NOM_NB_CAR_MIN} caractères\n";
-                }
+                message += "Le nom de la course ne doit pas être nul.\n";
             }
-            else
+
+            if (txtNom.Text.Trim().Length < Course.NOM_NB_CAR_MIN)
             {
-                message += "Le nom de la course ne peut pas etre null\n";
+                message += $"Le nom de la course doit contenir au moins {Course.NOM_NB_CAR_MIN} caractères.\n";
             }
-            if (!string.IsNullOrWhiteSpace(txtVille.Text.Trim()))
+
+            if (string.IsNullOrWhiteSpace(txtVille.Text.Trim()))
             {
-                if (txtVille.Text.Trim().Length < Course.VILLE_NB_CAR_MIN)
-                {
-                    message += $"Le nom de la ville doit contenir au moins {Course.VILLE_NB_CAR_MIN} caractères\n";
-                }
+                message += "Le nom de la ville ne doit pas être nul.\n";
             }
-            else
+
+            if (txtVille.Text.Trim().Length < Course.VILLE_NB_CAR_MIN)
             {
-                message += "Le nom de la ville ne peut pas etre null\n";
+                message += $"Le nom de la ville doit contenir au moins {Course.VILLE_NB_CAR_MIN} caractères.\n";
             }
+
             if (dpDate.SelectedDate == null)
             {
-                message += "Veuillez choisir une date pour la course\n";
+                message += "Veuillez choisir une date pour la course.\n";
+            }
+
+            if (cboProvince.SelectedValue == null)
+            {
+                message += "Veuillez choisir une province pour la course.\n";
+            }
+
+            if (cboType.SelectedValue == null)
+            {
+                message += "Veuillez choisir un type pour la course.\n";
             }
 
             if (ushort.TryParse(txtDistance.Text, out distance))
@@ -133,11 +141,11 @@ namespace _420_14B_FX_A24_TP2.formulaires
             }
             else
             {
-                message += "La distance ne peut pas etre nulle";
+                message += "La distance ne doit pas être nulle.";
             }
             if (!string.IsNullOrWhiteSpace(message))
             {
-                MessageBox.Show(message, "Erreur de parametre");
+                MessageBox.Show(message, "Erreur");
                 return false;
             }
             return true;
@@ -148,7 +156,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
         #region ACTIONS-FORMULAIRE
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
+        {            
             txtTempsMoyen.IsEnabled = false;
             txtParticipants.IsEnabled = false;
 
@@ -174,6 +182,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
                 case EtatFormulaire.Modifier:
                     if (Course != null)
                     {
+                        Course.TrierCoureurs();
                         tbTitre.Text = "Modification d'une course";
                         btnConfirmation.Content = "Modifier";
                         txtNom.Text = Course.Nom;
@@ -190,6 +199,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
                 case EtatFormulaire.Supprimer:
                     if (Course != null)
                     {
+                        Course.TrierCoureurs();
                         tbTitre.Text = "Suppression d'une course";
                         btnConfirmation.Content = "Supprimer";
                         txtNom.Text = Course.Nom;
@@ -221,8 +231,8 @@ namespace _420_14B_FX_A24_TP2.formulaires
             {
                 if (ValidationAjout())
                 {
-                    string province = cboProvince.SelectedItem.ToString();
-                    string type = cboType.SelectedItem.ToString();
+                    string province = cboProvince.SelectedIndex.ToString();
+                    string type = cboType.SelectedIndex.ToString();
 
                     if (Enum.TryParse(province, out Province selectedProvince))
                     {
@@ -244,13 +254,13 @@ namespace _420_14B_FX_A24_TP2.formulaires
                 {
                     Course.Nom = txtNom.Text;
                     Course.Ville = txtVille.Text;
-                    string province = cboProvince.SelectedItem.ToString();
+                    string province = cboProvince.SelectedIndex.ToString();
                     if (Enum.TryParse(province, out Province selectedProvince))
                     {
                         Course.Province = selectedProvince;
                     }
                     Course.Date = DateOnly.FromDateTime(dpDate.SelectedDate.Value);
-                    string type = cboType.SelectedItem.ToString();
+                    string type = cboType.SelectedIndex.ToString();
                     if (Enum.TryParse(type, out TypeCourse selectedType))
                     {
                         Course.TypeCourse = selectedType;
@@ -267,7 +277,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
             {
                 if (ValidationAjout())
                 {
-                    MessageBoxResult reponse = MessageBox.Show($"Êtes-vous certain de vouloir supprimer la course ?", "Confirmation de suppression", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    MessageBoxResult reponse = MessageBox.Show($"Êtes-vous certain de vouloir supprimer la course ?", "Suppression d'une course", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     switch (reponse)
                     {
                         case MessageBoxResult.Yes:
@@ -292,21 +302,25 @@ namespace _420_14B_FX_A24_TP2.formulaires
             FormCoureur formCoureurWindow = new FormCoureur(EtatFormulaire.Ajouter);
             formCoureurWindow.ShowDialog();
             if (formCoureurWindow.DialogResult == true)
-            {
+            {              
                 for (int i = 0; i < Course.Coureurs.Count; i++)
                 {
                     if (Coureur.Equals(formCoureurWindow.Coureur, Course.Coureurs[i]))
                     {
-                        MessageBox.Show("Impossible d'ajouter ce coureur car elle existe deja", "Ajout d'un coureur", MessageBoxButton.OK);
+                        MessageBox.Show("Impossible d'ajouter ce coureur, il existe déjà.", "Ajout d'un coureur", MessageBoxButton.OK);
                         return;
                     }
-                    else
+                    if (formCoureurWindow.Coureur.Dossard == Course.Coureurs[i].Dossard)
                     {
-                        Course.AjouterCoureur(formCoureurWindow.Coureur);
+                        MessageBox.Show("Impossible d'ajouter ce coureur, le numéro de dossard est déjà utilisé.", "Ajout d'un coureur", MessageBoxButton.OK);
+                        return;
                     }
                 }
+                
+                Course.AjouterCoureur(formCoureurWindow.Coureur);
+                Course.TrierCoureurs();
                 AfficherListeCoureurs(Course);
-                MessageBox.Show("Le coureur a été ajouté avec succès.", "Ajout d'un coureur", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Coureur ajouté avec succès!", "Ajout d'un coureur", MessageBoxButton.OK);
             }
         }
 
@@ -320,13 +334,14 @@ namespace _420_14B_FX_A24_TP2.formulaires
                 formCoureurWindow.ShowDialog();
                 if (formCoureurWindow.DialogResult == true)
                 {
+                    Course.TrierCoureurs();
                     AfficherListeCoureurs(Course);
-                    MessageBox.Show("Coureur modifiée avec succès", "Modification d'un coureur", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Coureur modifié avec succès!", "Modification d'un coureur", MessageBoxButton.OK);
                 }
             }
             else
             {
-                MessageBox.Show("Selectionner le coureur a modifier", "Modification d'un coureur");
+                MessageBox.Show("Veuillez sélectionner un coureur à modifier.", "Modification d'un coureur");
                 return;
             }
         }
@@ -342,8 +357,9 @@ namespace _420_14B_FX_A24_TP2.formulaires
                 if (formCoureurWindow.DialogResult == true)
                 {
                     Course.SupprimerCoureur(coureur);
+                    Course.TrierCoureurs();
                     AfficherListeCoureurs(Course);
-                    MessageBox.Show("Le coureur a été supprimée avec succès.", "Suppression d'un coureur", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Coureur supprimé avec succès!", "Suppression d'un coureur", MessageBoxButton.OK);
                 }
             }
         }

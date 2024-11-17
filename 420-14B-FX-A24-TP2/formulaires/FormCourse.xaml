@@ -28,7 +28,7 @@
 
                     <StackPanel Margin="0,5,0,5" Orientation="Horizontal">
                         <Label Content="Province" Width="75" HorizontalAlignment="Left"></Label>
-                        <ComboBox x:Name="cboProvince" Width="220" Margin="10,0" SelectedIndex="0"></ComboBox>
+                        <ComboBox x:Name="cboProvince" Width="220" Margin="10,0"></ComboBox>
                     </StackPanel>
 
                     <StackPanel Margin="0,5,0,5" Orientation="Horizontal">
@@ -38,7 +38,7 @@
 
                     <StackPanel Margin="0,5,0,5" Orientation="Horizontal">
                         <Label Content="Type" Width="75" HorizontalAlignment="Left"></Label>
-                        <ComboBox x:Name="cboType" Width="220" Margin="10,0" SelectedIndex="0"></ComboBox>
+                        <ComboBox x:Name="cboType" Width="220" Margin="10,0"></ComboBox>
                     </StackPanel>
 
                     <StackPanel Margin="0,5,0,5" Orientation="Horizontal">

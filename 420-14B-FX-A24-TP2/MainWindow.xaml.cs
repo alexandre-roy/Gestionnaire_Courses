@@ -43,12 +43,7 @@ namespace _420_14B_FX_A24_TP2
 
         #endregion
 
-        #region MÉTHODES
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            AfficherListeCourses();
-        }
+        #region MÉTHODES    
 
         /// <summary>
         /// Affiche la liste des courses.
@@ -67,6 +62,11 @@ namespace _420_14B_FX_A24_TP2
 
         #region ACTIONS-FORMULAIRE
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            AfficherListeCourses();
+        }
+
         private void btnNouveau_Click(object sender, RoutedEventArgs e)
         {
             EtatFormulaire etat = EtatFormulaire.Ajouter;
@@ -78,13 +78,13 @@ namespace _420_14B_FX_A24_TP2
                 {
                     if (Course.Equals(formCourseWindow.Course, _gestionCourse.Courses[i]))
                     {
-                        MessageBox.Show("Impossible d'ajouter cette course car elle existe deja", "Ajout d'une Course", MessageBoxButton.OK);
+                        MessageBox.Show("Impossible d'ajouter cette course, car elle existe déja.", "Ajout d'une Course", MessageBoxButton.OK);
                         return;
                     }
                 }
                 _gestionCourse.AjouterCourse(formCourseWindow.Course);
-                MessageBox.Show("Course ajoutée avec succès", "Ajout d'une course", MessageBoxButton.OK, MessageBoxImage.Information);
                 AfficherListeCourses();
+                MessageBox.Show("Course ajoutée avec succès!", "Ajout d'une course", MessageBoxButton.OK);
                 _gestionCourse.EnregistrerCourses(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
             }
         }
@@ -99,14 +99,28 @@ namespace _420_14B_FX_A24_TP2
                 formCourseWindow.ShowDialog();
                 if (formCourseWindow.DialogResult == true)
                 {
-                    MessageBox.Show("Course modifiée avec succès", "Modification effectue", MessageBoxButton.OK, MessageBoxImage.Information);
+                    int pareil = 0;
+                    for (int i = 0; i < _gestionCourse.Courses.Count; i++)
+                    {
+                        if (Course.Equals(formCourseWindow.Course, _gestionCourse.Courses[i]))
+                        {
+                            pareil++;
+                            if (pareil > 1)
+                            {
+                                MessageBox.Show("Impossible de modifier cette course, car elle existe déja.", "Ajout d'une Course", MessageBoxButton.OK);
+                                
+                            }                            
+                        }
+                    }
                     AfficherListeCourses();
+                    MessageBox.Show("Course modifiée avec succès!", "Modification d'une course", MessageBoxButton.OK);
                     _gestionCourse.EnregistrerCourses(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
+                    return;
                 }
             }
             else
             {
-                MessageBox.Show("Selectionner la course a modifier", "Modification d'une course");
+                MessageBox.Show("Veuillez sélectionner une course à modifier.", "Modification d'une course");
                 return;
             }
         }
@@ -123,7 +137,7 @@ namespace _420_14B_FX_A24_TP2
                 {
                     _gestionCourse.SupprimerCourse(course);
                     AfficherListeCourses();
-                    MessageBox.Show("La course a été supprimée avec succès.", "Suppression d'une course", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Course supprimée avec succès!", "Suppression d'une course", MessageBoxButton.OK);
                     _gestionCourse.EnregistrerCourses(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
                 }
             }

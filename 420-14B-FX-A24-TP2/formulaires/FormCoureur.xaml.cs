@@ -60,7 +60,6 @@ namespace _420_14B_FX_A24_TP2.formulaires
         public FormCoureur(EtatFormulaire etat, Coureur coureur = null)
         {
             InitializeComponent();
-
             Etat = etat;     
             Coureur = coureur;
         }
@@ -78,10 +77,11 @@ namespace _420_14B_FX_A24_TP2.formulaires
                 messageErreur += "Vous devez inscrire le dossard du coureur.\n";
             }
 
-            if (string.IsNullOrWhiteSpace(txtDossard.Text) || ushort.Parse(txtDossard.Text) < Coureur.DOSSARD_VAL_MIN)
+            if (string.IsNullOrWhiteSpace(txtDossard.Text) || !ushort.TryParse(txtDossard.Text, out ushort dossard) || dossard < Coureur.DOSSARD_VAL_MIN)
             {
-                messageErreur += $"Le dossard doit être une valeur supérieure ou égale à {Coureur.DOSSARD_VAL_MIN}.\n";
+                messageErreur += $"Le dossard doit être une valeur numérique supérieure ou égale à {Coureur.DOSSARD_VAL_MIN}.\n";
             }
+
 
             if (string.IsNullOrWhiteSpace(txtNom.Text))
             {
@@ -148,8 +148,6 @@ namespace _420_14B_FX_A24_TP2.formulaires
                 case EtatFormulaire.Ajouter:
                     tbTitre.Text = "Ajouter un coureur";
                     btnConfirmation.Content = "Ajouter";
-                    cboCategorie.SelectedItem = Coureur.Categorie.GetDescription();
-                    cboProvince.SelectedItem = Coureur.Province.GetDescription();
                     break;
 
                 case EtatFormulaire.Modifier:
@@ -197,19 +195,18 @@ namespace _420_14B_FX_A24_TP2.formulaires
                 {
                     if (ushort.TryParse(txtDossard.Text, out ushort dossard)) 
                     {
-                        Coureur nouveauCoureur = new Coureur(ushort.Parse(txtDossard.Text), txtNom.Text, txtPrenom.Text, (Categorie)cboCategorie.SelectedItem, txtVille.Text, (Province)cboProvince.SelectedItem, tsTemps.Value.Value);
-                        nouveauCoureur.Rang = 0;
+                        Coureur = new Coureur(ushort.Parse(txtDossard.Text), txtNom.Text, txtPrenom.Text, (Categorie)cboCategorie.SelectedIndex, txtVille.Text, (Province)cboProvince.SelectedIndex, tsTemps.Value.Value);
+                        Coureur.Rang = 0;
                         if (chkAbandon.IsChecked == true)
-                        {
-                            nouveauCoureur.Abandon = true;
+                        { 
+                            Coureur.Abandon = true;
                         }
                         this.DialogResult = true;
                     }
                     else
                     {
-                        MessageBox.Show("Le numéro de dossard est invalide. Veuillez entrer un nombre valide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Le numéro de dossard est invalide. Veuillez entrer un nombre valide.", "Ajout d'un coureur", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
-                    this.DialogResult = true;
                 }
                 else
                 {
@@ -225,14 +222,14 @@ namespace _420_14B_FX_A24_TP2.formulaires
                         Coureur.Dossard = ushort.Parse(txtDossard.Text);
                         Coureur.Nom = txtNom.Text;
                         Coureur.Prenom = txtPrenom.Text;
-                        string categorie = cboCategorie.SelectedItem.ToString();
+                        string categorie = cboCategorie.SelectedIndex.ToString();
                         if (Enum.TryParse(categorie, out Categorie selectedCategorie))
                         {
                             Coureur.Categorie = selectedCategorie;
                         }
                         Coureur.Ville = txtVille.Text;
                         Coureur.Rang = 0;
-                        string province = cboProvince.SelectedItem.ToString();
+                        string province = cboProvince.SelectedIndex.ToString();
                         if (Enum.TryParse(province, out Province selectedProvince))
                         {
                             Coureur.Province = selectedProvince;
@@ -246,7 +243,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
                     }
                     else
                     {
-                        MessageBox.Show("Le numéro de dossard est invalide. Veuillez entrer un nombre valide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Le numéro de dossard est invalide. Veuillez entrer un nombre valide.", "Modification d'un coureur", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else

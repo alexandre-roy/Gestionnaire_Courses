@@ -114,7 +114,7 @@ namespace _420_14B_FX_A24_TP2.classes
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentNullException("Le nom ne peut pas être nul ou n'avoir aucune valeur.");
+                    throw new ArgumentNullException("Le nom ne doit pas être nul ou n'avoir aucune valeur.");
                 }
                 if (value.Trim().Length < NOM_NB_CARC_MIN)
                 {
@@ -178,7 +178,7 @@ namespace _420_14B_FX_A24_TP2.classes
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentNullException("La ville ne peut pas être nul ou n'avoir aucune valeur.");
+                    throw new ArgumentNullException("La ville ne peut pas être nulle ou n'avoir aucune valeur.");
                 }
                 if (value.Trim().Length < VILLE_NB_CARC_MIN)
                 {
@@ -274,7 +274,14 @@ namespace _420_14B_FX_A24_TP2.classes
         {
             string nomPrenom = $"{Nom}, {Prenom}".PadRight(26);
 
-            return $"{Dossard.ToString().PadRight(14, ' ')}{nomPrenom}{Categorie.ToString().PadRight(20)}{Temps.ToString().PadRight(19)}{Rang}";
+            if (Rang > 0)
+            {
+                return $"{Dossard.ToString().PadRight(14, ' ')}{nomPrenom}{Categorie.GetDescription().ToString().PadRight(20)}{Temps.ToString().PadRight(19)}{Rang}";
+            }
+            else
+            {
+                return $"{Dossard.ToString().PadRight(14, ' ')}{nomPrenom}{Categorie.GetDescription().ToString().PadRight(20)}";
+            }
         }
 
         /// <summary>
