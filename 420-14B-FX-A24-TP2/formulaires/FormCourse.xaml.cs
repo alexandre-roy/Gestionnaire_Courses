@@ -97,22 +97,12 @@ namespace _420_14B_FX_A24_TP2.formulaires
             ushort distance;
             string message = "";
 
-            if (string.IsNullOrWhiteSpace(txtNom.Text.Trim()))
-            {
-                message += "Le nom de la course ne doit pas être nul.\n";
-            }
-
-            if (txtNom.Text.Trim().Length < Course.NOM_NB_CAR_MIN)
+            if (txtNom.Text.Trim().Length < Course.NOM_NB_CAR_MIN || string.IsNullOrWhiteSpace(txtNom.Text.Trim()))
             {
                 message += $"Le nom de la course doit contenir au moins {Course.NOM_NB_CAR_MIN} caractères.\n";
             }
 
-            if (string.IsNullOrWhiteSpace(txtVille.Text.Trim()))
-            {
-                message += "Le nom de la ville ne doit pas être nul.\n";
-            }
-
-            if (txtVille.Text.Trim().Length < Course.VILLE_NB_CAR_MIN)
+            if (txtVille.Text.Trim().Length < Course.VILLE_NB_CAR_MIN || string.IsNullOrWhiteSpace(txtVille.Text.Trim()))
             {
                 message += $"Le nom de la ville doit contenir au moins {Course.VILLE_NB_CAR_MIN} caractères.\n";
             }
@@ -141,7 +131,7 @@ namespace _420_14B_FX_A24_TP2.formulaires
             }
             else
             {
-                message += "La distance ne doit pas être nulle.";
+                message += "La distance ne peut pas être nulle.";
             }
             if (!string.IsNullOrWhiteSpace(message))
             {

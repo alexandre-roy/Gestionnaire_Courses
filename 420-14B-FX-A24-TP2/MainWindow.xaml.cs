@@ -15,12 +15,12 @@ namespace _420_14B_FX_A24_TP2
         /// <summary>
         /// Le chemin d'accès pour accèder au fichier des coureurs.
         /// </summary>
-        public const string CHEMIN_FICHIER_COUREURS = @"C:\data\420-14B-FX\TP2\coureurs.csv";
+        public const string CHEMIN_FICHIER_COUREURS = @"C:\data-420-14B-FX\TP2\coureurs.csv";
 
         /// <summary>
         /// Le chemin d'accès pour accèder au fichier des courses.
         /// </summary>
-        public const string CHEMIN_FICHIER_COURSES = @"C:\data\420-14B-FX\TP2\courses.csv";
+        public const string CHEMIN_FICHIER_COURSES = @"C:\data-420-14B-FX\TP2\courses.csv";
 
         #endregion
 
