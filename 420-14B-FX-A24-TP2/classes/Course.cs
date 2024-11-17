@@ -1,4 +1,5 @@
-﻿using _420_14B_FX_A24_TP2.enums;
+﻿using System.Globalization;
+using _420_14B_FX_A24_TP2.enums;
 
 namespace _420_14B_FX_A24_TP2.classes
 {
@@ -355,8 +356,8 @@ namespace _420_14B_FX_A24_TP2.classes
 
                 return TimeSpan.FromMilliseconds(tempsTotal / index);
             }
-            else 
-            { 
+            else
+            {
                 return TimeSpan.Zero;
             }
         }
@@ -368,20 +369,16 @@ namespace _420_14B_FX_A24_TP2.classes
         {
             Coureurs.Sort();
             for (int i = 0; i < Coureurs.Count; i++)
-            {
-                if (Coureurs[i].Temps == TimeSpan.Zero)
-                {
-                    Coureurs[i].Abandon = true;
-                }
-                else
-                {
-                    Coureurs[i].Abandon = false;
-                }
+            {              
                 if (Coureurs[i].Abandon != true)
                 {
                     Coureurs[i].Rang = (ushort)(i + 1);
                 }
                 else
+                {
+                    Coureurs[i].Rang = 0;
+                }
+                if (Coureurs[i].Temps == TimeSpan.Zero)
                 {
                     Coureurs[i].Rang = 0;
                 }
@@ -407,7 +404,11 @@ namespace _420_14B_FX_A24_TP2.classes
             int comparaison = other.Date.CompareTo(Date);
             if (comparaison == 0)
             {
-                return string.Compare(Nom, other.Nom);
+                comparaison = string.Compare(Nom, other.Nom, CultureInfo.InvariantCulture, CompareOptions.IgnoreNonSpace | CompareOptions.IgnoreCase);
+                if (comparaison == 0)
+                {
+                    comparaison = string.Compare(Ville, other.Ville);
+                }
             }
             return comparaison;
         }

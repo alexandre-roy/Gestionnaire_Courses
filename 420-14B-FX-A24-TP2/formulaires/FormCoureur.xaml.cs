@@ -160,6 +160,14 @@ namespace _420_14B_FX_A24_TP2.formulaires
                     cboCategorie.SelectedItem = Coureur.Categorie.GetDescription();
                     cboProvince.SelectedItem = Coureur.Province.GetDescription();
                     tsTemps.Text = Coureur.Temps.ToString();
+                    if (Coureur.Abandon == true)
+                    {
+                        chkAbandon.IsChecked = true;
+                    }
+                    else
+                    {
+                        chkAbandon.IsChecked = false;
+                    }                    
 
                     txtDossard.IsEnabled = false;
                     break;
@@ -174,6 +182,14 @@ namespace _420_14B_FX_A24_TP2.formulaires
                     cboCategorie.SelectedItem = Coureur.Categorie.GetDescription();
                     cboProvince.SelectedItem = Coureur.Province.GetDescription();
                     tsTemps.Text = Coureur.Temps.ToString();
+                    if (Coureur.Abandon == true)
+                    {
+                        chkAbandon.IsChecked = true;
+                    }
+                    else
+                    {
+                        chkAbandon.IsChecked = false;
+                    }
 
                     txtDossard.IsEnabled = false;
                     txtNom.IsEnabled = false;
@@ -238,6 +254,10 @@ namespace _420_14B_FX_A24_TP2.formulaires
                         if (chkAbandon.IsChecked == true)
                         {
                             Coureur.Abandon = true;
+                        }
+                        else
+                        {
+                            Coureur.Abandon = false;
                         }
                         this.DialogResult = true;
                     }

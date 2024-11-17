@@ -15,12 +15,12 @@ namespace _420_14B_FX_TP2_Test
         /// <summary>
         /// Nom du fichier texte CSV contenant les informations sur la course pour les tests.
         /// </summary>
-        public const string CHEMIN_FICHIER_COURSES = @"C:\data\420-14B-FX\TP2\courses.csv";
+        public const String CHEMIN_FICHIER_COURSE = @"C:\data-420-14B-FX\TP2\Tests\courses.csv";
 
         /// <summary>
         /// Nom du fichier texte CSV contenant les informations sur les coureurs.
         /// </summary>
-        public const string CHEMIN_FICHIER_COUREURS = @"C:\data\420-14B-FX\TP2\coureurs.csv";
+        public const String CHEMIN_FICHIER_COUREURS = @"C:\data-420-14B-FX\TP2\Tests\coureurs.csv";
 
 
 
@@ -54,7 +54,7 @@ namespace _420_14B_FX_TP2_Test
             GestionCourse gestion;
 
             //Act
-            gestion = new GestionCourse(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
+            gestion = new GestionCourse(CHEMIN_FICHIER_COURSE, CHEMIN_FICHIER_COUREURS);
 
             //Assert
             Assert.NotNull(gestion.Courses);
@@ -69,7 +69,7 @@ namespace _420_14B_FX_TP2_Test
             GestionCourse gestion;
 
             //Act
-            gestion = new GestionCourse(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
+            gestion = new GestionCourse(CHEMIN_FICHIER_COURSE, CHEMIN_FICHIER_COUREURS);
 
             //Assert
             Assert.NotNull(gestion.Courses);
@@ -88,7 +88,7 @@ namespace _420_14B_FX_TP2_Test
         {
             //Arrange
             GestionCourse gestion;
-            gestion = new GestionCourse(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
+            gestion = new GestionCourse(CHEMIN_FICHIER_COURSE, CHEMIN_FICHIER_COUREURS);
             Course course = null;
 
 
@@ -102,7 +102,7 @@ namespace _420_14B_FX_TP2_Test
         {
             //Arrange
             GestionCourse gestion;
-            gestion = new GestionCourse(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
+            gestion = new GestionCourse(CHEMIN_FICHIER_COURSE, CHEMIN_FICHIER_COUREURS);
             Course course = CreerCourse();
             gestion.AjouterCourse(course);
             Course courseDoublon = CreerCourse();
@@ -120,7 +120,7 @@ namespace _420_14B_FX_TP2_Test
         {
             //Arrange
             GestionCourse gestion;
-            gestion = new GestionCourse(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
+            gestion = new GestionCourse(CHEMIN_FICHIER_COURSE, CHEMIN_FICHIER_COUREURS);
             int valeurAttendue = gestion.Courses.Count + 1;
 
             //Act
@@ -138,10 +138,10 @@ namespace _420_14B_FX_TP2_Test
         {
             //Arrange
             GestionCourse gestion;
-            gestion = new GestionCourse(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
-            Course course1 = new Course(Guid.NewGuid(), "AAA", new DateOnly(DateTime.Now.Year-10, DateTime.Now.Month, DateTime.Now.Day), "AAAA", Province.Alberta, TypeCourse.Sentier, 1);
-            Course course2 = new Course(Guid.NewGuid(), "BBB", new DateOnly(DateTime.Now.Year-9, DateTime.Now.Month, DateTime.Now.Day), "AAAA", Province.Alberta, TypeCourse.Sentier, 1);
-            Course course3 = new Course(Guid.NewGuid(), "AAA", new DateOnly(DateTime.Now.Year-11, DateTime.Now.Month, DateTime.Now.Day), "AAAA", Province.Alberta, TypeCourse.Sentier, 1);
+            gestion = new GestionCourse(CHEMIN_FICHIER_COURSE, CHEMIN_FICHIER_COUREURS);
+            Course course1 = new Course(Guid.NewGuid(), "AAA", new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day), "AAAA", Province.Alberta, TypeCourse.Sentier, 1);
+            Course course2 = new Course(Guid.NewGuid(), "BBB", new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day), "AAAA", Province.Alberta, TypeCourse.Sentier, 1);
+            Course course3 = new Course(Guid.NewGuid(), "AAA", new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(1), "AAAA", Province.Alberta, TypeCourse.Sentier, 1);
 
 
 
@@ -166,7 +166,7 @@ namespace _420_14B_FX_TP2_Test
         {
             //Arrange
             GestionCourse gestion;
-            gestion = new GestionCourse(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
+            gestion = new GestionCourse(CHEMIN_FICHIER_COURSE, CHEMIN_FICHIER_COUREURS);
             Course course = null;
 
 
@@ -180,7 +180,7 @@ namespace _420_14B_FX_TP2_Test
         {
             //Arrange
             GestionCourse gestion;
-            gestion = new GestionCourse(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
+            gestion = new GestionCourse(CHEMIN_FICHIER_COURSE, CHEMIN_FICHIER_COUREURS);
             Course course = CreerCourse();
             
 
@@ -197,7 +197,7 @@ namespace _420_14B_FX_TP2_Test
         {
             //Arrange
             GestionCourse gestion;
-            gestion = new GestionCourse(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
+            gestion = new GestionCourse(CHEMIN_FICHIER_COURSE, CHEMIN_FICHIER_COUREURS);
             int valeurAttendue = gestion.Courses.Count - 1;
             Course course = gestion.Courses[0];
 
@@ -219,14 +219,14 @@ namespace _420_14B_FX_TP2_Test
         [InlineData ("", CHEMIN_FICHIER_COUREURS)]
         [InlineData(null, CHEMIN_FICHIER_COUREURS)]
         [InlineData(" ", CHEMIN_FICHIER_COUREURS)]
-        [InlineData (CHEMIN_FICHIER_COURSES, null)]
-        [InlineData(CHEMIN_FICHIER_COURSES, "")]
-        [InlineData(CHEMIN_FICHIER_COURSES, " ")]
+        [InlineData (CHEMIN_FICHIER_COURSE, null)]
+        [InlineData(CHEMIN_FICHIER_COURSE, "")]
+        [InlineData(CHEMIN_FICHIER_COURSE, " ")]
         public void EnregistrerCourses_Devrait_Lancer_ArgumentNullException_Quand_Chemins_Fichier_Nul_Vide_Ou_Espaces(string cheminFichierCourse, string cheminFichierCoureurs)
         {
             //Arrange
             GestionCourse gestion;
-            gestion = new GestionCourse(CHEMIN_FICHIER_COURSES, CHEMIN_FICHIER_COUREURS);
+            gestion = new GestionCourse(CHEMIN_FICHIER_COURSE, CHEMIN_FICHIER_COUREURS);
             
 
 

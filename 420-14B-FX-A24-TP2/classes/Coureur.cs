@@ -278,7 +278,7 @@ namespace _420_14B_FX_A24_TP2.classes
             {
                 return $"{Dossard.ToString().PadRight(14, ' ')}{nomPrenom}{Categorie.GetDescription().ToString().PadRight(20)}{Temps.ToString().PadRight(19)}{Rang}";
             }
-            else
+            else 
             {
                 return $"{Dossard.ToString().PadRight(14, ' ')}{nomPrenom}{Categorie.GetDescription().ToString().PadRight(20)}";
             }
@@ -299,6 +299,10 @@ namespace _420_14B_FX_A24_TP2.classes
             {
                 return -1;
             }
+            if (Temps == TimeSpan.Zero &&  other.Abandon == false)
+            {
+                return 1;
+            }          
             int comparaison = Temps.CompareTo(other.Temps);
             if (comparaison == 0)
             {

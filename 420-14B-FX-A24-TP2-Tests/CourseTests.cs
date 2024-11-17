@@ -539,7 +539,7 @@ namespace _420_14B_FX_TP2_Test
                 coureur3.Temps = new TimeSpan(0, 5, 0);
                 course.AjouterCoureur(coureur3);
 
-                Coureur coureur4 = new Coureur(4, "Hardy", "Martin", Categorie.M4049, "Québec", Province.Quebec, new TimeSpan(1, 0, 0));
+                Coureur coureur4 = new Coureur(4, "Hardy", "Martin", Categorie.M4049, "Québec", Province.Quebec, new TimeSpan(0, 0, 0));
                 course.AjouterCoureur(coureur4);
 
                 course.TrierCoureurs();
