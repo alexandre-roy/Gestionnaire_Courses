@@ -299,9 +299,9 @@ namespace _420_14B_FX_A24_TP2.classes
             {
                 return -1;
             }
-            if (Temps == TimeSpan.Zero &&  other.Abandon == false)
+            if (other.Temps == TimeSpan.Zero &&  other.Abandon == false)
             {
-                return 1;
+                return -1;
             }          
             int comparaison = Temps.CompareTo(other.Temps);
             if (comparaison == 0)
